@@ -16,7 +16,7 @@
    <!-- custom css file link  -->
    <link rel="stylesheet" href="css/style.css">
 
-   <link rel="icon" href="images/logo-icon.png" type="images"/>
+   <link rel="icon" href="images/logo-icon.png" type="images" />
 </head>
 
 <body>
@@ -33,11 +33,30 @@
             <a href="index.html" class="logo mr-auto"><img src="images/logo.png" alt=""></a>
 
             <nav class="nav">
-               <a href="index.html">home</a>
-               <a href="about.html">about</a>
-               <a href="menu.html">menu</a>
-               <a href="contact.html">contact</a>
-               <a href="services.html">services</a>
+               <a href="index.html">Home</a>
+               <a href="about.html">About</a>
+               <a href="menu.html">Menu</a>
+               <!-- <div class="dropdown custom-dropdown">
+                  <a class="dropbtn">Menu <i class="fa fa-caret-down"></i></a>
+                  <div class="dropdown-content">
+                     <a href="">All</a>
+                     <a href="">Espresso Based</a>
+                     <a href="">Frappe Series</a>
+                     <a href="">Pasta & Snacks</a>
+                     <a href="">Coolers</a>
+                     <a href="">Waffle</a>
+                  </div>
+               </div> -->
+               <a href="contact.html">Contact</a>
+               <div class="dropdown custom-dropdown">
+                  <a class="dropbtn">Services <i class="fa fa-caret-down"></i></a>
+                  <div class="dropdown-content">
+                     <a href="services.html">Private Dining</a>
+                     <a href="reserve.html">Table Reservation</a>
+                  </div>
+               </div>
+               <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+               <script src="scripts.js"></script>
             </nav>
 
             <div class="icons">
@@ -48,7 +67,6 @@
          </div>
 
       </div>
-
    </header>
 
    <!-- login form starts -->
@@ -58,16 +76,16 @@
       <form action="">
          <div id="close-login-form" class="fas fa-times"></div>
          <a href="#" class="logo mr-auto"><img src="images/logo-brown.png" alt=""></a>
-         <h3>let's start a new great day</h3>
-         <input type="email" name="" placeholder="enter your email" id="" class="box">
-         <input type="password" name="" placeholder="enter your password" id="" class="box">
+         <h3>let's start a new great day!</h3>
+         <input type="email" name="" placeholder="Enter Username" id="" class="box">
+         <input type="password" name="" placeholder="Enter Password" id="" class="box">
          <div class="flex">
-            <input type="checkbox" name="" id="remember-me">
-            <label for="remember-me">remember me</label>
-            <a href="#">forgot password?</a>
+            <!-- <input type="checkbox" name="" id="remember-me">
+              <label for="remember-me">remember me</label> -->
+            <a href="#">Forgot password?</a>
          </div>
-         <input type="submit" value="login now" class="link-btn">
-         <p class="account">don't have an account? <a href="#">create one!</a></p>
+         <input type="submit" value="Login" class="link-btn">
+         <!-- <p class="account">don't have an account? <a href="#">create one!</a></p> -->
       </form>
 
    </div>
@@ -86,7 +104,9 @@
             <div class="col-md-6">
                <span>your cozy cafe</span>
                <h3>where every sip and bite is a delight!</h3>
-               <a href="reserve.html" class="link-btn">reserve your spot</a>
+               <a href="reserve.html" class="link-btn">Reserve your spot</a>
+               <br>
+               <a href="services.html" class="link-btn">Book a private dining</a>
             </div>
          </div>
 
@@ -168,8 +188,9 @@
             <img src="images/g-img-1.png" alt="">
             <div class="content">
                <h3>Private Dining</h3>
-               <p>Make your special occasion even more special with a private dining experience at  Cafe Allegra!</p>
-               <a href="https://www.facebook.com/cafeallegrabaliuag/posts/pfbid0KbN3ztPQbAs3A5L8y9y84F3t9gfGoPU2SJ8F89cwcpvLuC86SEdZK1UYtViUwErfl" class="link-btn">See Post</a>
+               <p>Make your special occasion even more special with a private dining experience at Cafe Allegra!</p>
+               <a href="https://www.facebook.com/cafeallegrabaliuag/posts/pfbid0KbN3ztPQbAs3A5L8y9y84F3t9gfGoPU2SJ8F89cwcpvLuC86SEdZK1UYtViUwErfl"
+                  class="link-btn">See Post</a>
             </div>
          </div>
 
@@ -177,8 +198,10 @@
             <img src="images/g-img-2.png" alt="">
             <div class="content">
                <h3>Open and Ready to Help You!</h3>
-               <p>Calling all entrepreneurs and freelancers! Need a place to work and get creative? We have the perfect spot for you!</p>
-               <a href="https://www.facebook.com/photo.php?fbid=165000912981015&set=pb.100084133214934.-2207520000.&type=3" class="link-btn">See Post</a>
+               <p>Calling all entrepreneurs and freelancers! Need a place to work and get creative? We have the perfect
+                  spot for you!</p>
+               <a href="https://www.facebook.com/photo.php?fbid=165000912981015&set=pb.100084133214934.-2207520000.&type=3"
+                  class="link-btn">See Post</a>
             </div>
          </div>
 
@@ -186,8 +209,10 @@
             <img src="images/g-img-3.jpg" alt="">
             <div class="content">
                <h3>Our homemade lasagna</h3>
-               <p>Start your week off right with a delicious and satisfying combo of our homemade lasagna and a Spanish latte.</p>
-               <a href="https://www.facebook.com/cafeallegrabaliuag/posts/pfbid02f5MqquNQqYVnNbqvHYKAJkm42megf3FZcKTSQGEbwv2H3Cnk7VY4C2SR2nQEvKmUl" class="link-btn">See Post</a>
+               <p>Start your week off right with a delicious and satisfying combo of our homemade lasagna and a Spanish
+                  latte.</p>
+               <a href="https://www.facebook.com/cafeallegrabaliuag/posts/pfbid02f5MqquNQqYVnNbqvHYKAJkm42megf3FZcKTSQGEbwv2H3Cnk7VY4C2SR2nQEvKmUl"
+                  class="link-btn">See Post</a>
             </div>
          </div>
 
@@ -196,7 +221,8 @@
             <div class="content">
                <h3>Happy Easter everyone! 🐰🌷</h3>
                <p>We hope you're all having a lovely day with your loved ones.</p>
-               <a href="https://www.facebook.com/cafeallegrabaliuag/posts/pfbid0j7cjRrB9d6jAYqFDr5WLMXX5ZdHeDYRQ2JypR5A7QwaXPe44rFhSDNPMYEGP3DXbl" class="link-btn">See Post</a>
+               <a href="https://www.facebook.com/cafeallegrabaliuag/posts/pfbid0j7cjRrB9d6jAYqFDr5WLMXX5ZdHeDYRQ2JypR5A7QwaXPe44rFhSDNPMYEGP3DXbl"
+                  class="link-btn">See Post</a>
             </div>
          </div>
 
@@ -204,8 +230,10 @@
             <img src="images/g-img-5.jpg" alt="">
             <div class="content">
                <h3>Cozy Ambiance</h3>
-               <p>There's nothing like enjoying a delicious pasta dish and a freshly brewed cup of coffee at Cafe Allegra. 🥰</p>
-               <a href="https://www.facebook.com/cafeallegrabaliuag/posts/pfbid0ZtGYvNTvkddPN5gLx6pQmFLX3Cq6Q6PspNLEC4wgYrwLzYeN7ZukjpUq26sjNPVBl" class="link-btn">See Post</a>
+               <p>There's nothing like enjoying a delicious pasta dish and a freshly brewed cup of coffee at Cafe
+                  Allegra. 🥰</p>
+               <a href="https://www.facebook.com/cafeallegrabaliuag/posts/pfbid0ZtGYvNTvkddPN5gLx6pQmFLX3Cq6Q6PspNLEC4wgYrwLzYeN7ZukjpUq26sjNPVBl"
+                  class="link-btn">See Post</a>
             </div>
          </div>
 
@@ -214,7 +242,8 @@
             <div class="content">
                <h3>Visit us today</h3>
                <p>Chic and cozy.<br>A perfect spot to relax!😀💕</p>
-               <a href="https://www.facebook.com/cafeallegrabaliuag/posts/pfbid0s1rygF3V4XpTUekLtBmFwL6QK6vq1iiew39boH6pTqGjBn6k5tB99vU7CKS6vvsdl" class="link-btn">See Post</a>
+               <a href="https://www.facebook.com/cafeallegrabaliuag/posts/pfbid0s1rygF3V4XpTUekLtBmFwL6QK6vq1iiew39boH6pTqGjBn6k5tB99vU7CKS6vvsdl"
+                  class="link-btn">See Post</a>
             </div>
          </div>
 
@@ -362,7 +391,22 @@
    <!-- footer section ends -->
    <!-- custom js file link  -->
    <script src="js/script.js"></script>
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+   <script>
+      $(document).ready(function () {
+         // Click event for the dropdown button
+         $(document).on('click', '.custom-dropdown .dropbtn', function (event) {
+            event.stopPropagation();
+            $(this).siblings('.dropdown-content').toggle();
+         });
 
+         // Click event for anywhere else on the document
+         $(document).on('click', function () {
+            $('.dropdown-content').hide();
+         });
+      });
+
+   </script>
 </body>
 
 </html>

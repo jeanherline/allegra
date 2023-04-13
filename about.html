@@ -23,33 +23,52 @@
 
     <!-- header section starts     -->
 
+
     <header class="header fixed-top">
 
         <div class="container">
-
-            <div class="row align-items-center">
-
-                <!-- <a href="#" class="logo mr-auto"> <i class="fas fa-mug-hot"></i> coffee </a> -->
-                <a href="index.html" class="logo mr-auto"><img src="images/logo.png" alt=""></a>
-
-                <nav class="nav">
-                    <a href="index.html">home</a>
-                    <a href="about.html">about</a>
-                    <a href="menu.html">menu</a>
-                    <a href="contact.html">contact</a>
-                    <a href="services.html">services</a>
-                </nav>
-
-                <div class="icons">
-                    <div id="menu-btn" class="fas fa-bars"></div>
-                    <div id="login-btn" class="fas fa-user"></div>
-                </div>
-
-            </div>
-
+  
+           <div class="row align-items-center">
+  
+              <!-- <a href="#" class="logo mr-auto"> <i class="fas fa-mug-hot"></i> coffee </a> -->
+              <a href="index.html" class="logo mr-auto"><img src="images/logo.png" alt=""></a>
+  
+              <nav class="nav">
+                 <a href="index.html">Home</a>
+                 <a href="about.html">About</a>
+                 <a href="menu.html">Menu</a>
+                 <!-- <div class="dropdown custom-dropdown">
+                    <a class="dropbtn">Menu <i class="fa fa-caret-down"></i></a>
+                    <div class="dropdown-content">
+                       <a href="">All</a>
+                       <a href="">Espresso Based</a>
+                       <a href="">Frappe Series</a>
+                       <a href="">Pasta & Snacks</a>
+                       <a href="">Coolers</a>
+                       <a href="">Waffle</a>
+                    </div>
+                 </div> -->
+                 <a href="contact.html">Contact</a>
+                 <div class="dropdown custom-dropdown">
+                    <a class="dropbtn">Services <i class="fa fa-caret-down"></i></a>
+                    <div class="dropdown-content">
+                       <a href="services.html">Private Dining</a>
+                       <a href="reserve.html">Table Reservation</a>
+                    </div>
+                 </div>
+                 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                 <script src="scripts.js"></script>
+              </nav>
+  
+              <div class="icons">
+                 <div id="menu-btn" class="fas fa-bars"></div>
+                 <div id="login-btn" class="fas fa-user"></div>
+              </div>
+  
+           </div>
+  
         </div>
-
-    </header>
+     </header>
 
     <!-- login form starts -->
 
@@ -58,16 +77,16 @@
         <form action="">
             <div id="close-login-form" class="fas fa-times"></div>
             <a href="#" class="logo mr-auto"><img src="images/logo-brown.png" alt=""></a>
-            <h3>let's start a new great day</h3>
-            <input type="email" name="" placeholder="enter your email" id="" class="box">
-            <input type="password" name="" placeholder="enter your password" id="" class="box">
+            <h3>let's start a new great day!</h3>
+            <input type="email" name="" placeholder="Enter Username" id="" class="box">
+            <input type="password" name="" placeholder="Enter Password" id="" class="box">
             <div class="flex">
-                <input type="checkbox" name="" id="remember-me">
-                <label for="remember-me">remember me</label>
-                <a href="#">forgot password?</a>
+                <!-- <input type="checkbox" name="" id="remember-me">
+                <label for="remember-me">remember me</label> -->
+                <a href="#">Forgot password?</a>
             </div>
-            <input type="submit" value="login now" class="link-btn">
-            <p class="account">don't have an account? <a href="#">create one!</a></p>
+            <input type="submit" value="Login" class="link-btn">
+            <!-- <p class="account">don't have an account? <a href="#">create one!</a></p> -->
         </form>
 
     </div>
@@ -167,7 +186,22 @@
     <!-- footer section ends -->
     <!-- custom js file link  -->
     <script src="js/script.js"></script>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+       $(document).ready(function () {
+          // Click event for the dropdown button
+          $(document).on('click', '.custom-dropdown .dropbtn', function (event) {
+             event.stopPropagation();
+             $(this).siblings('.dropdown-content').toggle();
+          });
+ 
+          // Click event for anywhere else on the document
+          $(document).on('click', function () {
+             $('.dropdown-content').hide();
+          });
+       });
+ 
+    </script>
 </body>
 
 </html>

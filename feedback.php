@@ -140,7 +140,7 @@ use PHPMailer\PHPMailer\Exception;
             <div class="row align-items-center">
 
                 <div class="col-md-6 mb-5 mb-md-0 ">
-                    <div class="map w-100">
+                    <div>
                         <img src="images/feedback.jpg" class="w-100" alt="">
                     </div>
                 </div>

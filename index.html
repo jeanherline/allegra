@@ -16,6 +16,9 @@
    <!-- custom css file link  -->
    <link rel="stylesheet" href="css/style.css">
 
+   <!-- bannner  -->
+   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+   
    <link rel="icon" href="images/logo-icon.png" type="images" />
 </head>
 
@@ -35,19 +38,25 @@
             <nav class="nav">
                <a href="index.html">Home</a>
                <a href="about.html">About</a>
-               <a href="menu.html">Menu</a>
-               <!-- <div class="dropdown custom-dropdown">
+               <!-- <a href="menu.html">Menu</a> -->
+               <div class="dropdown custom-dropdown">
                   <a class="dropbtn">Menu <i class="fa fa-caret-down"></i></a>
                   <div class="dropdown-content">
-                     <a href="">All</a>
+                     <a href="menu.html">All</a>
                      <a href="">Espresso Based</a>
                      <a href="">Frappe Series</a>
                      <a href="">Pasta & Snacks</a>
                      <a href="">Coolers</a>
                      <a href="">Waffle</a>
                   </div>
-               </div> -->
-               <a href="contact.html">Contact</a>
+               </div>
+               <div class="dropdown custom-dropdown">
+                  <a class="dropbtn">Contact <i class="fa fa-caret-down"></i></a>
+                  <div class="dropdown-content">
+                     <a href="contact.php">Contact Form</a>
+                     <a href="feedback.php">Feedback & Suggestion</a>
+                  </div>
+               </div>
                <div class="dropdown custom-dropdown">
                   <a class="dropbtn">Services <i class="fa fa-caret-down"></i></a>
                   <div class="dropdown-content">
@@ -115,7 +124,18 @@
    </section>
 
    <!-- home section ends -->
-
+   <div class="banner">
+      <div class="banner__content">
+          <div class="banner__text">
+              <strong>Store Hours - </strong>Mon-Fri: 10AM-8PM | Sat-Sun: 11AM-8PM
+          </div>
+          <button class="banner__close" type="button">
+              <span class="material-icons">
+                  close
+              </span>
+          </button>
+      </div>
+  </div>
    <!-- menu section starts  -->
 
    <section class="menu" id="menu">

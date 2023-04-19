@@ -27,3 +27,10 @@ window.addEventListener('scroll', function() {
         document.querySelector('.header').classList.remove('active');
     }
 });
+
+/* bannner */
+
+document.querySelector(".banner__close").addEventListener("click", function () {
+    this.closest(".banner").style.display = "none";
+  });
+  

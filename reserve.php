@@ -15,7 +15,7 @@ use PHPMailer\PHPMailer\Exception;
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feedback/Comment & Suggestion</title>
+    <title>Table Reservation</title>
 
     <!-- font awesome cdn link  -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -28,9 +28,6 @@ use PHPMailer\PHPMailer\Exception;
 
     <link rel="icon" href="images/logo-icon.png" type="images" />
 
-    <!-- feedback -->
-    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
-
     <!-- bannner  -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
@@ -38,6 +35,7 @@ use PHPMailer\PHPMailer\Exception;
 <body>
 
     <!-- header section starts     -->
+
 
     <header class="header fixed-top">
         <div class="container">
@@ -108,7 +106,7 @@ use PHPMailer\PHPMailer\Exception;
             <input type="password" name="" placeholder="Enter Password" id="" class="box">
             <div class="flex">
                 <!-- <input type="checkbox" name="" id="remember-me">
-                <label for="remember-me">remember me</label> -->
+            <label for="remember-me">remember me</label> -->
                 <a href="#">Forgot password?</a>
             </div>
             <input type="submit" value="Login" class="link-btn">
@@ -121,14 +119,17 @@ use PHPMailer\PHPMailer\Exception;
 
     <!-- header section ends    -->
 
-
     <!-- newsletter section starts  -->
 
     <section class="newsletter">
         <div class="container">
             <br><br><br><br><br>
-            <h3>Feedback & Suggestion</h3>
-            <p>We Value Your Feedback and Suggestions</p>
+            <h3>Table Reservation</h3>
+            <p>Reserve your spot today!</p>
+            <div class="box-3">
+                <center><a href="services.php" class="link-btn" style="color: white;">Want to book a Private
+                        Dining?</a></center>
+            </div>
         </div>
     </section>
 
@@ -140,20 +141,16 @@ use PHPMailer\PHPMailer\Exception;
 
         <div class="container">
 
-            <div class="contact-info-container">
-            </div>
             <div class="row align-items-center">
 
                 <div class="col-md-6 mb-5 mb-md-0 ">
-                    <div>
-                        <img src="images/feedback.jpg" class="w-100" alt="">
-                    </div>
+                    <iframe class="map w-100" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d963.6464479118739!2d120.89822424377084!3d14.960152777501325!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x339701f2dfa15023%3A0x2ae26381c4a9af6b!2sCafe%20Allegra!5e0!3m2!1sen!2sph!4v1681242204750!5m2!1sen!2sph" width="600" height="1000" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
-
                 <form action="" method="POST" class="col-md-6">
-                    <h3>Share Your Thoughts</h3>
+                    <br>
+                    <h4><strong>Personal Information</strong></h4><br>
                     <label for="fname" id="fname">First Name<span style="color: red;">*</span></label>
-                    <input type="text" id="fname" name="fname" placeholder="Enter First Name" class="box" required>
+                    <input type="text" id="fname" name="fname" placeholder="Enter First Name" class="box">
 
                     <label for="lname" id="lname">Last Name<span style="color: red;">*</span></label>
                     <input type="text" id="lname" name="lname" placeholder="Enter Last Name" class="box">
@@ -161,10 +158,58 @@ use PHPMailer\PHPMailer\Exception;
                     <label for="email" id="email">Email Address<span style="color: red;">*</span></label>
                     <input type="email" id="email" name="email" placeholder="Enter Email Address" class="box">
 
-                    <label for="message" id="message">Feedback/Comment & Suggestion<span style="color: red;">*</label>
-                    <textarea name="message" itemid="message" placeholder="Enter Message" class="box" id="" cols="30" rows="10"></textarea>
+                    <label for="phone" id="phone">Phone Number<span style="color: red;">*</span></label>
+                    <input type="text" id="phone" name="phone" placeholder="Enter Phone Number" class="box">
 
-                    <input type="submit" id="submit" name="submit" value="Send Message" class="link-btn">
+
+                    <br><br><br>
+                    <h4><strong>Reservation Details</strong></h4><br>
+                    <label for="guests" id="guests">Number of Guests<span style="color: red;">*</span></label>
+                    <select class="box" id="guests" name="guests">
+                        <option value="guests" selected disabled>Number of Guests</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                    </select>
+
+                    <label for="date" id="date">Date of Reservation<span style="color: red;">*</span></label>
+                    <input type="date" name="date" id="date" class="box" value="mm/dd/yyyy" min="<?= date('Y-m-d') ?>">
+                    <script>
+                        // Clear the date input value on focus
+                        document.getElementById("date").addEventListener("focus", function() {
+                            if (this.value === "mm/dd/yyyy") {
+                                this.value = "";
+                            }
+                        });
+
+                        // Restore the date input value if empty on blur
+                        document.getElementById("date").addEventListener("blur", function() {
+                            if (this.value === "") {
+                                this.value = "mm/dd/yyyy";
+                            }
+                        });
+                    </script>
+
+                    <label for="time" id="time">Time of Reservation<span style="color: red;">*</span></label>
+                    <input type="time" name="time" id="time" class="box" value="HH:MM AM/PM" step="60">
+
+
+                    <label for="others" id="others">Others</label>
+                    <input type="text" id="others" name="others" placeholder="If Other Above, please specify" class="box">
+
+                    <label for="request" id="request">Special Requests</label>
+                    <textarea name="request" placeholder="Special Requests" class="box" id="request" cols="30" rows="10"></textarea>
+                    <div>
+                        <input type="submit" id="submit" name="submit" value="Submit" class="link-btn">
+                    </div>
                 </form>
 
             </div>
@@ -180,7 +225,22 @@ use PHPMailer\PHPMailer\Exception;
         $fname = $_POST['fname'];
         $lname = $_POST['lname'];
         $email = $_POST['email'];
-        $message = $_POST['message'];
+        $phone = $_POST['phone'];
+
+        $guests = $_POST['guests'];
+        $date = $_POST['date'];
+        $time = $_POST['time'];
+
+        if (empty($_POST['others'])) {
+            $others = "N/A";
+        } else {
+            $others = $_POST['others'];
+        }
+        if (empty($_POST['request'])) {
+            $request = "N/A";
+        } else {
+            $request = $_POST['request'];
+        }
 
         $mail = new PHPMailer(true);
 
@@ -201,7 +261,7 @@ use PHPMailer\PHPMailer\Exception;
             $mail->addCustomHeader('Importance', 'High');
 
             $mail->isHTML(true);
-            $mail->Subject = 'RE: Regarding Your Feedback/Suggestion';
+            $mail->Subject = 'RE: Request for Table Reservation';
             $mail->Body = "
             <html>
                 <head>
@@ -220,26 +280,23 @@ use PHPMailer\PHPMailer\Exception;
                     </p>
                     <h1 style='font-size: 24px; font-family: Georgia, serif; color: #444;'>Dear $fname $lname,</h1>
                     <p>
-                        Thank you for sharing your feedback, comment and suggestion with Cafe Allegra. We appreciate your valuable insights and opinions.
+                        Thank you for considering Cafe Allegra for your dining needs. We have received your reservation request and appreciate your interest in our services.
                     </p>
                     <p>
-                        Our team will review your message and take it into consideration as we strive to improve our services. Should you have any additional feedback, comments or suggestions, please do not hesitate to contact us.
+                        Our team will review your reservation details and respond to your concerns as soon as possible. Should you have any additional questions or require further assistance, please do not hesitate to contact us.
                     </p>
                     <p>
-                        Thank you again for your support and patronage.
+                        We look forward to providing you with an unforgettable dining experience.
                     </p>
-            
                     <p>
-                        Best regards,
+                        Sincerely,
                     </p>
-            
                     <p>
                         The Cafe Allegra Team
                     </p>
                 </body>
             </html>
             ";
-
 
             $mail->send();
 
@@ -258,43 +315,37 @@ use PHPMailer\PHPMailer\Exception;
             $mailToCafe->addAddress('jeanherlinesantiago0329@gmail.com'); // Replace with Cafe Allegra's email address
             $mailToCafe->isHTML(true);
 
-            $mailToCafe->Subject = "Customer Feedback";
+            $mailToCafe->Subject = "Table Reservation Request";
             $mailToCafe->Body = "
-                <html>
-                <head>
-                    <style>
-                        body {
-                            font-family: Times New Roman, serif;
-                            font-size: 16px;
-                            line-height: 1.5;
-                            color: #444;
-                        }
-                    </style>
-                </head>
-                    <body>
-                        <p>
-                            <img src='https://scontent.fmnl9-2.fna.fbcdn.net/v/t39.30808-6/297093510_102326959250266_2873349104751521933_n.png?_nc_cat=103&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeFfVXN5aNfVNIj0WBlWcP6dJHW-nmpeiGckdb6eal6IZwvxTaATQTjxWTsHa1phRMW5ydQykwzoPat_kb2MvEgK&_nc_ohc=EyyZUI6VNIMAX9ReSpo&_nc_zt=23&_nc_ht=scontent.fmnl9-2.fna&oh=00_AfCp-ShLPigb4bJMk0UeXKaOXYLkoyHAS9_cubMBp_uxCw&oe=6443E79F' alt='Cafe Allegra Logo' style='width: 150px; height: auto; display: block; margin-bottom: 10px;'>
-                        </p>
-                        <h1 style='font-size: 20px; font-family: Arial, sans-serif; color: #444;'>Feedback from $fname $lname</h1>
-                        <p style='font-size: 16px; font-family: Arial, sans-serif; color: #444;'><strong>Email:</strong> $email</p>
-                        <p style='font-size: 16px; font-family: Arial, sans-serif; color: #444;'><strong>Message:</strong><br>$message</p>
-                    </body>
-                </html>";
+            <p>
+            <img src='https://scontent.fmnl9-2.fna.fbcdn.net/v/t39.30808-6/297093510_102326959250266_2873349104751521933_n.png?_nc_cat=103&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeFfVXN5aNfVNIj0WBlWcP6dJHW-nmpeiGckdb6eal6IZwvxTaATQTjxWTsHa1phRMW5ydQykwzoPat_kb2MvEgK&_nc_ohc=EyyZUI6VNIMAX9ReSpo&_nc_zt=23&_nc_ht=scontent.fmnl9-2.fna&oh=00_AfCp-ShLPigb4bJMk0UeXKaOXYLkoyHAS9_cubMBp_uxCw&oe=6443E79F' alt='Cafe Allegra Logo' style='width: 150px; height: auto; display: block; margin-bottom: 10px;'>
+            </p>
+            <h1 style='font-size: 20px; font-family: Arial, sans-serif; color: #444;'>Table Reservation from $fname $lname</h1>
+            <p style='font-size: 16px; font-family: Arial, sans-serif; color: #444;'><strong>Email:</strong> $email</p>
+            <p style='font-size: 16px; font-family: Arial, sans-serif; color: #444;'><strong>Phone:</strong> $phone</p>
+            <p style='font-size: 16px; font-family: Arial, sans-serif; color: #444;'><strong>Date:</strong> " . date("F j, Y", strtotime($date)) . "</p>
+            <p style='font-size: 16px; font-family: Arial, sans-serif; color: #444;'><strong>Time:</strong> " . date("h:i A", strtotime($time)) . "</p>
+            <p style='font-size: 16px; font-family: Arial, sans-serif; color: #444;'><strong>Number of Guests:</strong> $guests</p>
+            <p style='font-size: 16px; font-family: Arial, sans-serif; color: #444;'><strong>Others:</strong> $others</p>
+            <p style='font-size: 16px; font-family: Arial, sans-serif; color: #444;'><strong>Special Requests:</strong><br>$request</p>
+            ";
 
             $mailToCafe->send();
 
-            echo '   <div class="banner">
-            <div class="banner__content">
-                <div class="banner__text">
-                Thank you, we have received your feedback/suggestion.
+            echo '
+            <div class="banner">
+                <div class="banner__content">
+                    <div class="banner__text">
+                    Thank you, we have received your table reservation.<br>Our team will respond to your request soon.
+                    </div>
+                    <button class="banner__close" type="button">
+                        <span class="material-icons">
+                            close
+                        </span>
+                    </button>
                 </div>
-                <button class="banner__close" type="button">
-                    <span class="material-icons">
-                        close
-                    </span>
-                </button>
             </div>
-            </div>';
+        ';
         } catch (Exception $e) {
             echo 'Error sending email: ', $mail->ErrorInfo;
         }

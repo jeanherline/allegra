@@ -8,6 +8,7 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,7 +16,7 @@ use PHPMailer\PHPMailer\Exception;
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us</title>
+    <title>Private Dining</title>
 
     <!-- font awesome cdn link  -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -118,77 +119,138 @@ use PHPMailer\PHPMailer\Exception;
 
     <!-- header section ends    -->
 
-
     <!-- newsletter section starts  -->
 
     <section class="newsletter">
         <div class="container">
             <br><br><br><br><br>
-            <h3>Contact Us</h3>
-            <p>Let us know how we can serve you.</p>
+            <h3>Private Dining</h3>
+            <p>Have An Upcoming Special Event?</p>
         </div>
+        <!-- <div class="box-3">
+        <center><a href="//grab.onelink.me/2695613898?pid=inappsharing&c=2-" class="link-btn"
+                style="color: white;">Book now!</a></center>
+    </div> -->
     </section>
 
     <!-- newsletter section ends -->
 
-    <!-- contact section starts  -->
 
-    <section class="contact" id="contact">
+    <!-- blogs section starts  -->
 
-        <div class="container">
+    <section class="blogs-2" id="blogs-2">
 
-            <div class="contact-info-container">
+        <h1 class="heading">3 hours for only 3,000 PHP (Consumables)</h1>
 
-                <div class="box">
-                    <i class="fas fa-phone"></i>
-                    <h3>phone</h3>
-                    <p>+63 969 622 9438</p>
+        <div class="box-container container">
+
+            <div class="box">
+                <div class="image">
+                    <img src="images/private-1.jpg" alt="">
                 </div>
-
-                <div class="box">
-                    <i class="fas fa-map"></i>
-                    <h3>address</h3>
-                    <p>781 Benigno S. Aquino Ave. Brgy. Bagong Nayon (In front of New Frontier Subdivision), Baliuag,
-                        Philippines, 3006</p>
-                </div>
-
-                <div class="box">
-                    <i class="fas fa-envelope"></i>
-                    <h3>email</h3>
-                    <p>cafeallegrabaliuag@gmail.com</p>
-                </div>
-
             </div>
 
-            <div class="row align-items-center">
-
-                <div class="col-md-6 mb-5 mb-md-0 ">
-                    <iframe class="map w-100" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d963.6464479118739!2d120.89822424377084!3d14.960152777501325!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x339701f2dfa15023%3A0x2ae26381c4a9af6b!2sCafe%20Allegra!5e0!3m2!1sen!2sph!4v1681242204750!5m2!1sen!2sph" width="600" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <div class="box">
+                <div class="image">
+                    <img src="images/private-2.jpg" alt="">
                 </div>
+            </div>
 
-                <form action="" method="POST" class="col-md-6">
-                    <h3>get in touch</h3>
-                    <label for="fname" id="fname">First Name<span style="color: red;">*</span></label>
-                    <input type="text" id="fname" name="fname" placeholder="Enter First Name" class="box" required>
-
-                    <label for="lname" id="lname">Last Name<span style="color: red;">*</span></label>
-                    <input type="text" id="lname" name="lname" placeholder="Enter Last Name" class="box">
-
-                    <label for="email" id="email">Email Address<span style="color: red;">*</span></label>
-                    <input type="email" id="email" name="email" placeholder="Enter Email Address" class="box">
-
-                    <label for="phone" id="phone">Phone Number</span></label>
-                    <input type="text" id="phone" name="phone" placeholder="Enter Phone Number" class="box">
-
-                    <label for="message" id="message">Message<span style="color: red;">*</label>
-                    <textarea name="message" itemid="message" placeholder="Enter Message" class="box" id="" cols="30" rows="10"></textarea>
-
-                    <input type="submit" id="submit" name="submit" value="Send Message" class="link-btn">
-                </form>
-
+            <div class="box">
+                <div class="image">
+                    <img src="images/private-3.jpg" alt="">
+                </div>
             </div>
 
         </div>
+
+    </section>
+
+    <!-- blogs section ends -->
+
+
+    <!-- contact section starts  -->
+
+    <section class="contact-2" id="contact-2">
+        <div class="container">
+            <div class="container">
+                <h1 class="heading">Book Now!</h1>
+
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <img src="images/service-1.jpg" class="w-100" alt="">
+                        <img src="images/service-2.jpg" class="w-100" alt="">
+                    </div>
+
+                    <form action="" method="POST" class="col-md-6">
+                        <br>
+                        <h4><strong>Personal Information</strong></h4><br>
+                        <label for="fname" id="fname">First Name<span style="color: red;">*</span></label>
+                        <input type="text" id="fname" name="fname" placeholder="Enter First Name" class="box">
+
+                        <label for="lname" id="lname">Last Name<span style="color: red;">*</span></label>
+                        <input type="text" id="lname" name="lname" placeholder="Enter Last Name" class="box">
+
+                        <label for="email" id="email">Email Address<span style="color: red;">*</span></label>
+                        <input type="email" id="email" name="email" placeholder="Enter Email Address" class="box">
+
+                        <label for="phone" id="phone">Phone Number<span style="color: red;">*</span></label>
+                        <input type="text" id="phone" name="phone" placeholder="Enter Phone Number" class="box">
+
+
+                        <br><br><br>
+                        <h4><strong>Reservation Details</strong></h4><br>
+                        <label for="guests" id="guests">Number of Guests<span style="color: red;">*</span></label>
+                        <select class="box" id="guests" name="guests">
+                            <option value="guests" selected disabled>Number of Guests</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                        </select>
+
+                        <label for="date" id="date">Date of Reservation<span style="color: red;">*</span></label>
+                        <input type="date" name="date" id="date" class="box" value="mm/dd/yyyy" min="<?= date('Y-m-d') ?>">
+                        <script>
+                            // Clear the date input value on focus
+                            document.getElementById("date").addEventListener("focus", function() {
+                                if (this.value === "mm/dd/yyyy") {
+                                    this.value = "";
+                                }
+                            });
+
+                            // Restore the date input value if empty on blur
+                            document.getElementById("date").addEventListener("blur", function() {
+                                if (this.value === "") {
+                                    this.value = "mm/dd/yyyy";
+                                }
+                            });
+                        </script>
+
+                        <label for="time" id="time">Time of Reservation<span style="color: red;">*</span></label>
+                        <input type="time" name="time" id="time" class="box" value="HH:MM AM/PM" step="60">
+
+
+                        <label for="others" id="others">Others</label>
+                        <input type="text" id="others" name="others" placeholder="If Other Above, please specify" class="box">
+
+                        <label for="request" id="request">Special Requests</label>
+                        <textarea name="request" placeholder="Special Requests" class="box" id="request" cols="30" rows="10"></textarea>
+                        <div>
+                            <input type="submit" id="submit" name="submit" value="Submit" class="link-btn">
+                        </div>
+                    </form>
+
+                </div>
+
+            </div>
 
     </section>
 
@@ -200,7 +262,21 @@ use PHPMailer\PHPMailer\Exception;
         $lname = $_POST['lname'];
         $email = $_POST['email'];
         $phone = $_POST['phone'];
-        $message = $_POST['message'];
+
+        $guests = $_POST['guests'];
+        $date = $_POST['date'];
+        $time = $_POST['time'];
+
+        if (empty($_POST['others'])) {
+            $others = "N/A";
+        } else {
+            $others = $_POST['others'];
+        }
+        if (empty($_POST['request'])) {
+            $request = "N/A";
+        } else {
+            $request = $_POST['request'];
+        }
 
         $mail = new PHPMailer(true);
 
@@ -221,7 +297,7 @@ use PHPMailer\PHPMailer\Exception;
             $mail->addCustomHeader('Importance', 'High');
 
             $mail->isHTML(true);
-            $mail->Subject = 'RE: Regarding Your Concern';
+            $mail->Subject = 'RE: Request for Private Dining Reservation';
             $mail->Body = "
                 <html>
                     <head>
@@ -240,11 +316,15 @@ use PHPMailer\PHPMailer\Exception;
                         </p>
                         <h1 style='font-size: 24px; font-family: Georgia, serif; color: #444;'>Dear $fname $lname,</h1>
                         <p>
-                            Thank you for contacting Cafe Allegra. We have received your inquiry and appreciate your interest in our services.
+                            Thank you for considering Cafe Allegra for your private dining needs. We have received your inquiry and appreciate your interest in our services.
                         </p>
                         <p>
-                            Our team will review your message and respond to your concerns as soon as possible. Should you have any additional questions or require further assistance, please do not hesitate to contact us.
+                            Our team will review your reservation details and respond to your concerns as soon as possible. Should you have any additional questions or require further assistance, please do not hesitate to contact us.
                         </p>
+                        <p>
+                            We look forward to providing you and your guests with an unforgettable private dining experience.
+                        </p>
+            
                         <p>
                             Sincerely,
                         </p>
@@ -254,7 +334,7 @@ use PHPMailer\PHPMailer\Exception;
                         </p>
                     </body>
                 </html>
-            "; 
+            ";
 
             $mail->send();
 
@@ -273,30 +353,39 @@ use PHPMailer\PHPMailer\Exception;
             $mailToCafe->addAddress('jeanherlinesantiago0329@gmail.com'); // Replace with Cafe Allegra's email address
             $mailToCafe->isHTML(true);
 
-            $mailToCafe->Subject = "Customer Inquiry";
+            $mailToCafe->Subject = "Private Dining Reservation";
             $mailToCafe->Body = "
             <p>
-            <img src='https://scontent.fmnl9-2.fna.fbcdn.net/v/t39.30808-6/297093510_102326959250266_2873349104751521933_n.png?_nc_cat=103&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeFfVXN5aNfVNIj0WBlWcP6dJHW-nmpeiGckdb6eal6IZwvxTaATQTjxWTsHa1phRMW5ydQykwzoPat_kb2MvEgK&_nc_ohc=EyyZUI6VNIMAX9ReSpo&_nc_zt=23&_nc_ht=scontent.fmnl9-2.fna&oh=00_AfCp-ShLPigb4bJMk0UeXKaOXYLkoyHAS9_cubMBp_uxCw&oe=6443E79F' alt='Cafe Allegra Logo' style='width: 150px; height: auto; display: block; margin-bottom: 10px;'>
+                <img src='https://scontent.fmnl9-2.fna.fbcdn.net/v/t39.30808-6/297093510_102326959250266_2873349104751521933_n.png?_nc_cat=103&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeFfVXN5aNfVNIj0WBlWcP6dJHW-nmpeiGckdb6eal6IZwvxTaATQTjxWTsHa1phRMW5ydQykwzoPat_kb2MvEgK&_nc_ohc=EyyZUI6VNIMAX9ReSpo&_nc_zt=23&_nc_ht=scontent.fmnl9-2.fna&oh=00_AfCp-ShLPigb4bJMk0UeXKaOXYLkoyHAS9_cubMBp_uxCw&oe=6443E79F' alt='Cafe Allegra Logo' style='width: 150px; height: 900%; display: block; margin-bottom: 10px;'>
             </p>
-            <h1 style='font-size: 20px; font-family: Arial, sans-serif; color: #444;'>Inquiry from $fname $lname</h1>
+            <h1 style='font-size: 20px; font-family: Arial, sans-serif; color: #444;'>Private Dining Reservation from $fname $lname</h1>
             <p style='font-size: 16px; font-family: Arial, sans-serif; color: #444;'><strong>Email:</strong> $email</p>
             <p style='font-size: 16px; font-family: Arial, sans-serif; color: #444;'><strong>Phone:</strong> $phone</p>
-            <p style='font-size: 16px; font-family: Arial, sans-serif; color: #444;'><strong>Message:</strong><br>$message</p>";
+            <p style='font-size: 16px; font-family: Arial, sans-serif; color: #444;'><strong>Date:</strong> " . date("F j, Y", strtotime($date)) . "</p>
+            <p style='font-size: 16px; font-family: Arial, sans-serif; color: #444;'><strong>Time:</strong> " . date("h:i A", strtotime($time)) . "</p>
+            <p style='font-size: 16px; font-family: Arial, sans-serif; color: #444;'><strong>Number of Guests:</strong> $guests</p>
+            <p style='font-size: 16px; font-family: Arial, sans-serif; color: #444;'><strong>Others:</strong><br>$others</p>
+            <p style='font-size: 16px; font-family: Arial, sans-serif; color: #444;'><strong>Special Requests:</strong><br>$request</p>
+        ";
+
+
 
             $mailToCafe->send();
 
-            echo '   <div class="banner">
-            <div class="banner__content">
-                <div class="banner__text">
-                Thank you, we have received your inquiry/request/message.<br>Our team will respond to your message soon.
+            echo '
+                <div class="banner">
+                    <div class="banner__content">
+                        <div class="banner__text">
+                        Thank you, we have received your private dining reservation.<br>Our team will respond to your request soon.
+                        </div>
+                        <button class="banner__close" type="button">
+                            <span class="material-icons">
+                                close
+                            </span>
+                        </button>
+                    </div>
                 </div>
-                <button class="banner__close" type="button">
-                    <span class="material-icons">
-                        close
-                    </span>
-                </button>
-            </div>
-        </div>';
+            ';
         } catch (Exception $e) {
             echo 'Error sending email: ', $mail->ErrorInfo;
         }

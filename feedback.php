@@ -283,7 +283,7 @@ use PHPMailer\PHPMailer\Exception;
 
             $mailToCafe->send();
 
-            echo '   <div class="banner">
+            echo '<div class="banner" style="text-align: center;">
             <div class="banner__content">
                 <div class="banner__text">
                 Thank you, we have received your feedback/suggestion.
@@ -294,7 +294,7 @@ use PHPMailer\PHPMailer\Exception;
                     </span>
                 </button>
             </div>
-            </div>';
+        </div>';
         } catch (Exception $e) {
             echo 'Error sending email: ', $mail->ErrorInfo;
         }
@@ -317,7 +317,8 @@ use PHPMailer\PHPMailer\Exception;
                     <div class="share">
                         <a href="https://www.facebook.com/cafeallegrabaliuag" class="fab fa-facebook-f"></a>
                         <a href="https://www.instagram.com/cafeallegra.ph/" class="fab fa-instagram"></a>
-                        <a href="#" class="fab fa-twitter"></a>
+                        <a href="#" class="fab fa-twitter"></a><br><br><br>
+                        <p style="font-size: 14px;">© 2022 Cafe Allegra | All Rights Reserved <br><em style="font-size: 12px;">Designed and Developed by J. Santiago</em></p>
                     </div>
                 </div>
                 <br><br><br><br><br><br>

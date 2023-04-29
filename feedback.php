@@ -4,8 +4,31 @@ require 'PHPMailer/src/SMTP.php';
 require 'PHPMailer/src/Exception.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
+
+include('db.php');
+
+$sql = "SELECT * FROM company WHERE company_id = 1";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $company_year = $row['company_year'];
+    $company_name = $row['company_name'];
+    $logo_orig = $row['logo_orig'];
+    $logo_white = $row['logo_white'];
+    $logo_icon = $row['logo_icon'];
+    $address = $row['address'];
+    $phone = $row['phone'];
+    $email = $row['email'];
+    $storehours = $row['store_hours'];
+    $google_map = $row['google_map'];
+    $facebook_link = $row['facebook_link'];
+    $instagram_link = $row['instagram_link'];
+    $twitter_link = $row['twitter_link'];
+} else {
+    echo " ";
+}
 ?>
 
 <!DOCTYPE html>
@@ -26,7 +49,7 @@ use PHPMailer\PHPMailer\Exception;
     <!-- custom css file link  -->
     <link rel="stylesheet" href="css/style.css">
 
-    <link rel="icon" href="images/logo-icon.png" type="images" />
+    <link rel="icon" href="images/<?php echo $logo_icon ?>" type="images" />
 
     <!-- feedback -->
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
@@ -44,14 +67,14 @@ use PHPMailer\PHPMailer\Exception;
             <div class="row align-items-center">
 
                 <!-- <a href="#" class="logo mr-auto"> <i class="fas fa-mug-hot"></i> coffee </a> -->
-                <a href="index.html" class="logo mr-auto"><img src="images/logo.png" alt=""></a>
+                <a href="index.php" class="logo mr-auto"><img src="images/logo.png" alt=""></a>
 
                 <nav class="nav">
-                    <a href="index.html">Home</a>
+                    <a href="index.php">Home</a>
                     <div class="dropdown custom-dropdown">
                         <a class="dropbtn">Menu <i class="fa fa-caret-down"></i></a>
                         <div class="dropdown-content">
-                            <a href="menu.html">All</a>
+                            <a href="menu.php">All</a>
                             <a href="">New</a>
                             <a href="">Espresso Based</a>
                             <a href="">Frappe Series</a>
@@ -63,15 +86,15 @@ use PHPMailer\PHPMailer\Exception;
                     <div class="dropdown custom-dropdown">
                         <a class="dropbtn">Services <i class="fa fa-caret-down"></i></a>
                         <div class="dropdown-content">
-                            <a href="services.php">Private Dining</a>
-                            <a href="reserve.php">Table Reservation</a>
+                            <a href="dining.php">Private Dining</a>
+                            <a href="table.php">Table Reservation</a>
                         </div>
                     </div>
                     <div class="dropdown custom-dropdown">
                         <a class="dropbtn">About <i class="fa fa-caret-down"></i></a>
                         <div class="dropdown-content">
-                            <a href="philosophy.html">Our Philosophy</a>
-                            <a href="whychooseus.html">Why Choose Us?</a>
+                            <a href="philosophy.php">Our Philosophy</a>
+                            <a href="whychooseus.php">Why Choose Us?</a>
                         </div>
                     </div>
                     <div class="dropdown custom-dropdown">
@@ -102,7 +125,7 @@ use PHPMailer\PHPMailer\Exception;
 
         <form action="">
             <div id="close-login-form" class="fas fa-times"></div>
-            <a href="#" class="logo mr-auto"><img src="images/logo-brown.png" alt=""></a>
+            <a href="#" class="logo mr-auto"><img src="images/<?php echo $logo_orig ?>" alt=""></a>
             <h3>let's start a new great day!</h3>
             <input type="email" name="" placeholder="Enter Username" id="" class="box">
             <input type="password" name="" placeholder="Enter Password" id="" class="box">
@@ -127,8 +150,22 @@ use PHPMailer\PHPMailer\Exception;
     <section class="newsletter">
         <div class="container">
             <br><br><br><br><br>
-            <h3>Feedback & Suggestion</h3>
-            <p>We Value Your Feedback and Suggestions</p>
+            <?php
+            $sql = "SELECT * FROM edit_feedback WHERE edit_feedback_id = 1";
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                $row = $result->fetch_assoc();
+
+                $heading = $row['heading'];
+                $subheading = $row['subheading'];
+                $background_image = $row['background_image'];
+            } else {
+                echo " ";
+            }
+            ?>
+            <h3><?php echo $heading ?></h3>
+            <p><?php echo $subheading ?></p>
         </div>
     </section>
 
@@ -146,7 +183,7 @@ use PHPMailer\PHPMailer\Exception;
 
                 <div class="col-md-6 mb-5 mb-md-0 ">
                     <div>
-                        <img src="images/feedback.jpg" class="w-100" alt="">
+                        <img src="images/<?php echo $background_image ?>" class="w-100" alt="">
                     </div>
                 </div>
 
@@ -181,6 +218,19 @@ use PHPMailer\PHPMailer\Exception;
         $lname = $_POST['lname'];
         $email = $_POST['email'];
         $message = $_POST['message'];
+
+        // prepare the SQL statement
+        $stmt = $conn->prepare("INSERT INTO feedback (first_name, last_name, email, message, created_at) VALUES (?, ?, ?, ?, NOW())");
+
+        // bind the parameters to the statement
+        $stmt->bind_param("ssss", $fname, $lname, $email, $message);
+
+        // execute the statement
+        $stmt->execute();
+
+        // close the statement and connection
+        $stmt->close();
+        $conn->close();
 
         $mail = new PHPMailer(true);
 
@@ -306,19 +356,18 @@ use PHPMailer\PHPMailer\Exception;
         <div class="container">
             <div class="row">
                 <div class="col-md-4 col-sm-12">
-                    <p style="font-size: 14px;"><em>781 B.S Aquino Ave. Brgy. Bagong Nayon, Baliuag, Bulacan (In front
-                            of New Frontier Subdivision)</em></p>
-                    <p style="font-size: 14px;">Phone: 0969 622 9438</p>
-                    <p style="font-size: 14px;">Email: cafeallegrabaliuag@gmail.com</p>
+                    <p style="font-size: 14px;"><em><?php echo $address ?></em></p>
+                    <p style="font-size: 14px;">Phone: <?php echo $phone ?></p>
+                    <p style="font-size: 14px;">Email: <?php echo $email ?></p>
                 </div>
                 <br><br><br><br><br><br>
                 <div class="col-md-4 col-sm-12 mb-4 mb-sm-0">
-                    <a href="" class="logo"><img src="images/logo-brown.png" alt=""></a>
+                    <a href="" class="logo"><img src="images/<?php echo $logo_orig ?>" alt=""></a>
                     <div class="share">
-                        <a href="https://www.facebook.com/cafeallegrabaliuag" class="fab fa-facebook-f"></a>
-                        <a href="https://www.instagram.com/cafeallegra.ph/" class="fab fa-instagram"></a>
-                        <a href="#" class="fab fa-twitter"></a><br><br><br>
-                        <p style="font-size: 14px;">© 2022 Cafe Allegra | All Rights Reserved <br><em style="font-size: 12px;">Designed and Developed by J. Santiago</em></p>
+                        <a href="<?php echo $facebook_link ?>" class="fab fa-facebook-f"></a>
+                        <a href="<?php echo $instagram_link ?>" class="fab fa-instagram"></a>
+                        <a href="<?php echo $twitter_link ?>" class="fab fa-twitter"></a><br><br><br>
+                        <p style="font-size: 14px;">© <?php echo $company_year . $company_name ?> | All Rights Reserved <br><em style="font-size: 12px;">Designed and Developed by J. Santiago</em></p>
                     </div>
                 </div>
                 <br><br><br><br><br><br>
@@ -326,8 +375,21 @@ use PHPMailer\PHPMailer\Exception;
 
                     <h4 class="footer-title"><strong>Our Delivery Partners</strong></h4><br>
                     <div class="delivery-partners">
-                        <a href="https://food.grab.com/ph/en/restaurant/cafe-allegra-baliuag-delivery/2-C3VFCPTUAGJTSA"><img src="images/grabfood.png" alt="GrabFood" style="width: 20%;"></a>
-                        <a href="https://app.ordermo.ph/Cafe-Allegra"><img src="images/ordermo.png" alt="Ordermo" style="width: 20%;"></a>
+                        <?php
+                        $sql = "SELECT * FROM delivery_partners";
+                        $result = mysqli_query($conn, $sql);
+                        $numRows = mysqli_num_rows($result);
+
+                        if ($numRows > 0) {
+                            while ($row = mysqli_fetch_assoc($result)) {
+                        ?>
+                                <a href="<?php echo $row['partner_link'] ?>"><img src="images/<?php echo $row['partner_photo'] ?>" alt="<?php echo $row['partner_name'] ?>" style="width: 20%;"></a>
+                        <?php
+                            }
+                        } else {
+                            echo "No landing page content found.";
+                        }
+                        ?>
                     </div>
                 </div>
             </div>

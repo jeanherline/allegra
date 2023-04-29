@@ -158,6 +158,7 @@ section {
 .header #menu-btn {
   display: none;
 }
+
 .dropdown {
   position: relative;
   display: inline-block;
@@ -167,7 +168,8 @@ section {
   display: none;
   position: absolute;
   background-color: #f9f9f9;
-  min-width: 250px; /* Adjust this value to make the dropdown box wider */
+  min-width: 250px;
+  /* Adjust this value to make the dropdown box wider */
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
@@ -231,7 +233,8 @@ body {
   position: absolute;
   z-index: 1;
   background-color: #f9f9f9;
-  min-width: 250px; /* Adjust this value to make the dropdown box wider */
+  min-width: 250px;
+  /* Adjust this value to make the dropdown box wider */
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
 
@@ -373,13 +376,6 @@ body {
   text-decoration: underline !important;
 }
 
-.home {
-  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.7)), to(rgba(0, 0, 0, 0.7))), url(../images/home-bg.jpg) no-repeat;
-  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(../images/home-bg.jpg) no-repeat;
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-}
 
 .home span {
   font-size: 2.5rem;
@@ -1268,7 +1264,7 @@ body {
 }
 
 .banner__text,
-.banner__close > span {
+.banner__close>span {
   color: #ffffff;
 }
 
@@ -1279,32 +1275,38 @@ body {
 
 /* filter */
 
-.wrapper{
+.wrapper {
   width: 100%;
   overflow-x: hidden;
 }
-.wrapper .container{
+
+.wrapper .container {
   max-width: 1400px;
   margin: 0 auto;
   padding: 20px;
 }
-.category-filter{
+
+.category-filter {
   margin-top: 40px;
 }
-.title{
+
+.title {
   margin-bottom: 40px;
 }
-.title h1{
+
+.title h1 {
   color: #512a10;
   text-align: center;
   font-weight: 800;
   font-size: 36px;
   letter-spacing: 1px;
 }
-.filter-btns{
+
+.filter-btns {
   text-align: center;
 }
-.filter-btn{
+
+.filter-btn {
   background: none;
   cursor: pointer;
   border: none;
@@ -1321,14 +1323,15 @@ body {
   -o-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
 }
-.filter-btn::after{
+
+.filter-btn::after {
   content: "";
   position: absolute;
   top: 110%;
   left: 50%;
   -webkit-transform: translateX(-50%);
-      -ms-transform: translateX(-50%);
-          transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
   height: 2px;
   width: 0;
   background-color: #555;
@@ -1336,29 +1339,37 @@ body {
   -o-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out
 }
-.filter-btn:hover{
+
+.filter-btn:hover {
   color: #555;
 }
-.filter-btn:hover::after{
+
+.filter-btn:hover::after {
   width: 100%;
 }
+
 /* active button */
-.active-btn{
+.active-btn {
   color: #000000;
 }
-.active-btn::after{
+
+.active-btn::after {
   width: 100%;
 }
-/*  */
 
-.filter-items{
+
+
+
+.filter-items {
   margin-top: 40px;
 }
-.item-img{
+
+.item-img {
   position: relative;
   overflow: hidden;
 }
-.item-img::after{
+
+.item-img::after {
   content: "";
   position: absolute;
   top: 0;
@@ -1367,7 +1378,8 @@ body {
   height: 100%;
   background: rgba(212, 203, 203, 0.1);
 }
-.item-img .discount{
+
+.item-img .discount {
   position: absolute;
   right: 0;
   top: 20px;
@@ -1378,7 +1390,8 @@ body {
   font-size: 12px;
   padding: 4px 16px;
 }
-.item-img img{
+
+.item-img img {
   width: 100%;
   display: block;
   -webkit-transition: -webkit-transform 0.2s ease-in-out;
@@ -1387,31 +1400,37 @@ body {
   transition: transform 0.2s ease-in-out;
   transition: transform 0.2s ease-in-out, -webkit-transform 0.2s ease-in-out;
 }
-.filter-item:hover .item-img img{
+
+.filter-item:hover .item-img img {
   -webkit-transform: scale(1.1);
-      -ms-transform: scale(1.1);
-          transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
 }
-.item-info{
+
+.item-info {
   padding: 14px 0;
 }
-.item-info p{
+
+.item-info p {
   font-weight: 600;
   font-size: 17px;
   margin-top: 8px;
 }
-.item-info .old-price{
+
+.item-info .old-price {
   font-size: 14px;
   font-weight: 700;
   text-decoration: line-through;
 }
-.item-info .new-price{
+
+.item-info .new-price {
   display: inline-block;
   margin-left: 6px;
   font-weight: 600;
   color: #f53939;
 }
-.add-btn{
+
+.add-btn {
   display: inline-block;
   margin-top: 20px;
   background-color: #95bf47;
@@ -1424,66 +1443,72 @@ body {
   -o-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
 }
-.add-btn:hover{
+
+.add-btn:hover {
   border-color: #95bf47;
   background-color: #fff;
   color: #95bf47;
 }
 
 
-.filter-items{
+.filter-items {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  flex-wrap: wrap;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   -webkit-box-pack: space-evenly;
-      -ms-flex-pack: space-evenly;
-          justify-content: space-evenly;
+  -ms-flex-pack: space-evenly;
+  justify-content: space-evenly;
 }
-.filter-item{
+
+.filter-item {
   width: 100%;
   margin-bottom: 40px;
   -webkit-animation: fadeIn 1s;
-          animation: fadeIn 1s;
+  animation: fadeIn 1s;
 }
 
-@-webkit-keyframes fadeIn{
-  from{
-      opacity: 0;
-  }
-  to{
-      opacity: 1;
-  }
-}
 
-@keyframes fadeIn{
-  from{
-      opacity: 0;
+
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
   }
-  to{
-      opacity: 1;
+
+  to {
+    opacity: 1;
   }
 }
 
-@media screen and (min-width: 768px){
-  .filter-item{
-      width: calc(50% - 30px);
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
   }
 }
 
-@media screen and (min-width: 992px){
-  .filter-item{
-      width: calc(33.3333% - 30px);
+@media screen and (min-width: 768px) {
+  .filter-item {
+    width: calc(50% - 30px);
   }
 }
 
-@media screen and (min-width: 1200px){
-  .filter-item{
-      width: calc(25% - 30px);
+@media screen and (min-width: 992px) {
+  .filter-item {
+    width: calc(33.3333% - 30px);
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .filter-item {
+    width: calc(25% - 30px);
   }
 }
 

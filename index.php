@@ -59,28 +59,22 @@ if ($result->num_rows > 0) {
       <div class="container">
          <div class="row align-items-center">
 
-            <a href="index.php" class="logo mr-auto"><img src="images/<?php echo $logo_white ?>" alt=""></a>
+            <!-- <a href="#" class="logo mr-auto"> <i class="fas fa-mug-hot"></i> coffee </a> -->
+            <a href="index.php" class="logo mr-auto"><img src="images/logo.png" alt=""></a>
 
             <nav class="nav">
                <a href="index.php">Home</a>
                <div class="dropdown custom-dropdown">
                   <a class="dropbtn">Menu <i class="fa fa-caret-down"></i></a>
                   <div class="dropdown-content">
-                     <?php
-                     $sql = "SELECT * FROM category";
-                     $result = mysqli_query($conn, $sql);
-                     $numRows = mysqli_num_rows($result);
-
-                     if ($numRows > 0) {
-                        while ($row = mysqli_fetch_assoc($result)) {
-                           $categoryId = $row['category_id'];
-                           $categoryName = $row['category_name'];
-                     ?>
-                           <a href="menu.php"></a>
-                     <?php
-                        }
-                     }
-                     ?>
+                     <a href="menu.php">All</a>
+                     <a href="">New</a>
+                     <a href="">Best Seller</a>
+                     <a href="">Espresso Based</a>
+                     <a href="">Frappe Series</a>
+                     <a href="">Coolers</a>
+                     <a href="">Pasta & Snacks</a>
+                     <a href="">Waffles</a>
                   </div>
                </div>
                <div class="dropdown custom-dropdown">
@@ -436,7 +430,7 @@ if ($result->num_rows > 0) {
                   <a href="<?php echo $facebook_link ?>" class="fab fa-facebook-f"></a>
                   <a href="<?php echo $instagram_link ?>" class="fab fa-instagram"></a>
                   <a href="<?php echo $twitter_link ?>" class="fab fa-twitter"></a><br><br><br>
-                  <p style="font-size: 14px;">© <?php echo $company_year . $company_name ?> | All Rights Reserved <br><em style="font-size: 12px;">Designed and Developed by J. Santiago</em></p>
+                  <p style="font-size: 14px;">© <?php echo $company_year . " " . $company_name ?> | All Rights Reserved <br><em style="font-size: 12px;">Designed and Developed by J. Santiago</em></p>
                </div>
             </div>
             <br><br><br><br><br><br>

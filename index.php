@@ -434,7 +434,6 @@ if ($result->num_rows > 0) {
    </script>
 
    <!-- The Modal -->
-   <!-- The Modal -->
    <div id="storeHoursModal" class="modal">
       <div class="modal-content">
          <div class="modal-header">
@@ -451,7 +450,7 @@ if ($result->num_rows > 0) {
       </div>
    </div>
 
-<script>
+   <script>
       // Get the modal
       var storeHoursModal = document.getElementById("storeHoursModal");
 
@@ -477,8 +476,12 @@ if ($result->num_rows > 0) {
          const outsideWeekdayHours = isWeekday && (hour < 10 || hour >= 20);
          const outsideWeekendHours = isWeekend && (hour < 11 || hour >= 20);
 
-         if (outsideWeekdayHours || outsideWeekendHours) {
-            storeHoursModal.style.display = "block";
+         // Check if modal was already shown
+         if (!localStorage.getItem('storeHoursModalShown')) {
+            if (outsideWeekdayHours || outsideWeekendHours) {
+               storeHoursModal.style.display = "block";
+               localStorage.setItem('storeHoursModalShown', true);
+            }
          }
       }
 

@@ -76,7 +76,7 @@ if ($result->num_rows > 0) {
                            $categoryId = $row['category_id'];
                            $categoryName = $row['category_name'];
                      ?>
-                           <a href="menu.php?category=<?php echo $categoryId; ?>"><?php echo $categoryName; ?></a>
+                           <a href="menu.php"></a>
                      <?php
                         }
                      }
@@ -195,6 +195,58 @@ if ($result->num_rows > 0) {
 
       </div>
    </div>
+
+   <?php
+   $sql = "SELECT * FROM whychooseus WHERE whychooseus_id = 1";
+   $result = $conn->query($sql);
+
+   if ($result->num_rows > 0) {
+      $row = $result->fetch_assoc();
+      $heading = $row['heading'];
+      $subheading = $row['subheading'];
+      $description = $row['description'];
+      $index_photo = $row['index_photo'];
+      // Get the first paragraph of the description
+      $descriptionArray = explode('<br>', $description);
+      $firstParagraph = $descriptionArray[0];
+   } else {
+      echo "No landing page content found.";
+   }
+   ?>
+
+   <section class="about" id="about">
+
+      <div class="container">
+         <div class="row align-items-center">
+            <div class="col-md-6">
+               <img src="images/<?php echo $index_photo ?>" class="w-100" alt="">
+            </div>
+            <div class="col-md-6">
+
+               <span><?php echo $heading ?></span>
+               <h3 class="title"><?php echo $subheading ?></h3>
+               <p><?php echo $firstParagraph ?></p>
+               <a href="whychooseus.php" class="link-btn">Read More</a>
+               <div class="icons-container">
+                  <div class="icons">
+                     <i class="fas fa-car"></i>
+                     <h3><strong>FREE</strong> Parking</h3>
+                  </div>
+                  <div class="icons">
+                     <i class="fas fa-wifi"></i>
+                     <h3><strong>FREE</strong> WiFi for customers</h3>
+                  </div>
+                  <div class="icons">
+                     <i class="fas fa-dog"></i>
+                     <h3>Pet Friendly</h3>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+
+
+   </section>
    <!-- menu section starts  -->
 
    <section class="menu" id="menu">

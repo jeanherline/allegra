@@ -215,10 +215,8 @@ if ($result->num_rows > 0) {
                     }
                 }
             }
-
             ?>
         </div>
-
 
         <script>
             // Add active class to selected category button and filter menu items
@@ -274,6 +272,7 @@ if ($result->num_rows > 0) {
 
         <div class="container box-container">
             <?php
+            
             $sql = "SELECT * FROM menu";
             $result = mysqli_query($conn, $sql);
             $numRows = mysqli_num_rows($result);

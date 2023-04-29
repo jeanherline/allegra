@@ -192,11 +192,7 @@ if ($result->num_rows > 0) {
                <strong>Store Hours - </strong><?php echo $storehours ?>
             </div>
          </div>
-         <button class="banner__close" type="button">
-            <span class="material-icons">
-               close
-            </span>
-         </button>
+
       </div>
    </div>
    <!-- menu section starts  -->
@@ -287,59 +283,6 @@ if ($result->num_rows > 0) {
                }
             });
          </script>
-
-         <style>
-            /* Modal styles */
-            .modal {
-               display: none;
-               /* Hidden by default */
-               position: fixed;
-               /* Stay in place */
-               z-index: 1;
-               /* Sit on top */
-               left: 0;
-               top: 0;
-               width: 100%;
-               /* Full width */
-               height: 100%;
-               /* Full height */
-               overflow: auto;
-               /* Enable scroll if needed */
-               background-color: rgba(0, 0, 0, 0.4);
-               /* Black w/ opacity */
-            }
-
-            /* Modal Content/Box */
-            .modal-content {
-               background-color: #fefefe;
-               margin: 25% auto;
-               /* 15% from the top and centered */
-               padding: 20px;
-               border: 1px solid #888;
-               width: 100%;
-               /* Could be more or less, depending on screen size */
-               text-align: center;
-               /* Center the text */
-            }
-
-            /* Close Button */
-            .close {
-               color: #aaa;
-               float: right;
-               font-size: 28px;
-               font-weight: bold;
-               position: absolute;
-               top: 10px;
-               right: 10px;
-            }
-
-            .close:hover,
-            .close:focus {
-               color: black;
-               text-decoration: none;
-               cursor: pointer;
-            }
-         </style>
 
       </div>
       <br>
@@ -508,9 +451,7 @@ if ($result->num_rows > 0) {
       </div>
    </div>
 
-
-
-   <script>
+<script>
       // Get the modal
       var storeHoursModal = document.getElementById("storeHoursModal");
 

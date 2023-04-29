@@ -184,7 +184,7 @@ if ($result->num_rows > 0) {
         <div class="banner__content">
             <div class="text-center">
                 <div class="banner__text">
-                    <strong>Store Hours - </strong><?php echo $storehours ?>
+                    <strong>Store Hours - </strong><?php echo $storehours ?>&nbsp&nbsp
                 </div>
             </div>
 
@@ -348,59 +348,6 @@ if ($result->num_rows > 0) {
             });
         </script>
 
-        <style>
-            /* Modal styles */
-            .modal {
-                display: none;
-                /* Hidden by default */
-                position: fixed;
-                /* Stay in place */
-                z-index: 1;
-                /* Sit on top */
-                left: 0;
-                top: 0;
-                width: 100%;
-                /* Full width */
-                height: 100%;
-                /* Full height */
-                overflow: auto;
-                /* Enable scroll if needed */
-                background-color: rgba(0, 0, 0, 0.4);
-                /* Black w/ opacity */
-            }
-
-            /* Modal Content/Box */
-            .modal-content {
-                background-color: #fefefe;
-                margin: 25% auto;
-                /* 15% from the top and centered */
-                padding: 20px;
-                border: 1px solid #888;
-                width: 100%;
-                /* Could be more or less, depending on screen size */
-                text-align: center;
-                /* Center the text */
-            }
-
-            /* Close Button */
-            .close {
-                color: #aaa;
-                float: right;
-                font-size: 28px;
-                font-weight: bold;
-                position: absolute;
-                top: 10px;
-                right: 10px;
-            }
-
-            .close:hover,
-            .close:focus {
-                color: black;
-                text-decoration: none;
-                cursor: pointer;
-            }
-        </style>
-
     </section>
 
     <script>
@@ -438,9 +385,6 @@ if ($result->num_rows > 0) {
             });
         });
     </script>
-
-
-
 
     <!-- menu section ends -->
 

@@ -295,44 +295,57 @@ if ($result->num_rows > 0) {
             }
             ?>
         </div>
+
         <div id="myModal" class="modal">
             <div class="modal-content">
-                <span class="close">&times;</span>
-                <p style="font-size: 18px; color: green;">Price: </p><span id="modal-price" style="font-size: 20px;"></span>
+                <button id="modalCloseButton" class="close">&times;</button>
+                <div class="modal-header">
+                    <h2>
+                        <p style="font-size: 18px; color: green;">Price: </p>
+                    </h2>
+                </div>
+                <div class="modal-body">
+                    <p> <span id="modal-price" style="font-size: 20px;"></span></p>
+                </div>
             </div>
         </div>
 
-
-
         <script>
-            // Get the modal
-            var modal = document.getElementById("myModal");
+            document.addEventListener('DOMContentLoaded', function() {
+                // Get the modal
+                var modal = document.getElementById("myModal");
 
-            // Get the <span> element that closes the modal
-            var span = document.getElementsByClassName("close")[0];
+                // Get the close button element
+                var closeButton = document.getElementById("modalCloseButton");
 
-            // When the user clicks on the button, open the modal
-            var linkBtns = document.querySelectorAll('.link-btn-2');
+                // When the user clicks on the button, open the modal
+                var linkBtns = document.querySelectorAll('.link-btn-2');
 
-            linkBtns.forEach(function(linkBtn) {
-                linkBtn.addEventListener('click', function() {
-                    modal.style.display = "block";
-                    var price = this.dataset.price;
-                    document.getElementById("modal-price").innerHTML = price;
+                linkBtns.forEach(function(linkBtn) {
+                    linkBtn.addEventListener('click', function() {
+                        modal.style.display = "block";
+                        var price = this.dataset.price;
+                        document.getElementById("modal-price").innerHTML = price;
+                    });
                 });
-            });
 
-            // When the user clicks on <span> (x), close the modal
-            span.onclick = function() {
-                modal.style.display = "none";
-            };
+                // When the user clicks on the close button, close the modal
+                closeButton.onclick = function() {
+                    closeModal();
+                };
 
-            // When the user clicks anywhere outside of the modal, close it
-            window.onclick = function(event) {
-                if (event.target == modal) {
+                // When the user clicks anywhere outside of the modal, close it
+                window.onclick = function(event) {
+                    if (event.target == modal) {
+                        closeModal();
+                    }
+                };
+
+                // Close modal function
+                function closeModal() {
                     modal.style.display = "none";
                 }
-            };
+            });
         </script>
 
         <style>
@@ -387,7 +400,6 @@ if ($result->num_rows > 0) {
                 cursor: pointer;
             }
         </style>
-
 
     </section>
 

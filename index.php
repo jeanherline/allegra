@@ -45,13 +45,14 @@ if ($result->num_rows > 0) {
    <!-- bannner  -->
    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
    <link rel="icon" href="images/<?php echo $logo_icon ?>" type="images" />
 
 
 </head>
 
 <body>
-
    <!-- header section starts     -->
 
    <header class="header fixed-top">
@@ -237,40 +238,54 @@ if ($result->num_rows > 0) {
          ?>
          <div id="myModal" class="modal">
             <div class="modal-content">
-               <span class="close">&times;</span>
-               <p style="font-size: 18px; color: green;">Price: </p><span id="modal-price" style="font-size: 20px;"></span>
+               <button id="modalCloseButton" class="close">&times;</button>
+               <div class="modal-header">
+                  <h2>
+                     <p style="font-size: 18px; color: green;">Price: </p>
+                  </h2>
+               </div>
+               <div class="modal-body">
+                  <p> <span id="modal-price" style="font-size: 20px;"></span></p>
+               </div>
             </div>
          </div>
 
          <script>
-            // Get the modal
-            var modal = document.getElementById("myModal");
+            document.addEventListener('DOMContentLoaded', function() {
+               // Get the modal
+               var modal = document.getElementById("myModal");
 
-            // Get the <span> element that closes the modal
-            var span = document.getElementsByClassName("close")[0];
+               // Get the close button element
+               var closeButton = document.getElementById("modalCloseButton");
 
-            // When the user clicks on the button, open the modal
-            var linkBtns = document.querySelectorAll('.link-btn-2');
+               // When the user clicks on the button, open the modal
+               var linkBtns = document.querySelectorAll('.link-btn-2');
 
-            linkBtns.forEach(function(linkBtn) {
-               linkBtn.addEventListener('click', function() {
-                  modal.style.display = "block";
-                  var price = this.dataset.price;
-                  document.getElementById("modal-price").innerHTML = price;
+               linkBtns.forEach(function(linkBtn) {
+                  linkBtn.addEventListener('click', function() {
+                     modal.style.display = "block";
+                     var price = this.dataset.price;
+                     document.getElementById("modal-price").innerHTML = price;
+                  });
                });
-            });
 
-            // When the user clicks on <span> (x), close the modal
-            span.onclick = function() {
-               modal.style.display = "none";
-            };
+               // When the user clicks on the close button, close the modal
+               closeButton.onclick = function() {
+                  closeModal();
+               };
 
-            // When the user clicks anywhere outside of the modal, close it
-            window.onclick = function(event) {
-               if (event.target == modal) {
+               // When the user clicks anywhere outside of the modal, close it
+               window.onclick = function(event) {
+                  if (event.target == modal) {
+                     closeModal();
+                  }
+               };
+
+               // Close modal function
+               function closeModal() {
                   modal.style.display = "none";
                }
-            };
+            });
          </script>
 
          <style>
@@ -329,8 +344,8 @@ if ($result->num_rows > 0) {
       </div>
       <br>
       <div class="box-2">
-            <center><a href="menu.php" class="link-btn">See More</a></center>
-         </div>
+         <center><a href="menu.php" class="link-btn">See More</a></center>
+      </div>
    </section>
 
    <!-- menu section ends -->
@@ -474,6 +489,63 @@ if ($result->num_rows > 0) {
          });
       });
    </script>
+
+   <!-- The Modal -->
+   <!-- The Modal -->
+   <div id="storeHoursModal" class="modal">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h2>We're Currently Closed</h2>
+            <span class="storeHoursClose">&times;</span>
+         </div>
+         <div class="modal-body">
+            <p>We'll be back to serve you during our regular hours:<br>
+               Mon-Fri: 10AM-8PM | Sat-Sun: 11AM-8PM.<br>
+               Meanwhile, feel free to browse our menu by clicking the "Hide" button.
+            </p>
+            <p>Thank you for your patience!</p>
+         </div>
+      </div>
+   </div>
+
+
+
+   <script>
+      // Get the modal
+      var storeHoursModal = document.getElementById("storeHoursModal");
+
+      // Get the <span> element that closes the modal
+      var storeHoursSpan = document.getElementsByClassName("storeHoursClose")[0];
+
+      // When the user clicks on <span> (x), close the modal
+      storeHoursSpan.onclick = function() {
+         storeHoursModal.style.display = "none";
+      }
+
+      // Check if the current time is outside store hours
+      function checkStoreHours() {
+         const now = new Date();
+         const day = now.getDay();
+         const hour = now.getHours();
+
+         // Check if it's a weekday
+         const isWeekday = day >= 1 && day <= 5;
+         const isWeekend = day === 0 || day === 6;
+
+         // Check if the current time is outside store hours
+         const outsideWeekdayHours = isWeekday && (hour < 10 || hour >= 20);
+         const outsideWeekendHours = isWeekend && (hour < 11 || hour >= 20);
+
+         if (outsideWeekdayHours || outsideWeekendHours) {
+            storeHoursModal.style.display = "block";
+         }
+      }
+
+      // Call the function to check store hours
+      checkStoreHours();
+   </script>
+
+
 </body>
 
 </html>

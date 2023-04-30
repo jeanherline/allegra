@@ -239,7 +239,7 @@ if ($result->num_rows > 0) {
                         <a href="<?php echo $facebook_link ?>" class="fab fa-facebook-f"></a>
                         <a href="<?php echo $instagram_link ?>" class="fab fa-instagram"></a>
                         <a href="<?php echo $twitter_link ?>" class="fab fa-twitter"></a><br><br><br>
-                        <p style="font-size: 14px;">© <?php echo $company_year . " " . $company_name ?> | All Rights Reserved <br><em style="font-size: 12px;">Designed and Developed by J. Santiago</em></p>
+                        <p style="font-size: 14px;">© <?php echo $company_year . " " . $company_name ?> | All Rights Reserved <br><em style="font-size: 12px;">Developed by J. Santiago</em></p>
                     </div>
                 </div>
                 <br><br><br><br><br><br>

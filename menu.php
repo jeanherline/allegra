@@ -272,7 +272,6 @@ if ($result->num_rows > 0) {
 
         <div class="container box-container">
             <?php
-            
             $sql = "SELECT * FROM menu";
             $result = mysqli_query($conn, $sql);
             $numRows = mysqli_num_rows($result);
@@ -284,8 +283,8 @@ if ($result->num_rows > 0) {
                     <div class="box <?php echo 'category-' . $menuCategory; ?>">
                         <img src="images/menu/<?php echo $row['menu_photo']; ?>" alt="">
                         <h3><?php echo $row['menu_name']; ?></h3>
+                        <a class="link-btn-2" data-price="<?php echo $row['price']; ?>" data-image="<?php echo $row['menu_photo']; ?>" data-name="<?php echo $row['menu_name']; ?>">Available Today</a>
                         <p><?php echo $row['description']; ?></p>
-                        <a class="link-btn-2" data-price="<?php echo $row['price']; ?>">Available Today</a>
                     </div>
             <?php
                 }
@@ -299,11 +298,11 @@ if ($result->num_rows > 0) {
             <div class="modal-content">
                 <button id="modalCloseButton" class="close">&times;</button>
                 <div class="modal-header">
-                    <h2>
-                        <p style="font-size: 18px; color: green;">Price: </p>
-                    </h2>
+                    <h2><strong><span id="modal-menu-name"></span></strong></h2><br>
                 </div>
                 <div class="modal-body">
+                    <img src="" alt="" id="modal-image" width="50%"><br><br>
+                    <p style="font-size: 18px; color: green;">Price: </p>
                     <p> <span id="modal-price" style="font-size: 20px;"></span></p>
                 </div>
             </div>
@@ -324,7 +323,11 @@ if ($result->num_rows > 0) {
                     linkBtn.addEventListener('click', function() {
                         modal.style.display = "block";
                         var price = this.dataset.price;
+                        var image = this.dataset.image;
+                        var menuName = this.dataset.name;
                         document.getElementById("modal-price").innerHTML = price;
+                        document.getElementById("modal-image").src = "images/menu/" + image;
+                        document.getElementById("modal-menu-name").innerHTML = menuName;
                     });
                 });
 
@@ -346,6 +349,7 @@ if ($result->num_rows > 0) {
                 }
             });
         </script>
+
 
     </section>
 
@@ -404,7 +408,7 @@ if ($result->num_rows > 0) {
                         <a href="<?php echo $facebook_link ?>" class="fab fa-facebook-f"></a>
                         <a href="<?php echo $instagram_link ?>" class="fab fa-instagram"></a>
                         <a href="<?php echo $twitter_link ?>" class="fab fa-twitter"></a><br><br><br>
-                        <p style="font-size: 14px;">© <?php echo $company_year . " " . $company_name ?> | All Rights Reserved <br><em style="font-size: 12px;">Designed and Developed by J. Santiago</em></p>
+                        <p style="font-size: 14px;">© <?php echo $company_year . " " . $company_name ?> | All Rights Reserved <br><em style="font-size: 12px;">Developed by J. Santiago</em></p>
                     </div>
                 </div>
                 <br><br><br><br><br><br>

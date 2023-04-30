@@ -1522,126 +1522,130 @@ body {
 
 /* The Modal (background) */
 .modal {
-   display: none;
-   /* Hidden by default */
-   position: fixed;
-   /* Stay in place */
-   z-index: 9999;
-   /* Sit on top */
-   left: 0;
-   top: 0;
-   width: 100%;
-   /* Full width */
-   height: 100%;
-   /* Full height */
-   overflow: auto;
-   /* Enable scroll if needed */
-   background-color: rgba(0, 0, 0, 0.4);
-   /* Black w/ opacity */
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 9999;
+  /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */
 }
 
 .closed-icon {
-   font-size: 24px;
-   margin-right: 8px;
+  font-size: 24px;
+  margin-right: 8px;
 }
 
 /* Modal Content/Box */
 .modal-content {
-   background-color: #fff;
-   margin: 15% auto;
-   /* 15% from the top and centered */
-   padding: 0;
-   border-radius: 5px;
-   width: 100%;
-   /* Adjust based on screen size */
-   max-width: 600px;
-   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+  background-color: #fff;
+  margin: 15% auto;
+  /* 15% from the top and centered */
+  padding: 0;
+  border-radius: 5px;
+  width: 100%;
+  /* Adjust based on screen size */
+  max-width: 600px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
 /* The Close Button */
 .storeHoursClose {
-   color: #999;
-   font-size: 24px;
-   font-weight: bold;
-   position: absolute;
-   right: 16px;
-   top: 12px;
-   cursor: pointer;
+  color: #999;
+  font-size: 24px;
+  font-weight: bold;
+  position: absolute;
+  right: 16px;
+  top: 12px;
+  cursor: pointer;
 }
 
 .storeHoursClose:hover {
-   color: #333;
+  color: #333;
 }
 
 /* Modal Header */
 .modal-header {
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   position: relative;
-   padding: 16px;
-   border-bottom: 1px solid #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 16px;
+  border-bottom: 1px solid #f0f0f0;
 }
 
 .modal-header h2 {
-   margin: 0;
-   flex-grow: 1;
+  margin: 0;
+  flex-grow: 1;
 }
 
 /* Modal Body */
 .modal-body {
-   padding: 24px;
+  padding: 24px;
 }
 
 /* price */
-
 /* Modal styles */
 .modal {
-    display: none;
-    /* Hidden by default */
-    position: fixed;
-    /* Stay in place */
-    z-index: 1;
-    /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%;
-    /* Full width */
-    height: 100%;
-    /* Full height */
-    overflow: auto;
-    /* Enable scroll if needed */
-    background-color: rgba(0, 0, 0, 0.4);
-    /* Black w/ opacity */
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: hidden;
+  /* Disable scroll */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */
 }
 
 /* Modal Content/Box */
 .modal-content {
-    background-color: #fefefe;
-    margin: 25% auto;
-    /* 15% from the top and centered */
-    padding: 20px;
-    border: 1px solid #888;
-    width: 100%;
-    /* Could be more or less, depending on screen size */
-    text-align: center;
-    /* Center the text */
+  background-color: #fefefe;
+  margin: auto;
+  /* Center vertically and horizontally */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  /* Could be more or less, depending on screen size */
+  max-width: 600px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  /* Center the text */
 }
 
 /* Close Button */
 .close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    position: absolute;
-    top: 10px;
-    right: 10px;
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }
 
 .close:hover,
 .close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
 }

@@ -1249,12 +1249,15 @@ body {
   margin: 0 auto;
   display: flex;
   align-items: center;
+  justify-content: center; /* Add this line */
 }
+
 
 .banner__text {
   flex-grow: 1;
   line-height: 1.4;
   font-family: "Quicksand", sans-serif;
+  text-align: center;
 }
 
 .banner__close {
@@ -1649,3 +1652,5 @@ body {
   text-decoration: none;
   cursor: pointer;
 }
+
+/* arrow */

@@ -53,6 +53,35 @@ if ($result->num_rows > 0) {
 
     <!-- bannner  -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <style>
+<?php
+$sql = "SELECT * FROM company WHERE company_id = 1";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $company_year = $row['company_year'];
+    $company_name = $row['company_name'];
+    $logo_orig = $row['logo_orig'];
+    $logo_white = $row['logo_white'];
+    $logo_icon = $row['logo_icon'];
+    $address = $row['address'];
+    $phone = $row['phone'];
+    $email = $row['email'];
+    $storehours = $row['store_hours'];
+    $google_map = $row['google_map'];
+    $facebook_link = $row['facebook_link'];
+    $instagram_link = $row['instagram_link'];
+    $twitter_link = $row['twitter_link'];
+} else {
+    echo " ";
+}
+?>
+?>
+        
+
+    </style>
 </head>
 
 <body>
@@ -178,19 +207,19 @@ if ($result->num_rows > 0) {
                 <div class="box">
                     <i class="fas fa-phone"></i>
                     <h3>phone</h3>
-                    <p><?php echo $phone?></p>
+                    <p><?php echo $phone ?></p>
                 </div>
 
                 <div class="box">
                     <i class="fas fa-map"></i>
                     <h3>address</h3>
-                    <p><?php echo $address?></p>
+                    <p><?php echo $address ?></p>
                 </div>
 
                 <div class="box">
                     <i class="fas fa-envelope"></i>
                     <h3>email</h3>
-                    <p><?php echo $email?></p>
+                    <p><?php echo $email ?></p>
                 </div>
 
             </div>
@@ -198,7 +227,7 @@ if ($result->num_rows > 0) {
             <div class="row align-items-center">
 
                 <div class="col-md-6 mb-5 mb-md-0 ">
-                    <iframe class="map w-100" src="<?php echo $google_map?>" width="600" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <iframe class="map w-100" src="<?php echo $google_map ?>" width="600" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
 
                 <form action="" method="POST" class="col-md-6">

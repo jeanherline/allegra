@@ -1,140 +1,97 @@
-<!doctype html>
+<?php
+include('../db.php');
+
+$sql = "SELECT * FROM company WHERE company_id = 1";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $company_year = $row['company_year'];
+    $company_name = $row['company_name'];
+    $logo_orig = $row['logo_orig'];
+    $logo_white = $row['logo_white'];
+    $logo_icon = $row['logo_icon'];
+    $address = $row['address'];
+    $phone = $row['phone'];
+    $email = $row['email'];
+    $storehours = $row['store_hours'];
+    $google_map = $row['google_map'];
+    $facebook_link = $row['facebook_link'];
+    $instagram_link = $row['instagram_link'];
+    $twitter_link = $row['twitter_link'];
+} else {
+    echo " ";
+}
+?>
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
     <!----css3---->
-    <link rel="stylesheet" href="css/custom.css">
-
+    <link rel="stylesheet" href="../css/custom.css">
     <!-- SLIDER REVOLUTION 4.x CSS SETTINGS -->
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 
     <!--google material icon-->
     <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
 
+    <link rel="icon" href="../images/<?php echo $logo_icon ?>" type="images" />
 
-
-    <link rel="icon" href="images/<?php echo $logo_icon?>" type="images" />
-
-    <link rel="icon" href="images/logo.png" type="images" />
 </head>
 
 <body>
-    <div class="wrapper">
 
+    <div class="wrapper">
         <div class="body-overlay"></div>
 
         <!-- Sidebar  -->
         <nav id="sidebar">
             <div class="sidebar-header">
-                <h3><img src="images/logo-icon.png" class="img-fluid" /><span>Cafe Allegra</span></h3>
+                <h3><img src="../images/<?php echo $logo_icon ?>" class="img-fluid" /><span>Cafe Allegra</span></h3>
             </div>
             <ul class="list-unstyled components">
                 <li class="active">
-                    <a href="index.php" class="dashboard"><i
-                            class="material-icons">dashboard</i><span>Dashboard</span></a>
+                    <a href="../admin/dashboard.php" class="dashboard"><i class="material-icons">dashboard</i><span>Dashboard</span></a>
                 </li>
-
-                <div class="small-screen navbar-display">
-                    <li class="dropdown d-lg-none d-md-block d-xl-none d-sm-block">
-                        <a href="#homeSubmenu0" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                            <i class="material-icons">notifications</i></a>
-                        <ul class="collapse list-unstyled menu" id="homeSubmenu0">
-                            <li>
-                                <a href="#">You have 5 new messages</a>
-                            </li>
-                            <li>
-                                <a href="#">You're now friend with Mike</a>
-                            </li>
-                            <li>
-                                <a href="#">Wish Mary on her birthday!</a>
-                            </li>
-                            <li>
-                                <a href="#">5 warnings in Server Console</a>
-                            </li>
-                        </ul>
-                    </li>
-
-
-                    <li class="d-lg-none d-md-block d-xl-none d-sm-block">
-                        <a href="#"><i class="material-icons">web</i><span>web</span></a>
-                    </li>
-
-                    <li class="d-lg-none d-md-block d-xl-none d-sm-block">
-                        <a href="#"><i class="material-icons">logout</i><span>logout</span></a>
-                    </li>
-                </div>
 
                 <li class="dropdown">
                     <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                         <i class="material-icons">home</i><span>Home</span></a>
                     <ul class="collapse list-unstyled menu" id="homeSubmenu1">
                         <li>
-                            <a href="herobanner.php">Hero Banner</a>
+                            <a href="../admin/herobanner.php?category=1">Hero Banner</a>
                         </li>
                         <li>
-                            <a href="#">Menu Preview</a>
+                            <a href="../admin/gallery.php">Gallery</a>
                         </li>
                         <li>
-                            <a href="#">Our Gallery</a>
-                        </li>
-                        <li>
-                            <a href="#">Customer Reviews</a>
+                            <a href="../admin/testimonials.php">Testimonials</a>
                         </li>
                     </ul>
                 </li>
 
                 <li class="dropdown">
                     <a href="#menuSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                        <i class="material-icons">menu</i><span>Menu</span></a>
+                        <i class="material-icons">inventory_2</i><span>Menu</span></a>
                     <ul class="collapse list-unstyled menu" id="menuSubmenu1">
                         <li>
-                            <a href="#">Hero Banner</a>
+                            <a href="../admin/herobanner.php?category=2">Hero Banner</a>
                         </li>
                         <li>
-                            <a href="#">Add New Category</a>
+                            <a href="../admin/menuCategory.php">Menu Category</a>
                         </li>
                         <li>
-                            <a href="#">Add New Product</a>
-                        </li>
-
-                    </ul>
-                </li>
-
-                <li class="dropdown">
-                    <a href="#pageSubmenu2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                        <i class="material-icons">inventory_2</i><span>Products</span></a>
-                    <ul class="collapse list-unstyled menu" id="pageSubmenu2">
-                        <li>
-                            <a href="#">All</a>
+                            <a href="../admin/addProduct.php">Add New Product</a>
                         </li>
                         <li>
-                            <a href="#">New</a>
-                        </li>
-                        <li>
-                            <a href="#">Espresso Based</a>
-                        </li>
-                        <li>
-                            <a href="#">Frappe Series</a>
-                        </li>
-                        <li>
-                            <a href="#">Pasta & Snacks</a>
-                        </li>
-                        <li>
-                            <a href="#">Coolers</a>
-                        </li>
-                        <li>
-                            <a href="#">Waffles</a>
+                            <a href="../admin/productList.php">Product List</a>
                         </li>
                     </ul>
                 </li>
@@ -144,10 +101,10 @@
                         <i class="material-icons">groups</i><span>Services</span></a>
                     <ul class="collapse list-unstyled menu" id="serviceSubmenu2">
                         <li>
-                            <a href="#">Private Dining</a>
+                            <a href="../admin/privateDining.php">Private Dining</a>
                         </li>
                         <li>
-                            <a href="#">Table Reservation</a>
+                            <a href="../admin/tableReservation.php">Table Reservation</a>
                         </li>
                     </ul>
                 </li>
@@ -158,10 +115,10 @@
                         <span>About</span></a>
                     <ul class="collapse list-unstyled menu" id="pageSubmenu3">
                         <li>
-                            <a href="#">Our Philosophy</a>
+                            <a href="../admin/ourPhilosophy.php">Our Philosophy</a>
                         </li>
                         <li>
-                            <a href="#">Why Choose Us?</a>
+                            <a href="../admin/whyChooseUs.php">Why Choose Us?</a>
                         </li>
                     </ul>
                 </li>
@@ -170,40 +127,39 @@
                         <i class="material-icons">contacts</i><span>Contact</span></a>
                     <ul class="collapse list-unstyled menu" id="pageSubmenu4">
                         <li>
-                            <a href="#">Contact Form</a>
+                            <a href="../admin/contactForm.php">Contact Form</a>
                         </li>
                         <li>
-                            <a href="#">Feedback & Suggestion</a>
+                            <a href="../admin/feedbackSuggestion.php">Feedback & Suggestion</a>
                         </li>
                     </ul>
                 </li>
 
                 <li class="dropdown">
                     <a href="#footerSubmenu4" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                        <i class="material-icons">arrow_downward</i><span>Footer</span></a>
+                        <i class="material-icons">store</i><span>Company</span></a>
                     <ul class="collapse list-unstyled menu" id="footerSubmenu4">
                         <li>
-                            <a href="#">Company Details</a>
+                            <a href="../admin/companyDetails.php">Company Details</a>
                         </li>
                         <li>
-                            <a href="#">Delivery Partners</a>
+                            <a href="../admin/deliveryPartners.php">Delivery Partners</a>
                         </li>
                     </ul>
                 </li>
 
-                <li class="">
-                    <a href="#"><i class="material-icons">visibility</i><span>Notice</span></a>
+                <li class="dropdown">
+                    <a href="#footerSubmenu5" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="material-icons">format_list_bulleted</i><span>Reservations</span></a>
+                    <ul class="collapse list-unstyled menu" id="footerSubmenu5">
+                        <li>
+                            <a href="../admin/pdList.php">Private Dining List</a>
+                        </li>
+                        <li>
+                            <a href="../admin/trList.php">Table Reservation List</a>
+                        </li>
+                    </ul>
                 </li>
-
-                <li class="">
-                    <a href="#"><i class="material-icons">restaurant</i><span>PD List</span></a>
-                </li>
-
-                <li class="">
-                    <a href="#"><i class="material-icons">table_restaurant</i><span>TR List</span></a>
-                </li>
-
-
             </ul>
 
 
@@ -220,16 +176,13 @@
                             <span class="material-icons">arrow_back_ios</span>
                         </button>
 
-                        <a class="navbar-brand" href="#"> Dashboard </a>
+                        <a class="navbar-brand"> Dashboard </a>
 
-                        <button class="d-inline-block d-lg-none ml-auto more-button" type="button"
-                            data-toggle="collapse" data-target="#navbarSupportedContent"
-                            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <button class="d-inline-block d-lg-none ml-auto more-button" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="material-icons">more_vert</span>
                         </button>
 
-                        <div class="collapse navbar-collapse d-lg-block d-xl-block d-sm-none d-md-none d-none"
-                            id="navbarSupportedContent">
+                        <div class="collapse navbar-collapse d-lg-block d-xl-block d-sm-none d-md-none d-none" id="navbarSupportedContent">
                             <ul class="nav navbar-nav ml-auto">
 
                                 <li class="nav-item">
@@ -253,6 +206,7 @@
                                     </ul>
                                 </li>
                             </ul>
+
                         </div>
                     </div>
                 </nav>
@@ -270,7 +224,7 @@
                                 </div>
                             </div>
                             <div class="card-content">
-                                <p class="category"><strong>Visits</strong></p>
+                                <p class="category"><strong>Web Visits</strong></p>
                                 <h3 class="card-title">70,340</h3>
                             </div>
                             <div class="card-footer">
@@ -285,17 +239,18 @@
                         <div class="card card-stats">
                             <div class="card-header">
                                 <div class="icon icon-rose">
-                                    <span class="material-icons">shopping_cart</span>
+                                    <span class="material-icons">dining</span>
 
                                 </div>
                             </div>
                             <div class="card-content">
-                                <p class="category"><strong>Orders</strong></p>
+                                <p class="category"><strong>Private Dining</strong></p>
                                 <h3 class="card-title">102</h3>
                             </div>
                             <div class="card-footer">
                                 <div class="stats">
-                                    <i class="material-icons">local_offer</i> Product-wise sales
+                                    <i class="material-icons text-info">info</i>
+                                    <a href="#pablo">See detailed report</a>
                                 </div>
                             </div>
                         </div>
@@ -305,18 +260,19 @@
                             <div class="card-header">
                                 <div class="icon icon-success">
                                     <span class="material-icons">
-                                        attach_money
+                                        table_restaurant
                                     </span>
 
                                 </div>
                             </div>
                             <div class="card-content">
-                                <p class="category"><strong>Revenue</strong></p>
+                                <p class="category"><strong>Table Reservation</strong></p>
                                 <h3 class="card-title">$23,100</h3>
                             </div>
                             <div class="card-footer">
                                 <div class="stats">
-                                    <i class="material-icons">date_range</i> Weekly sales
+                                    <i class="material-icons text-info">info</i>
+                                    <a href="#pablo">See detailed report</a>
                                 </div>
                             </div>
                         </div>
@@ -327,17 +283,18 @@
                                 <div class="icon icon-info">
 
                                     <span class="material-icons">
-                                        follow_the_signs
+                                        add_comments
                                     </span>
                                 </div>
                             </div>
                             <div class="card-content">
-                                <p class="category"><strong>Followers</strong></p>
+                                <p class="category"><strong>Feedback</strong></p>
                                 <h3 class="card-title">+245</h3>
                             </div>
                             <div class="card-footer">
                                 <div class="stats">
-                                    <i class="material-icons">update</i> Just Updated
+                                    <i class="material-icons text-info">info</i>
+                                    <a href="#pablo">See detailed report</a>
                                 </div>
                             </div>
                         </div>
@@ -349,61 +306,69 @@
                     <div class="col-lg-7 col-md-12">
                         <div class="card" style="min-height: 485px">
                             <div class="card-header card-header-text">
-                                <h4 class="card-title">Employees Stats</h4>
-                                <p class="category">New employees on 15th December, 2016</p>
+                                <h4 class="card-title">Cafe Reservations</h4>
+                                <p class="category">Latest Report</p>
                             </div>
                             <div class="card-content table-responsive">
                                 <table class="table table-hover">
                                     <thead class="text-primary">
                                         <tr>
-                                            <th>ID</th>
                                             <th>Name</th>
-                                            <th>Salary</th>
-                                            <th>Country</th>
+                                            <th>Type</th>
+                                            <th>Date</th>
+                                            <th>Time</th>
+                                            <th>Guests</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>1</td>
                                             <td>Bob Williams</td>
-                                            <td>$23,566</td>
-                                            <td>USA</td>
+                                            <td>Private Dining</td>
+                                            <td>April 22, 2023</td>
+                                            <td>10:00 AM</td>
+                                            <td>1</td>
                                         </tr>
                                         <tr>
-                                            <td>2</td>
                                             <td>Mike Tyson</td>
-                                            <td>$10,200</td>
-                                            <td>Canada</td>
+                                            <td>Table Reservation</td>
+                                            <td>April 22, 2023</td>
+                                            <td>10:00 AM</td>
+                                            <td>2</td>
                                         </tr>
                                         <tr>
-                                            <td>3</td>
                                             <td>Tim Sebastian</td>
-                                            <td>$32,190</td>
-                                            <td>Netherlands</td>
+                                            <td>Private Dining</td>
+                                            <td>April 22, 2023</td>
+                                            <td>10:00 AM</td>
+                                            <td>3</td>
                                         </tr>
                                         <tr>
-                                            <td>4</td>
                                             <td>Philip Morris</td>
-                                            <td>$31,123</td>
-                                            <td>Korea, South</td>
+                                            <td>Table Reservation</td>
+                                            <td>April 22, 2023</td>
+                                            <td>10:00 AM</td>
+                                            <td>4</td>
                                         </tr>
                                         <tr>
-                                            <td>5</td>
                                             <td>Minerva Hooper</td>
-                                            <td>$23,789</td>
-                                            <td>South Africa</td>
+                                            <td>Private Dining</td>
+                                            <td>April 22, 2023</td>
+                                            <td>10:00 AM</td>
+                                            <td>5</td>
                                         </tr>
                                         <tr>
-                                            <td>6</td>
                                             <td>Hulk Hogan</td>
-                                            <td>$43,120</td>
-                                            <td>Netherlands</td>
+                                            <td>Private Dining</td>
+                                            <td>April 22, 2023</td>
+                                            <td>10:00 AM</td>
+                                            <td>6</td>
                                         </tr>
                                         <tr>
-                                            <td>7</td>
                                             <td>Angelina Jolie </td>
-                                            <td>$12,140</td>
-                                            <td>Australia</td>
+                                            <td>Table Reservation</td>
+                                            <td>April 22, 2023</td>
+                                            <td>10:00 AM</td>
+                                            <td>7</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -414,7 +379,7 @@
                     <div class="col-lg-5 col-md-12">
                         <div class="card" style="min-height: 485px">
                             <div class="card-header card-header-text">
-                                <h4 class="card-title">Activities</h4>
+                                <h4 class="card-title">Contact & Feedback</h4>
                             </div>
                             <div class="card-content">
                                 <div class="streamline">
@@ -461,7 +426,21 @@
                     </div>
                 </div>
 
+                <?php
+                $sql = "SELECT * FROM delivery_partners";
+                $result = mysqli_query($conn, $sql);
+                $numRows = mysqli_num_rows($result);
 
+                if ($numRows > 0) {
+                    while ($row = mysqli_fetch_assoc($result)) {
+                ?>
+                        <!-- <a href="<?php echo $row['partner_link'] ?>"><img src="images/<?php echo $row['partner_photo'] ?>" alt="<?php echo $row['partner_name'] ?>" style="width: 20%;"></a> -->
+                <?php
+                    }
+                } else {
+                    echo "No landing page content found.";
+                }
+                ?>
 
                 <footer class="footer">
                     <div class="container-fluid">
@@ -470,23 +449,15 @@
                                 <nav class="d-flex">
                                     <ul class="m-0 p-0">
                                         <li>
-                                            <a href="#">
-                                                Home
+                                            <a>
+                                                Tech Support:
                                             </a>
                                         </li>
+                                    </ul>
+                                    <ul class="m-0 p-0">
                                         <li>
-                                            <a href="#">
-                                                Company
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                Portfolio
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                Blog
+                                            <a>
+                                                +63 929 301 0483
                                             </a>
                                         </li>
                                     </ul>
@@ -494,59 +465,37 @@
 
                             </div>
                             <div class="col-md-6">
-                                <p class="copyright d-flex justify-content-end"> &copy 2021 Design by
-                                    <a href="#">Vishweb Design</a> BootStrap Admin Dashboard
+                                <p class="copyright d-flex justify-content-end"> &copy <?php echo $company_year . " " . $company_name ?>
                                 </p>
                             </div>
                         </div>
                     </div>
                 </footer>
-
             </div>
-
-
-
         </div>
     </div>
 
-
-
-
-
-
-
-
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="js/jquery-3.3.1.slim.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="../js/jquery-3.3.1.slim.min.js"></script>
+    <script src="../js/popper.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery-3.3.1.min.js"></script>
 
 
     <script type="text/javascript">
-        $(document).ready(function () {
-            $('#sidebarCollapse').on('click', function () {
+        $(document).ready(function() {
+            $('#sidebarCollapse').on('click', function() {
                 $('#sidebar').toggleClass('active');
                 $('#content').toggleClass('active');
             });
 
-            $('.more-button,.body-overlay').on('click', function () {
+            $('.more-button,.body-overlay').on('click', function() {
                 $('#sidebar,.body-overlay').toggleClass('show-nav');
             });
 
         });
-
-
-
-
-
     </script>
-
-
-
-
-
 </body>
 
 </html>

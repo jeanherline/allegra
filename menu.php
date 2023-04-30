@@ -137,23 +137,25 @@ if ($result->num_rows > 0) {
 
 
     <!-- newsletter section starts  -->
+    <?php
+    $sql = "SELECT * FROM edit_menu WHERE edit_menu_id = 1";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+
+        $heading = $row['heading'];
+        $subheading = $row['subheading'];
+        $banner = $row['banner'];
+    } else {
+        echo " ";
+    }
+    ?>
 
     <section class="newsletter">
         <div class="container">
             <br><br><br><br><br>
-            <?php
-            $sql = "SELECT * FROM edit_menu WHERE edit_menu_id = 1";
-            $result = $conn->query($sql);
 
-            if ($result->num_rows > 0) {
-                $row = $result->fetch_assoc();
-
-                $heading = $row['heading'];
-                $subheading = $row['subheading'];
-            } else {
-                echo " ";
-            }
-            ?>
             <h3><?php echo $heading ?></h3>
             <p><?php echo $subheading ?></p>
             <div class="box-3">
@@ -184,7 +186,7 @@ if ($result->num_rows > 0) {
         <div class="banner__content">
             <div class="text-center">
                 <div class="banner__text">
-                    <strong>Store Hours - </strong><?php echo $storehours ?>&nbsp&nbsp
+                    <?php echo $banner ?>&nbsp&nbsp
                 </div>
             </div>
 
@@ -200,7 +202,7 @@ if ($result->num_rows > 0) {
     <section class="menu" id="menu">
         <div class="filter-btns">
             <?php
-            $sql = "SELECT * FROM category";
+            $sql = "SELECT * FROM category WHERE status IN ('active')";
             $result = mysqli_query($conn, $sql);
             $numRows = mysqli_num_rows($result);
 
@@ -272,7 +274,7 @@ if ($result->num_rows > 0) {
 
         <div class="container box-container">
             <?php
-            $sql = "SELECT * FROM menu";
+            $sql = "SELECT * FROM menu WHERE status IN ('active')";
             $result = mysqli_query($conn, $sql);
             $numRows = mysqli_num_rows($result);
 

@@ -150,6 +150,8 @@ if ($result->num_rows > 0) {
       $heading = $row['heading'];
       $subheading = $row['subheading'];
       $background_image = $row['background_image'];
+      $button_text = $row['button_text'];
+      $button_link = $row['button_link'];
    } else {
       echo "No landing page content found.";
    }
@@ -162,8 +164,7 @@ if ($result->num_rows > 0) {
             <div class="col-md-6">
                <span><?php echo $heading ?></span>
                <h3><?php echo $subheading ?></h3>
-               <a href="#" class="link-btn">Try our latest product today!</a>
-
+               <a href="<?php echo $button_link ?>" class="link-btn"><?php echo $button_text ?></a>
             </div>
          </div>
 
@@ -249,7 +250,8 @@ if ($result->num_rows > 0) {
 
       <div class="container box-container">
          <?php
-         $sql = "SELECT * FROM menu";
+         $sql = "SELECT * FROM menu WHERE status IN ('active')";
+
          $result = mysqli_query($conn, $sql);
          $numRows = mysqli_num_rows($result);
 
@@ -384,7 +386,7 @@ if ($result->num_rows > 0) {
 
    <section class="reviews" id="reviews">
 
-      <h1 class="heading">Customer Testimonials</h1>
+      <h1 class="heading">Featured Customer Reviews</h1>
 
       <div class="box-container container">
          <?php

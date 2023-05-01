@@ -36,92 +36,67 @@
             <h3>Gallery</h3>
         </div>
 
-        <table id="myTable" class="table table-striped table-bordered table-responsive table-hover">
-            <thead>
-                <tr>
-                    <th>Sr No.</th>
-                    <th>Client Name</th>
-                    <th>Country</th>
-                    <th>Salary</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>001</td>
-                    <td>Anusha</td>
-                    <td>India</td>
-                    <td>10000</td>
-                </tr>
-                <tr>
-                    <td>002</td>
-                    <td>Charles</td>
-                    <td>United Kingdom</td>
-                    <td>28000</td>
-                </tr>
-                <tr>
-                    <td>003</td>
-                    <td>Sravani</td>
-                    <td>Australia</td>
-                    <td>7000</td>
-                </tr>
-                <tr>
-                    <td>004</td>
-                    <td>Amar</td>
-                    <td>India</td>
-                    <td>18000</td>
-                </tr>
-                <tr>
-                    <td>005</td>
-                    <td>Lakshmi</td>
-                    <td>India</td>
-                    <td>12000</td>
-                </tr>
-                <tr>
-                    <td>006</td>
-                    <td>James</td>
-                    <td>Canada</td>
-                    <td>50000</td>
-                </tr>
+        <div class="header_fixed">
+            <table id="myTable" class="table table-striped table-bordered table-responsive table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Image</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Category</th>
+                        <th>Availability</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    include('db.php');
 
-                <tr>
-                    <td>007</td>
-                    <td>Ronald</td>
-                    <td>US</td>
-                    <td>75000</td>
-                </tr>
-                <tr>
-                    <td>008</td>
-                    <td>Mike</td>
-                    <td>Belgium</td>
-                    <td>100000</td>
-                </tr>
-                <tr>
-                    <td>009</td>
-                    <td>Andrew</td>
-                    <td>Argentina</td>
-                    <td>45000</td>
-                </tr>
+                    $sql = "SELECT m.*, c.category_name FROM menu m INNER JOIN category c ON m.category = c.category_id";
+                    $result = $conn->query($sql);
+                    $numRows = mysqli_num_rows($result);
 
-                <tr>
-                    <td>010</td>
-                    <td>Stephen</td>
-                    <td>Austria</td>
-                    <td>30000</td>
-                </tr>
-                <tr>
-                    <td>011</td>
-                    <td>Sara</td>
-                    <td>China</td>
-                    <td>750000</td>
-                </tr>
-                <tr>
-                    <td>012</td>
-                    <td>JonRoot</td>
-                    <td>Argentina</td>
-                    <td>65000</td>
-                </tr>
-            </tbody>
-        </table>
+                    if ($numRows > 0) {
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            $menu_id = $row['menu_id'];
+                            $menu_photo = $row['menu_photo'];
+                            $menu_name = $row['menu_name'];
+                            $description = $row['description'];
+                            $price = $row['price'];
+                            $category = $row['category_name'];
+                            $availability = $row['availability'];
+                            $status = $row['status'];
+                    ?>
+                            <tr>
+                                <td><?php echo $menu_id ?></td>
+                                <td><?php echo substr($menu_photo, 0, 10) . '...' ?></td>
+                                <td><?php echo $menu_name ?></td>
+                                <td><?php echo substr($description, 0, 30) . '...' ?></td>
+                                <td><?php echo $price ?></td>
+                                <td><?php echo $category ?></td>
+                                <td><?php echo $availability ?></td>
+                                <td><?php echo $status ?></td>
+                                <td>
+                                    <a href="editReview.php?review_id=<?php echo $review_id; ?>">
+                                        <button>Edit</button>
+                                    </a>
+                                </td>
+                            </tr>
+                    <?php
+                        }
+                    } else {
+                        echo "";
+                    }
+                    mysqli_close($conn);
+                    ?>
+
+                </tbody>
+            </table>
+        </div>
+        
     </div>
 </body>
 <script>

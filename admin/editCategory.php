@@ -66,7 +66,7 @@ if ($result->num_rows > 0) {
                     <a href="../admin/dashboard.php" class="dashboard"><i class="material-icons">dashboard</i><span>Dashboard</span></a>
                 </li>
 
-                <li class="dropdown active">
+                <li class="dropdown">
                     <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                         <i class="material-icons">home</i><span>Home</span></a>
                     <ul class="collapse list-unstyled menu" id="homeSubmenu1">
@@ -83,7 +83,7 @@ if ($result->num_rows > 0) {
                 </li>
 
 
-                <li class="dropdown">
+                <li class="dropdown active">
                     <a href="#menuSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                         <i class="material-icons">inventory_2</i><span>Menu</span></a>
                     <ul class="collapse list-unstyled menu" id="menuSubmenu1">
@@ -180,7 +180,7 @@ if ($result->num_rows > 0) {
                             <span class="material-icons">arrow_back_ios</span>
                         </button>
 
-                        <a class="navbar-brand"> Gallery </a>
+                        <a class="navbar-brand"> Edit Category </a>
 
                         <button class="d-inline-block d-lg-none ml-auto more-button" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="material-icons">more_vert</span>
@@ -217,113 +217,144 @@ if ($result->num_rows > 0) {
             </div>
 
             <div class="main-content">
-                <p class="category">Home / <strong>Gallery</strong></p>
+                <p class="category">Home / <a href="menuCategory.php">Menu Category / </a><strong>Edit</strong></p>
+
                 <div class="row">
                     <div class="container">
                         <br>
-                        <div class="header_fixed">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Image</th>
-                                        <th>Title</th>
-                                        <th>Description</th>
-                                        <th>Link</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    $sql = "SELECT * FROM gallery";
-                                    $result = $conn->query($sql);
-                                    $numRows = mysqli_num_rows($result);
+                        <?php
+                        include('../db.php');
 
-                                    if ($numRows > 0) {
-                                        while ($row = mysqli_fetch_assoc($result)) {
-                                            $gallery_id  = $row['gallery_id'];
-                                            $image = $row['image'];
-                                            $title = $row['title'];
-                                            $description = $row['description'];
-                                            $link = $row['link'];
-                                    ?>
-                                            <tr>
-                                                <td><?php echo $gallery_id ?></td>
-                                                <td><img src="../images/<?php echo $image ?>" alt=""></td>
-                                                <td><?php echo $title ?></td>
-                                                <td><?php echo $description ?></td>
-                                                <td><?php echo substr($link, 0, 30) . '...' ?></td>
-                                                <td>
-                                                    <a href="editGallery.php?gallery_id=<?php echo $gallery_id; ?>">
-                                                        <button>Edit</button>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                    <?php
-                                        }
+                        if (isset($_GET['category_id'])) {
+                            $id = $_GET['category_id'];
+
+                            $sql = "SELECT * FROM category WHERE category_id = $id";
+                            $result = $conn->query($sql);
+
+                            if ($result->num_rows > 0) {
+                                $row = $result->fetch_assoc();
+                                $category_id = $row['category_id'];
+                                $category_name = $row['category_name'];
+                                $status = $row['status'];
+                            } else {
+                                echo "No categories found.";
+                            }
+                        ?>
+                            <form action="" method="POST" autocomplete="on" enctype="multipart/form-data">
+
+                                <label for="category_name">Category Name</label>
+                                <input type="text" id="category_name" name="category_name" value="<?php echo isset($_POST['category_name']) ? $_POST['category_name'] : $category_name; ?>">
+
+                                <label for="status">Status</label>
+                                <select id="status" name="status">
+                                    <option value="<?php echo isset($_POST['status']) ? $_POST['status'] : $status; ?>" selected disabled><?php echo isset($_POST['status']) ? $_POST['status'] : $status; ?></option>
+                                    <option value="Active">Active</option>
+                                    <option value="Archived">Archived</option>
+                                </select>
+
+                                <?php
+                                if (isset($_POST['submit'])) {
+                                    // Update values in input fields
+                                    $category_name = isset($_POST['category_name']) ? $_POST['category_name'] : $category_name;
+                                    $status = isset($_POST['status']) ? $_POST['status'] : $status;
+                                    $category_id = isset($_POST['category_id']) ? $_POST['category_id'] : $category_id;
+
+                                    $stmt = $conn->prepare("UPDATE category SET category_name = ?, status = ? WHERE category_id = ?");
+                                    $stmt->bind_param("ssi", $category_name, $status, $category_id);
+
+                                    $stmt->execute();
+
+                                    if ($result) {
+                                        echo '<br><br><div style="text-align:center;">
+                                        <div class="banner">
+                                            <div class="banner__content">
+                                                <div class="banner__text">
+                                                    Data Updated
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>';
                                     } else {
-                                        echo "";
+                                        echo '<br><div style="text-align:center;">
+                                        <div class="banner">
+                                            <div class="banner__content">
+                                                <div class="banner__text">
+                                                    Data Not Updated
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>';
                                     }
-                                    ?>
-                                </tbody>
-                            </table>
-                        </div>
+                                    mysqli_close($conn);
+                                }
+                                ?>
+
+
+                                <br><br>
+                                <input type="submit" value="Submit" id="submit" name="submit">
+
+                                <br><br>
+                            <?php
+                        }
+                            ?>
+
                     </div>
+                </div>
 
-                    <footer class="footer">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <nav class="d-flex">
-                                        <ul class="m-0 p-0">
-                                            <li>
-                                                <a>
-                                                    Tech Support:
-                                                </a>
-                                            </li>
-                                        </ul>
-                                        <ul class="m-0 p-0">
-                                            <li>
-                                                <a>
-                                                    +63 929 301 0483
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </nav>
+                <footer class="footer">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <nav class="d-flex">
+                                    <ul class="m-0 p-0">
+                                        <li>
+                                            <a>
+                                                Tech Support:
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <ul class="m-0 p-0">
+                                        <li>
+                                            <a>
+                                                +63 929 301 0483
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
 
-                                </div>
-                                <div class="col-md-6">
-                                    <p class="copyright d-flex justify-content-end"> &copy <?php echo $company_year . " " . $company_name ?>
-                                    </p>
-                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="copyright d-flex justify-content-end"> &copy <?php echo $company_year . " " . $company_name ?>
+                                </p>
                             </div>
                         </div>
-                    </footer>
-                </div>
+                    </div>
+                </footer>
             </div>
         </div>
+    </div>
 
-        <!-- Optional JavaScript -->
-        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-        <script src="../js/jquery-3.3.1.slim.min.js"></script>
-        <script src="../js/popper.min.js"></script>
-        <script src="../js/bootstrap.min.js"></script>
-        <script src="../js/jquery-3.3.1.min.js"></script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="../js/jquery-3.3.1.slim.min.js"></script>
+    <script src="../js/popper.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery-3.3.1.min.js"></script>
 
 
-        <script type="text/javascript">
-            $(document).ready(function() {
-                $('#sidebarCollapse').on('click', function() {
-                    $('#sidebar').toggleClass('active');
-                    $('#content').toggleClass('active');
-                });
-
-                $('.more-button,.body-overlay').on('click', function() {
-                    $('#sidebar,.body-overlay').toggleClass('show-nav');
-                });
-
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#sidebarCollapse').on('click', function() {
+                $('#sidebar').toggleClass('active');
+                $('#content').toggleClass('active');
             });
-        </script>
+
+            $('.more-button,.body-overlay').on('click', function() {
+                $('#sidebar,.body-overlay').toggleClass('show-nav');
+            });
+
+        });
+    </script>
 </body>
 
 </html>

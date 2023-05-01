@@ -31,7 +31,7 @@ if ($result->num_rows > 0) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Menu Category</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -39,22 +39,34 @@ if ($result->num_rows > 0) {
     <link rel="stylesheet" href="../css/custom.css">
     <!-- SLIDER REVOLUTION 4.x CSS SETTINGS -->
 
-    <link rel="stylesheet" href="../css/admin.css">
-
     <!-- icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 
     <!--google material icon-->
     <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
 
+    <!-- pagination -->
+    <meta name="description" content="Bootstrap.">
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"> -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
+    <script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+
     <link rel="icon" href="../images/<?php echo $logo_icon ?>" type="images" />
+
+    <style>
+        #myTable td, th {
+            font-size: 14px;
+            text-align: center;
+            /* Adjust the font size as needed */
+        }
+    </style>
 
 </head>
 
 <body>
 
     <div class="wrapper">
-        <div class="body-overlay"></div>
 
         <!-- Sidebar  -->
         <nav id="sidebar">
@@ -66,7 +78,7 @@ if ($result->num_rows > 0) {
                     <a href="../admin/dashboard.php" class="dashboard"><i class="material-icons">dashboard</i><span>Dashboard</span></a>
                 </li>
 
-                <li class="dropdown active">
+                <li class="dropdown">
                     <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                         <i class="material-icons">home</i><span>Home</span></a>
                     <ul class="collapse list-unstyled menu" id="homeSubmenu1">
@@ -83,7 +95,7 @@ if ($result->num_rows > 0) {
                 </li>
 
 
-                <li class="dropdown">
+                <li class="dropdown active">
                     <a href="#menuSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                         <i class="material-icons">inventory_2</i><span>Menu</span></a>
                     <ul class="collapse list-unstyled menu" id="menuSubmenu1">
@@ -180,7 +192,7 @@ if ($result->num_rows > 0) {
                             <span class="material-icons">arrow_back_ios</span>
                         </button>
 
-                        <a class="navbar-brand"> Gallery </a>
+                        <a class="navbar-brand"> Product List </a>
 
                         <button class="d-inline-block d-lg-none ml-auto more-button" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="material-icons">more_vert</span>
@@ -217,45 +229,60 @@ if ($result->num_rows > 0) {
             </div>
 
             <div class="main-content">
-                <p class="category">Home / <strong>Gallery</strong></p>
+                <p class="category">Home / <strong>Product List</strong></p>
                 <div class="row">
+
                     <div class="container">
                         <br>
                         <div class="header_fixed">
-                            <table>
+                            <table id="myTable" class="table table-bordered table-responsive table-hover">
+
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
                                         <th>Image</th>
-                                        <th>Title</th>
+                                        <th>Name</th>
                                         <th>Description</th>
-                                        <th>Link</th>
+                                        <th>Price</th>
+                                        <th>Category</th>
+                                        <th>Availability</th>
+                                        <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $sql = "SELECT * FROM gallery";
+                                    $sql = "SELECT m.*, c.category_name FROM menu m INNER JOIN category c ON m.category = c.category_id";
                                     $result = $conn->query($sql);
                                     $numRows = mysqli_num_rows($result);
 
                                     if ($numRows > 0) {
                                         while ($row = mysqli_fetch_assoc($result)) {
-                                            $gallery_id  = $row['gallery_id'];
-                                            $image = $row['image'];
-                                            $title = $row['title'];
+                                            $menu_id = $row['menu_id'];
+                                            $menu_photo = $row['menu_photo'];
+                                            $menu_name = $row['menu_name'];
                                             $description = $row['description'];
-                                            $link = $row['link'];
+                                            $price = $row['price'];
+                                            $category = $row['category_name'];
+                                            $availability = $row['availability'];
+                                            $status = $row['status'];
                                     ?>
                                             <tr>
-                                                <td><?php echo $gallery_id ?></td>
-                                                <td><img src="../images/<?php echo $image ?>" alt=""></td>
-                                                <td><?php echo $title ?></td>
-                                                <td><?php echo $description ?></td>
-                                                <td><?php echo substr($link, 0, 30) . '...' ?></td>
+                                                <td><?php echo substr($menu_photo, 0, 10) . '...' ?></td>
+                                                <td><strong><?php echo $menu_name ?></strong></td>
+                                                <td><?php echo substr($description, 0, 20) . '...' ?></td>
+                                                <td><?php echo substr($price, 0, 30) . '...' ?></td>
+                                                <td><?php echo $category ?></td>
+                                                <td><?php echo $availability ?></td>
+                                                <td><?php echo $status ?></td>
                                                 <td>
-                                                    <a href="editGallery.php?gallery_id=<?php echo $gallery_id; ?>">
-                                                        <button>Edit</button>
+                                                    <a href="editMenu.php?menu_id=<?php echo $menu_id; ?>">
+                                                        <button><i class="fa fa-edit"></i></button>&nbsp&nbsp
+                                                    </a>
+                                                    <a href="archiveMenu.php?menu_id=<?php echo $menu_id; ?>">
+                                                        <button><i class="fa fa-trash"></i></button>&nbsp&nbsp
+                                                    </a>
+                                                    <a href="undoMenu.php?menu_id=<?php echo $menu_id; ?>">
+                                                        <button><i class="fa fa-undo"></i></button>
                                                     </a>
                                                 </td>
                                             </tr>
@@ -264,10 +291,13 @@ if ($result->num_rows > 0) {
                                     } else {
                                         echo "";
                                     }
+                                    mysqli_close($conn);
                                     ?>
+
                                 </tbody>
                             </table>
                         </div>
+                        <br><br>
                     </div>
 
                     <footer class="footer">
@@ -304,12 +334,7 @@ if ($result->num_rows > 0) {
         </div>
 
         <!-- Optional JavaScript -->
-        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-        <script src="../js/jquery-3.3.1.slim.min.js"></script>
-        <script src="../js/popper.min.js"></script>
         <script src="../js/bootstrap.min.js"></script>
-        <script src="../js/jquery-3.3.1.min.js"></script>
-
 
         <script type="text/javascript">
             $(document).ready(function() {
@@ -322,6 +347,12 @@ if ($result->num_rows > 0) {
                     $('#sidebar,.body-overlay').toggleClass('show-nav');
                 });
 
+            });
+        </script>
+        <!-- pagination -->
+        <script>
+            $(document).ready(function() {
+                $('#myTable').dataTable();
             });
         </script>
 </body>

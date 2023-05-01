@@ -59,7 +59,7 @@ if ($result->num_rows > 0) {
         <!-- Sidebar  -->
         <nav id="sidebar">
             <div class="sidebar-header">
-                <h3><img src="../images/<?php echo $logo_icon ?>" class="img-fluid" /><span>Cafe Allegra</span></h3>
+                <h3><img src="../images/<?php echo $logo_icon ?>" class="img-fluid" /><span><?php echo $company_name ?></span></h3>
             </div>
             <ul class="list-unstyled components">
                 <li class="">
@@ -233,12 +233,13 @@ if ($result->num_rows > 0) {
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $sql = "SELECT * FROM category";
+                                    $sql = "SELECT * FROM category WHERE category_id > 1";
                                     $result = $conn->query($sql);
                                     $numRows = mysqli_num_rows($result);
 
                                     if ($numRows > 0) {
                                         while ($row = mysqli_fetch_assoc($result)) {
+                                            $category_id = $row['category_id'];
                                             $category_name = $row['category_name'];
                                             $status = $row['status'];
                                     ?>
@@ -246,11 +247,14 @@ if ($result->num_rows > 0) {
                                                 <td><?php echo $category_name ?></td>
                                                 <td><?php echo $status ?></td>
                                                 <td>
-                                                    <a href="editCategory.php?review_id=<?php echo $review_id; ?>">
+                                                    <a href="editCategory.php?category_id=<?php echo $category_id; ?>">
                                                         <button><i class="fa fa-edit"></i></button>
                                                     </a>
-                                                    <a href="archiveCategory.php?review_id=<?php echo $review_id; ?>">
+                                                    <a href="archiveCategory.php?category_id=<?php echo $category_id; ?>">
                                                         <button><i class="fa fa-trash"></i></button>
+                                                    </a>
+                                                    <a href="undoCategory.php?category_id=<?php echo $category_id; ?>">
+                                                        <button><i class="fa fa-undo"></i></button>
                                                     </a>
                                                 </td>
                                             </tr>

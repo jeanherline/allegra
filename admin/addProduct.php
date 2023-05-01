@@ -41,9 +41,6 @@ if ($result->num_rows > 0) {
 
     <link rel="stylesheet" href="../css/admin.css">
 
-    <!-- icon -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-
     <!--google material icon-->
     <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
 
@@ -66,7 +63,7 @@ if ($result->num_rows > 0) {
                     <a href="../admin/dashboard.php" class="dashboard"><i class="material-icons">dashboard</i><span>Dashboard</span></a>
                 </li>
 
-                <li class="dropdown active">
+                <li class="dropdown">
                     <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                         <i class="material-icons">home</i><span>Home</span></a>
                     <ul class="collapse list-unstyled menu" id="homeSubmenu1">
@@ -83,7 +80,7 @@ if ($result->num_rows > 0) {
                 </li>
 
 
-                <li class="dropdown">
+                <li class="dropdown active">
                     <a href="#menuSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                         <i class="material-icons">inventory_2</i><span>Menu</span></a>
                     <ul class="collapse list-unstyled menu" id="menuSubmenu1">
@@ -180,7 +177,7 @@ if ($result->num_rows > 0) {
                             <span class="material-icons">arrow_back_ios</span>
                         </button>
 
-                        <a class="navbar-brand"> Gallery </a>
+                        <a class="navbar-brand"> Add New Product </a>
 
                         <button class="d-inline-block d-lg-none ml-auto more-button" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="material-icons">more_vert</span>
@@ -217,57 +214,105 @@ if ($result->num_rows > 0) {
             </div>
 
             <div class="main-content">
-                <p class="category">Home / <strong>Gallery</strong></p>
+                <p class="category">Menu / <strong>Add New Product</strong></p>
                 <div class="row">
                     <div class="container">
                         <br>
-                        <div class="header_fixed">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Image</th>
-                                        <th>Title</th>
-                                        <th>Description</th>
-                                        <th>Link</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    $sql = "SELECT * FROM gallery";
-                                    $result = $conn->query($sql);
-                                    $numRows = mysqli_num_rows($result);
+                        <form action="" method="POST" autocomplete="on" enctype="multipart/form-data">
+                            <label for="image">Image<span style="color: red;"> *</span></label>
+                            <input type="file" id="image" name="image" accept=".jpg,.jpeg,.png" required>
+                            <br>
 
-                                    if ($numRows > 0) {
-                                        while ($row = mysqli_fetch_assoc($result)) {
-                                            $gallery_id  = $row['gallery_id'];
-                                            $image = $row['image'];
-                                            $title = $row['title'];
-                                            $description = $row['description'];
-                                            $link = $row['link'];
-                                    ?>
-                                            <tr>
-                                                <td><?php echo $gallery_id ?></td>
-                                                <td><img src="../images/<?php echo $image ?>" alt=""></td>
-                                                <td><?php echo $title ?></td>
-                                                <td><?php echo $description ?></td>
-                                                <td><?php echo substr($link, 0, 30) . '...' ?></td>
-                                                <td>
-                                                    <a href="editGallery.php?gallery_id=<?php echo $gallery_id; ?>">
-                                                        <button>Edit</button>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                    <?php
-                                        }
-                                    } else {
-                                        echo "";
+                            <label for="menu_name">Product Name<span style="color: red;"> *</span></label>
+                            <input type="text" id="menu_name" name="menu_name" placeholder="Enter Product Name" required>
+
+                            <label for="description">Description<span style="color: red;"> *</span></label>
+                            <textarea id="description" name="description" style="height:100px" placeholder="Enter Description" required></textarea>
+
+                            <label for="price">Price<span style="color: red;"> *</span></label>
+                            <input type="text" id="price" name="price" placeholder="Enter Price" value="₱" required>
+
+                            <label for="category">Category<span style="color: red;"> *</span></label>
+                            <select id="status" name="category" required>
+                                <option value="" selected disabled>Select Menu Category</option>
+                                <?php
+                                $sql = "SELECT * FROM category WHERE status IN ('active') AND category_id > 1";
+                                $result = mysqli_query($conn, $sql);
+                                $numRows = mysqli_num_rows($result);
+
+                                if ($numRows > 0) {
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        $category_id = $row['category_id'];
+                                        $category_name = $row['category_name'];
+                                ?>
+                                        <option value="<?php echo $category_id ?>"><?php echo $category_name ?></option>
+                                <?php
                                     }
-                                    ?>
-                                </tbody>
-                            </table>
-                        </div>
+                                }
+                                ?>
+                            </select>
+
+                            <?php
+                            if (isset($_POST['submit'])) {
+                                if (!empty($_FILES["image"]["name"])) {
+                                    //file name
+                                    $tempname = $_FILES["image"]["tmp_name"];
+                                    $folder = "../images/menu/";
+                                    $image = basename($_FILES["image"]["name"]);
+                                    $target_file = $folder . $image;
+                                    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+                                    // Check if file already exists
+                                    if (file_exists($target_file)) {
+                                        $image = basename($_FILES["image"]["name"], "." . $imageFileType) . "_" . time() . "." . $imageFileType;
+                                        $target_file = $folder . $image;
+                                    }
+                                    move_uploaded_file($tempname, $target_file);
+                                }
+
+                                // Update values in input fields
+                                $menu_name = isset($_POST['menu_name']) ? $_POST['menu_name'] : $menu_name;
+                                $description = isset($_POST['description']) ? $_POST['description'] : $description;
+                                $price = isset($_POST['price']) ? $_POST['price'] : $price;
+                                $category  = isset($_POST['category']) ? $_POST['category'] : $category;
+
+                                // Insert the category into the database
+                                $stmt = $conn->prepare("INSERT INTO menu (menu_photo, menu_name, description,
+                                price, category) VALUES (?,?,?,?,?)");
+                                $stmt->bind_param("ssssi", $image, $menu_name, $description, $price, $category);
+                                $stmt->execute();
+
+                                if ($stmt) {
+                                    echo '<br><br><div style="text-align:center;">
+                                    <div class="banner">
+                                        <div class="banner__content">
+                                            <div class="banner__text">
+                                                New Category Added
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>';
+                                } else {
+                                    echo '<br><div style="text-align:center;">
+                                    <div class="banner">
+                                        <div class="banner__content">
+                                            <div class="banner__text">
+                                                Category Not Added
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>';
+                                }
+                            }
+                            mysqli_close($conn);
+                            ?>
+
+                            <br><br>
+                            <input type="submit" value="Submit" id="submit" name="submit">
+
+                            <br><br>
+                        </form>
+
                     </div>
 
                     <footer class="footer">

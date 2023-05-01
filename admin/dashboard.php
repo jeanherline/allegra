@@ -54,7 +54,7 @@ if ($result->num_rows > 0) {
         <!-- Sidebar  -->
         <nav id="sidebar">
             <div class="sidebar-header">
-                <h3><img src="../images/<?php echo $logo_icon ?>" class="img-fluid" /><span>Cafe Allegra</span></h3>
+                <h3><img src="../images/<?php echo $logo_icon ?>" class="img-fluid" /><span><?php echo $company_name ?></span></h3>
             </div>
             <ul class="list-unstyled components">
                 <li class="active">

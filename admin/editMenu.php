@@ -41,9 +41,6 @@ if ($result->num_rows > 0) {
 
     <link rel="stylesheet" href="../css/admin.css">
 
-    <!-- icon -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-
     <!--google material icon-->
     <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
 
@@ -66,7 +63,7 @@ if ($result->num_rows > 0) {
                     <a href="../admin/dashboard.php" class="dashboard"><i class="material-icons">dashboard</i><span>Dashboard</span></a>
                 </li>
 
-                <li class="dropdown active">
+                <li class="dropdown">
                     <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                         <i class="material-icons">home</i><span>Home</span></a>
                     <ul class="collapse list-unstyled menu" id="homeSubmenu1">
@@ -83,7 +80,7 @@ if ($result->num_rows > 0) {
                 </li>
 
 
-                <li class="dropdown">
+                <li class="dropdown active">
                     <a href="#menuSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                         <i class="material-icons">inventory_2</i><span>Menu</span></a>
                     <ul class="collapse list-unstyled menu" id="menuSubmenu1">
@@ -180,7 +177,7 @@ if ($result->num_rows > 0) {
                             <span class="material-icons">arrow_back_ios</span>
                         </button>
 
-                        <a class="navbar-brand"> Gallery </a>
+                        <a class="navbar-brand"> Edit Menu Product </a>
 
                         <button class="d-inline-block d-lg-none ml-auto more-button" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="material-icons">more_vert</span>
@@ -217,57 +214,162 @@ if ($result->num_rows > 0) {
             </div>
 
             <div class="main-content">
-                <p class="category">Home / <strong>Gallery</strong></p>
+                <p class="category">Menu / <a href="productList.php">Product List / </a><strong>Edit</strong></p>
+
                 <div class="row">
                     <div class="container">
-                        <br>
-                        <div class="header_fixed">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Image</th>
-                                        <th>Title</th>
-                                        <th>Description</th>
-                                        <th>Link</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+                        <?php
+                        include('../db.php');
+
+                        if (isset($_GET['menu_id'])) {
+                            $id = $_GET['menu_id'];
+
+                            $sql = "SELECT m.*, c.category_name FROM menu m INNER JOIN category c ON m.category = c.category_id WHERE menu_id = $id";
+                            $result = $conn->query($sql);
+
+                            if ($result->num_rows > 0) {
+                                $row = $result->fetch_assoc();
+                                $menu_id = $row['menu_id'];
+                                $menu_photo = $row['menu_photo'];
+                                $menu_name = $row['menu_name'];
+                                $description = $row['description'];
+                                $price = $row['price'];
+                                $category = $row['category_name'];
+                                $availability = $row['availability'];
+                                $status = $row['status'];
+                            } else {
+                                echo " ";
+                            }
+                        ?>
+                            <form action="" method="POST" autocomplete="on" enctype="multipart/form-data">
+                                <label for="image">Image</label>
+                                <input type="file" id="image" name="image" accept=".jpg,.jpeg,.png">
+                                <br>
+
+                                <label for="menu_name">Menu Name</label>
+                                <input type="text" id="menu_name" name="menu_name" value="<?php echo isset($_POST['menu_name']) ? $_POST['menu_name'] : $menu_name; ?>">
+
+                                <label for="description">Description</label>
+                                <textarea id="description" name="description" style="height:50px"><?php echo isset($_POST['description']) ? $_POST['description'] : $description; ?></textarea>
+
+                                <label for="price">Price</label>
+                                <input type="text" id="price" name="price" value="<?php echo isset($_POST['price']) ? $_POST['price'] : $price; ?>">
+
+                                <label for="category">Category</label>
+                                <select id="category" name="category">
+                                    <option value="" selected disabled><?php echo $category; ?></option>
                                     <?php
-                                    $sql = "SELECT * FROM gallery";
-                                    $result = $conn->query($sql);
+                                    $sql = "SELECT * FROM category WHERE status IN ('active') AND category_id > 1";
+                                    $result = mysqli_query($conn, $sql);
                                     $numRows = mysqli_num_rows($result);
 
                                     if ($numRows > 0) {
                                         while ($row = mysqli_fetch_assoc($result)) {
-                                            $gallery_id  = $row['gallery_id'];
-                                            $image = $row['image'];
-                                            $title = $row['title'];
-                                            $description = $row['description'];
-                                            $link = $row['link'];
+                                            $category_id = $row['category_id'];
+                                            $category_name = $row['category_name'];
                                     ?>
-                                            <tr>
-                                                <td><?php echo $gallery_id ?></td>
-                                                <td><img src="../images/<?php echo $image ?>" alt=""></td>
-                                                <td><?php echo $title ?></td>
-                                                <td><?php echo $description ?></td>
-                                                <td><?php echo substr($link, 0, 30) . '...' ?></td>
-                                                <td>
-                                                    <a href="editGallery.php?gallery_id=<?php echo $gallery_id; ?>">
-                                                        <button>Edit</button>
-                                                    </a>
-                                                </td>
-                                            </tr>
+                                            <option value="<?php echo $category_id ?>"><?php echo $category_name ?></option>
                                     <?php
                                         }
-                                    } else {
-                                        echo "";
                                     }
                                     ?>
-                                </tbody>
-                            </table>
-                        </div>
+                                </select>
+
+                                <label for="availability">Availability</label>
+                                <select id="availability" name="availability">
+                                    <option value="<?php echo isset($_POST['availability']) ? $_POST['availability'] : $availability; ?>" selected disabled><?php echo isset($_POST['availability']) ? $_POST['availability'] : $availability; ?></option>
+                                    <option value="Available Today">Available Today</option>
+                                    <option value="Unavailable Today">Unavailable Today</option>
+
+                                </select>
+                                <?php
+                                if (isset($_POST['submit'])) {
+                                    $image = $menu_id;
+
+                                    if (!empty($_FILES["image"]["name"])) {
+                                        //file name
+                                        $tempname = $_FILES["image"]["tmp_name"];
+                                        $folder = "../images/";
+                                        $target_file = $folder . basename($_FILES["image"]["name"]);
+                                        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+                                        // Check if file already exists
+                                        if (file_exists($target_file)) {
+                                            $image = basename($_FILES["image"]["name"], "." . $imageFileType) . "_" . time() . "." . $imageFileType;
+                                            $target_file = $folder . $image;
+                                        }
+
+                                        move_uploaded_file($tempname, $target_file);
+                                    }
+
+                                    // Update values in input fields
+                                    $menu_name = isset($_POST['menu_name']) ? $_POST['menu_name'] : $menu_name;
+                                    $description = isset($_POST['description']) ? $_POST['description'] : $description;
+                                    $price = isset($_POST['price']) ? $_POST['price'] : $price;
+                                    $category = isset($_POST['category']) ? $_POST['category'] : $category;
+                                    $availability = isset($_POST['availability']) ? $_POST['availability'] : $availability;
+
+                                    // Check if the selected category exists in the category table
+                                    $sql = "SELECT * FROM category WHERE category_id = $category AND status = 'active'";
+                                    $result = mysqli_query($conn, $sql);
+
+                                    if (mysqli_num_rows($result) == 0) {
+                                        // Category does not exist, display error message
+                                        echo '<br><div style="text-align:center;">
+                                        <div class="banner">
+                                        <div class="banner__content">
+                                            <div class="banner__text">
+                                            Invalid Category
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>';
+                                    } else {
+                                        // Category exists, update the record
+                                        $query = "UPDATE menu SET menu_name = '$menu_name', description = '$description', price = '$price', category = '$category', availability = '$availability'";
+
+                                        if (!empty($_FILES["image"]["name"])) {
+                                            $query .= ", image = '$image'";
+                                        }
+
+                                        $query .= " WHERE menu_id = $id";
+
+                                        $result = mysqli_query($conn, $query);
+
+                                        if ($result) {
+                                            echo '<br><br><div style="text-align:center;">
+                                        <div class="banner">
+                                            <div class="banner__content">
+                                            <div class="banner__text">
+                                                Data Updated
+                                            </div>
+                                            </div>
+                                        </div>
+                                        </div>';
+                                        } else {
+                                            echo '<br><div style="text-align:center;">
+                                        <div class="banner">
+                                            <div class="banner__content">
+                                            <div class="banner__text">
+                                                Data Not Updated
+                                            </div>
+                                            </div>
+                                        </div>
+                                        </div>';
+                                        }
+                                    }
+                                }
+                                mysqli_close($conn);
+                                ?>
+
+                                <br><br>
+                                <input type="submit" value="Submit" id="submit" name="submit">
+
+                                <br><br>
+                            </form>
+                        <?php
+                        }
+                        ?>
                     </div>
 
                     <footer class="footer">

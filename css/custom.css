@@ -123,6 +123,7 @@ a:focus {
     position: relative;
     width: 100%;
     overflow: auto;
+
 }
 
 
@@ -278,7 +279,8 @@ a:focus {
 .main-content {
     padding: 10px 20px 0px 20px;
     position: relative;
-    width: 100%;
+    width: 100%;    
+
 }
 
 .navbar {

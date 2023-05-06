@@ -123,7 +123,6 @@ a:focus {
     position: relative;
     width: 100%;
     overflow: auto;
-
 }
 
 
@@ -267,6 +266,7 @@ a:focus {
     position: relative;
     transition: all 0.3s;
     background-color: #EEEEEE;
+
 }
 
 .top-navbar {
@@ -279,8 +279,7 @@ a:focus {
 .main-content {
     padding: 10px 20px 0px 20px;
     position: relative;
-    width: 100%;    
-
+    width: 100%;
 }
 
 .navbar {
@@ -578,8 +577,6 @@ a:focus {
     background-color: #f9c851;
 }
 
-
-
 .streamline .sl-danger {
     border-left-color: #ff5b5b;
 }
@@ -775,5 +772,3 @@ footer .copyright {
 /* ---------------------------------------------------
     MEDIAQUERIES
 ----------------------------------------------------- */
-
-

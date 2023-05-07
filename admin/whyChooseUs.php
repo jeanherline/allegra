@@ -287,14 +287,14 @@ if ($result->num_rows > 0) {
                                         array_push($params, $image);
                                     } else {
                                         echo '<br><div style="text-align:center;">
-            <div class="banner">
-                <div class="banner__content">
-                    <div class="banner__text">
-                        Failed to upload background image
-                    </div>
-                </div>
-            </div>
-        </div>';
+                                        <div class="banner">
+                                            <div class="banner__content">
+                                                <div class="banner__text">
+                                                    Failed to upload background image
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>';
                                         exit();
                                     }
                                 }
@@ -342,7 +342,7 @@ if ($result->num_rows > 0) {
                                         </div>
                                     </div>
                                 </div>';
-                                                        }
+                                }
                                 mysqli_close($conn);
                             }
                             ?>

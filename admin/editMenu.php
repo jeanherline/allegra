@@ -46,6 +46,13 @@ if ($result->num_rows > 0) {
 
     <link rel="icon" href="../images/<?php echo $logo_icon ?>" type="images" />
 
+    <style>
+        .container {
+            height: auto;
+            padding-bottom: 100px;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -215,7 +222,7 @@ if ($result->num_rows > 0) {
 
             <div class="main-content">
                 <p class="category">Menu / <a href="productList.php">Product List / </a><strong>Edit</strong></p>
-
+                <br>
                 <div class="row">
                     <div class="container">
                         <?php
@@ -250,7 +257,7 @@ if ($result->num_rows > 0) {
                                 <input type="text" id="menu_name" name="menu_name" value="<?php echo isset($_POST['menu_name']) ? $_POST['menu_name'] : $menu_name; ?>">
 
                                 <label for="description">Description</label>
-                                <textarea id="description" name="description" style="height:50px"><?php echo isset($_POST['description']) ? $_POST['description'] : $description; ?></textarea>
+                                <textarea id="description" name="description" style="height:100px"><?php echo isset($_POST['description']) ? $_POST['description'] : $description; ?></textarea>
 
                                 <label for="price">Price</label>
                                 <input type="text" id="price" name="price" value="<?php echo isset($_POST['price']) ? $_POST['price'] : $price; ?>">
@@ -361,10 +368,9 @@ if ($result->num_rows > 0) {
                                 }
                                 mysqli_close($conn);
                                 ?>
-
                                 <br><br>
                                 <input type="submit" value="Submit" id="submit" name="submit">
-
+                                <br><br>
                                 <br><br>
                             </form>
                         <?php

@@ -31,7 +31,7 @@ if ($result->num_rows > 0) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu Category</title>
+    <title>Our Philosophy</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -39,29 +39,14 @@ if ($result->num_rows > 0) {
     <link rel="stylesheet" href="../css/custom.css">
     <!-- SLIDER REVOLUTION 4.x CSS SETTINGS -->
 
-    <!-- icon -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="stylesheet" href="../css/admin.css">
 
     <!--google material icon-->
     <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
 
-    <!-- pagination -->
-    <meta name="description" content="Bootstrap.">
-    <!-- <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"> -->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
-    <script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
-
     <link rel="icon" href="../images/<?php echo $logo_icon ?>" type="images" />
 
     <style>
-        #myTable td,
-        th {
-            font-size: 14px;
-            text-align: center;
-            /* Adjust the font size as needed */
-        }
-
         .container {
             height: auto;
             padding-bottom: 100px;
@@ -73,6 +58,7 @@ if ($result->num_rows > 0) {
 <body>
 
     <div class="wrapper">
+        <div class="body-overlay"></div>
 
         <!-- Sidebar  -->
         <nav id="sidebar">
@@ -101,7 +87,7 @@ if ($result->num_rows > 0) {
                 </li>
 
 
-                <li class="dropdown active">
+                <li class="dropdown">
                     <a href="#menuSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                         <i class="material-icons">inventory_2</i><span>Menu</span></a>
                     <ul class="collapse list-unstyled menu" id="menuSubmenu1">
@@ -133,7 +119,7 @@ if ($result->num_rows > 0) {
                     </ul>
                 </li>
 
-                <li class="dropdown">
+                <li class="dropdown active">
                     <a href="#pageSubmenu3" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                         <i class="material-icons">info</i>
                         <span>About</span></a>
@@ -198,7 +184,7 @@ if ($result->num_rows > 0) {
                             <span class="material-icons">arrow_back_ios</span>
                         </button>
 
-                        <a class="navbar-brand"> Product List </a>
+                        <a class="navbar-brand"> Our Philosophy </a>
 
                         <button class="d-inline-block d-lg-none ml-auto more-button" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="material-icons">more_vert</span>
@@ -235,99 +221,99 @@ if ($result->num_rows > 0) {
             </div>
 
             <div class="main-content">
-                <p class="category">Home / <strong>Product List</strong></p>
+                <p class="category">About / <a href="ourPhilosophy.php"></a><strong>Our Philosophy</strong></p>
+                <br>
                 <div class="row">
-
                     <div class="container">
-                        <br>
-                        <div class="header_fixed">
-                            <table id="myTable" class="table table-bordered table-responsive table-hover">
+                        <?php
+                        include('../db.php');
 
-                                <thead>
-                                    <tr>
-                                        <th>Image</th>
-                                        <th>Name</th>
-                                        <th>Description</th>
-                                        <th>Price</th>
-                                        <th>Category</th>
-                                        <th>Availability</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    $sql = "SELECT m.*, c.category_name FROM menu m INNER JOIN category c ON m.category = c.category_id";
-                                    $result = $conn->query($sql);
-                                    $numRows = mysqli_num_rows($result);
+                        $sql = "SELECT * FROM philosophy";
+                        $result = $conn->query($sql);
 
-                                    if ($numRows > 0) {
-                                        while ($row = mysqli_fetch_assoc($result)) {
-                                            $menu_id = $row['menu_id'];
-                                            $menu_photo = $row['menu_photo'];
-                                            $menu_name = $row['menu_name'];
-                                            $description = $row['description'];
-                                            $price = $row['price'];
-                                            $category = $row['category_name'];
-                                            $availability = $row['availability'];
-                                            $status = $row['status'];
-                                    ?>
-                                            <tr>
-                                                <td><?php echo substr($menu_photo, 0, 10) . '...' ?></td>
-                                                <td><strong><?php echo $menu_name ?></strong></td>
-                                                <td><?php echo substr($description, 0, 20) . '...' ?></td>
-                                                <td><?php echo substr($price, 0, 30) . '...' ?></td>
-                                                <td><?php echo $category ?></td>
-                                                <td><?php echo $availability ?></td>
-                                                <td><?php echo $status ?></td>
-                                                <td>
-                                                    <a href="editMenu.php?menu_id=<?php echo $menu_id; ?>">
-                                                        <button><i class="fa fa-edit"></i></button>&nbsp&nbsp
-                                                    </a>
+                        if ($result->num_rows > 0) {
+                            $row = $result->fetch_assoc();
+                            $heading = $row['heading'];
+                            $subheading = $row['subheading'];
+                            $mission = $row['mission'];
+                            $vision = $row['vision'];
+                            $background_image = $row['background_image'];
+                        } else {
+                            echo " ";
+                        }
+                        ?>
+                        <form action="" method="POST" autocomplete="on" enctype="multipart/form-data">
+                            <label for="image">Image</label>
+                            <input type="file" id="image" name="image" accept=".jpg,.jpeg,.png">
+                            <br>
 
-                                                    <?php
-                                                    if ($availability == "Available Today") {
-                                                    ?>
-                                                        <a href="unavailable.php?menu_id=<?php echo $menu_id; ?>">
-                                                            <button><i class="fa fa-check"></i></button>&nbsp&nbsp
-                                                        </a>
-                                                    <?php
-                                                    } else {
-                                                    ?>
-                                                        <a href="available.php?menu_id=<?php echo $menu_id; ?>">
-                                                            <button><i class="fa fa-ban"></i></button>&nbsp&nbsp
-                                                        </a>
-                                                    <?php
-                                                    }
-                                                    if ($status == "Active") {
-                                                    ?>
-                                                        <a href="archiveMenu.php?menu_id=<?php echo $menu_id; ?>">
-                                                            <button><i class="fa fa-trash"></i></button>&nbsp&nbsp
-                                                        </a>
-                                                    <?php
-                                                    } else {
-                                                    ?>
-                                                        <a href="undoMenu.php?menu_id=<?php echo $menu_id; ?>">
-                                                            <button><i class="fa fa-undo"></i></button>&nbsp&nbsp
-                                                        </a>
-                                                    <?php
-                                                    }
+                            <label for="heading">Heading</label>
+                            <input type="text" id="heading" name="heading" value="<?php echo isset($_POST['heading']) ? $_POST['heading'] : $heading; ?>">
 
-                                                    ?>
-                                                </td>
-                                            </tr>
-                                    <?php
-                                        }
-                                    } else {
-                                        echo "";
+                            <label for="subheading">Subheading</label>
+                            <input type="text" id="subheading" name="subheading" value="<?php echo isset($_POST['subheading']) ? $_POST['subheading'] : $subheading; ?>">
+
+                            <label for="mission">Mission</label>
+                            <textarea id="mission" name="mission" style="height:100px"><?php echo isset($_POST['mission']) ? $_POST['mission'] : $mission; ?></textarea>
+
+                            <label for="vision">Vision</label>
+                            <textarea id="vision" name="vision" style="height:100px"><?php echo isset($_POST['vision']) ? $_POST['vision'] : $vision; ?></textarea>
+
+                            <?php
+                            if (isset($_POST['submit'])) {
+                                include('../db.php');
+
+                                $heading = isset($_POST['heading']) ? $_POST['heading'] : $menu_name;
+                                $subheading = isset($_POST['subheading']) ? $_POST['subheading'] : $subheading;
+                                $mission = isset($_POST['mission']) ? $_POST['mission'] : $mission;
+                                $vision = isset($_POST['vision']) ? $_POST['vision'] : $vision;
+                                $image = isset($_FILES['image']['name']) ? $_FILES['image']['name'] : '';
+
+                                $query = "UPDATE philosophy SET heading = ?, subheading = ?, mission = ?, vision = ?";
+                                $params = array($heading, $subheading, $mission, $vision);
+
+                                if (!empty($_FILES['image']['name'])) {
+                                    $temp_name = $_FILES['image']['tmp_name'];
+                                    $folder_path = "../images/";
+                                    if (move_uploaded_file($temp_name, $folder_path . $image)) {
+                                        $query .= ", background_image = ?";
+                                        array_push($params, $image);
                                     }
-                                    mysqli_close($conn);
-                                    ?>
+                                }
 
-                                </tbody>
-                            </table>
-                        </div>
-                        <br><br>
+                                $query .= " WHERE philosophy_id=1";
+                                $stmt = $conn->prepare($query);
+                                $stmt->bind_param(str_repeat("s", count($params)), ...$params);
+
+                                if ($stmt->execute()) {
+                                    echo '<br><br><div style="text-align:center;">
+                                    <div class="banner">
+                                        <div class="banner__content">
+                                            <div class="banner__text">
+                                                Data Updated
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>';
+                                } else {
+                                    echo '<br><div style="text-align:center;">
+                                    <div class="banner">
+                                        <div class="banner__content">
+                                            <div class="banner__text">
+                                                Data Not Updated
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>';
+                                }
+                                mysqli_close($conn);
+                            }
+                            ?>
+                            <br><br>
+                            <input type="submit" value="Submit" id="submit" name="submit">
+                        </form>
+
+
                     </div>
 
                     <footer class="footer">
@@ -364,7 +350,12 @@ if ($result->num_rows > 0) {
         </div>
 
         <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="../js/jquery-3.3.1.slim.min.js"></script>
+        <script src="../js/popper.min.js"></script>
         <script src="../js/bootstrap.min.js"></script>
+        <script src="../js/jquery-3.3.1.min.js"></script>
+
 
         <script type="text/javascript">
             $(document).ready(function() {
@@ -377,12 +368,6 @@ if ($result->num_rows > 0) {
                     $('#sidebar,.body-overlay').toggleClass('show-nav');
                 });
 
-            });
-        </script>
-        <!-- pagination -->
-        <script>
-            $(document).ready(function() {
-                $('#myTable').dataTable();
             });
         </script>
 </body>

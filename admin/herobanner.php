@@ -537,7 +537,7 @@ if ($result->num_rows > 0) {
                                                     $result = mysqli_query($conn, $query);
 
                                                     if ($result) {
-                                                            echo '<br><br><div style="text-align:center;">
+                                                        echo '<br><br><div style="text-align:center;">
                                                     <div class="banner">
                                                         <div class="banner__content">
                                                             <div class="banner__text">
@@ -547,7 +547,7 @@ if ($result->num_rows > 0) {
                                                     </div>
                                                 </div>';
                                                     } else {
-                                                            echo '<br><div style="text-align:center;">
+                                                        echo '<br><div style="text-align:center;">
                                                     <div class="banner">
                                                         <div class="banner__content">
                                                             <div class="banner__text">

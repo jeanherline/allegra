@@ -31,7 +31,7 @@ if ($result->num_rows > 0) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu Category</title>
+    <title>Edit Partner</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -39,40 +39,22 @@ if ($result->num_rows > 0) {
     <link rel="stylesheet" href="../css/custom.css">
     <!-- SLIDER REVOLUTION 4.x CSS SETTINGS -->
 
+    <link rel="stylesheet" href="../css/admin.css">
+
     <!-- icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 
     <!--google material icon-->
     <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
 
-    <!-- pagination -->
-    <meta name="description" content="Bootstrap.">
-    <!-- <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"> -->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
-    <script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
-
     <link rel="icon" href="../images/<?php echo $logo_icon ?>" type="images" />
-
-    <style>
-        #myTable td,
-        th {
-            font-size: 14px;
-            text-align: center;
-            /* Adjust the font size as needed */
-        }
-
-        .container {
-            height: auto;
-            padding-bottom: 100px;
-        }
-    </style>
 
 </head>
 
 <body>
 
     <div class="wrapper">
+        <div class="body-overlay"></div>
 
         <!-- Sidebar  -->
         <nav id="sidebar">
@@ -101,7 +83,7 @@ if ($result->num_rows > 0) {
                 </li>
 
 
-                <li class="dropdown active">
+                <li class="dropdown">
                     <a href="#menuSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                         <i class="material-icons">inventory_2</i><span>Menu</span></a>
                     <ul class="collapse list-unstyled menu" id="menuSubmenu1">
@@ -159,7 +141,7 @@ if ($result->num_rows > 0) {
                     </ul>
                 </li>
 
-                <li class="dropdown">
+                <li class="dropdown active">
                     <a href="#footerSubmenu4" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                         <i class="material-icons">store</i><span>Company</span></a>
                     <ul class="collapse list-unstyled menu" id="footerSubmenu4">
@@ -198,7 +180,7 @@ if ($result->num_rows > 0) {
                             <span class="material-icons">arrow_back_ios</span>
                         </button>
 
-                        <a class="navbar-brand"> Product List </a>
+                        <a class="navbar-brand"> Edit Partner </a>
 
                         <button class="d-inline-block d-lg-none ml-auto more-button" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="material-icons">more_vert</span>
@@ -235,156 +217,162 @@ if ($result->num_rows > 0) {
             </div>
 
             <div class="main-content">
-                <p class="category">Home / <strong>Product List</strong></p>
-                <div class="row">
+                <p class="category">Company / <a href="deliveryPartners.php">Delivery Partners / </a><strong>Edit</strong></p>
 
+                <div class="row">
                     <div class="container">
                         <br>
-                        <div class="header_fixed">
-                            <table id="myTable" class="table table-bordered table-responsive table-hover">
+                        <?php
+                        include('../db.php');
 
-                                <thead>
-                                    <tr>
-                                        <th>Image</th>
-                                        <th>Name</th>
-                                        <th>Description</th>
-                                        <th>Price</th>
-                                        <th>Category</th>
-                                        <th>Availability</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    $sql = "SELECT m.*, c.category_name FROM menu m INNER JOIN category c ON m.category = c.category_id";
-                                    $result = $conn->query($sql);
-                                    $numRows = mysqli_num_rows($result);
+                        // Check if a partner_id is provided in the URL
+                        if (isset($_GET['partner_id'])) {
+                            $id = $_GET['partner_id'];
 
-                                    if ($numRows > 0) {
-                                        while ($row = mysqli_fetch_assoc($result)) {
-                                            $menu_id = $row['menu_id'];
-                                            $menu_photo = $row['menu_photo'];
-                                            $menu_name = $row['menu_name'];
-                                            $description = $row['description'];
-                                            $price = $row['price'];
-                                            $category = $row['category_name'];
-                                            $availability = $row['availability'];
-                                            $status = $row['status'];
-                                    ?>
-                                            <tr>
-                                                <td><?php echo substr($menu_photo, 0, 10) . '...' ?></td>
-                                                <td><strong><?php echo $menu_name ?></strong></td>
-                                                <td><?php echo substr($description, 0, 20) . '...' ?></td>
-                                                <td><?php echo substr($price, 0, 30) . '...' ?></td>
-                                                <td><?php echo $category ?></td>
-                                                <td><?php echo $availability ?></td>
-                                                <td><?php echo $status ?></td>
-                                                <td>
-                                                    <a href="editMenu.php?menu_id=<?php echo $menu_id; ?>">
-                                                        <button><i class="fa fa-edit"></i></button>&nbsp&nbsp
-                                                    </a>
+                            // Fetch the partner record by ID
+                            $sql = "SELECT * FROM delivery_partners WHERE partner_id = $id";
+                            $result = $conn->query($sql);
 
-                                                    <?php
-                                                    if ($availability == "Available Today") {
-                                                    ?>
-                                                        <a href="unavailable.php?menu_id=<?php echo $menu_id; ?>">
-                                                            <button><i class="fa fa-check"></i></button>&nbsp&nbsp
-                                                        </a>
-                                                    <?php
-                                                    } else {
-                                                    ?>
-                                                        <a href="available.php?menu_id=<?php echo $menu_id; ?>">
-                                                            <button><i class="fa fa-ban"></i></button>&nbsp&nbsp
-                                                        </a>
-                                                    <?php
-                                                    }
-                                                    if ($status == "Active") {
-                                                    ?>
-                                                        <a href="archiveMenu.php?menu_id=<?php echo $menu_id; ?>">
-                                                            <button><i class="fa fa-trash"></i></button>&nbsp&nbsp
-                                                        </a>
-                                                    <?php
-                                                    } else {
-                                                    ?>
-                                                        <a href="undoMenu.php?menu_id=<?php echo $menu_id; ?>">
-                                                            <button><i class="fa fa-undo"></i></button>&nbsp&nbsp
-                                                        </a>
-                                                    <?php
-                                                    }
+                            if ($result->num_rows > 0) {
+                                $row = $result->fetch_assoc();
+                                $partner_id = $row['partner_id'];
+                                $partner_name = $row['partner_name'];
+                                $partner_link = $row['partner_link'];
+                                $background_image = $row['partner_photo'];
+                            } else {
+                                echo "No partner found.";
+                                exit(); // Stop script execution
+                            }
+                        } else {
+                            echo "Partner ID is missing.";
+                            exit(); // Stop script execution
+                        }
+                        ?>
 
-                                                    ?>
-                                                </td>
-                                            </tr>
-                                    <?php
-                                        }
-                                    } else {
-                                        echo "";
+                        <form action="" method="POST" enctype="multipart/form-data">
+                            <label for="image">Partner Logo</label>
+                            <input type="file" id="image" name="image" accept=".jpg,.jpeg,.png">
+                            <br>
+
+                            <label for="partner_name">Partner Name</label>
+                            <input type="text" id="partner_name" name="partner_name" value="<?php echo isset($_POST['partner_name']) ? $_POST['partner_name'] : $partner_name; ?>">
+
+                            <label for="partner_link">Partner Link</label>
+                            <input type="text" id="partner_link" name="partner_link" value="<?php echo isset($_POST['partner_link']) ? $_POST['partner_link'] : $partner_link; ?>">
+
+                            <?php
+                            // Check if the form is submitted
+                            if (isset($_POST['submit'])) {
+                                // Check if a new image is uploaded
+                                if (!empty($_FILES["image"]["name"])) {
+                                    $tempname = $_FILES["image"]["tmp_name"];
+                                    $folder = "../images/";
+                                    $target_file = $folder . basename($_FILES["image"]["name"]);
+                                    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+                                    // Check if file already exists
+                                    if (file_exists($target_file)) {
+                                        $image = basename($_FILES["image"]["name"], "." . $imageFileType) . "_" . time() . "." . $imageFileType;
+                                        $target_file = $folder . $image;
                                     }
-                                    mysqli_close($conn);
-                                    ?>
 
-                                </tbody>
-                            </table>
-                        </div>
-                        <br><br>
+                                    move_uploaded_file($tempname, $target_file);
+                                } else {
+                                    $image = $background_image;
+                                }
+
+                                // Update the partner record in the database
+                                $stmt = $conn->prepare("UPDATE delivery_partners SET partner_name = ?, partner_link = ?, partner_photo = ? WHERE partner_id = ?");
+                                $stmt->bind_param("sssi", $_POST['partner_name'], $_POST['partner_link'], $image, $partner_id);
+                                $stmt->execute();
+
+                                if ($stmt) {
+                                    echo '<br><br><div style="text-align:center;">
+                                    <div class="banner">
+                                        <div class="banner__content">
+                                            <div class="banner__text">
+                                                Data Updated
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>';
+                                } else {
+                                    echo '<br><div style="text-align:center;">
+                                    <div class="banner">
+                                        <div class="banner__content">
+                                            <div class="banner__text">
+                                                Data Not Updated
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>';
+                                }
+                                mysqli_close($conn);
+                            }
+                            ?>
+                            <br><br>
+                            <input type="submit" value="Submit" id="submit" name="submit">
+
+                            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                        </form>
+
                     </div>
+                </div>
 
-                    <footer class="footer">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <nav class="d-flex">
-                                        <ul class="m-0 p-0">
-                                            <li>
-                                                <a>
-                                                    Tech Support:
-                                                </a>
-                                            </li>
-                                        </ul>
-                                        <ul class="m-0 p-0">
-                                            <li>
-                                                <a>
-                                                    +63 929 301 0483
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </nav>
+                <footer class="footer">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <nav class="d-flex">
+                                    <ul class="m-0 p-0">
+                                        <li>
+                                            <a>
+                                                Tech Support:
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <ul class="m-0 p-0">
+                                        <li>
+                                            <a>
+                                                +63 929 301 0483
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
 
-                                </div>
-                                <div class="col-md-6">
-                                    <p class="copyright d-flex justify-content-end"> &copy <?php echo $company_year . " " . $company_name ?>
-                                    </p>
-                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="copyright d-flex justify-content-end"> &copy <?php echo $company_year . " " . $company_name ?>
+                                </p>
                             </div>
                         </div>
-                    </footer>
-                </div>
+                    </div>
+                </footer>
             </div>
         </div>
+    </div>
 
-        <!-- Optional JavaScript -->
-        <script src="../js/bootstrap.min.js"></script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="../js/jquery-3.3.1.slim.min.js"></script>
+    <script src="../js/popper.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery-3.3.1.min.js"></script>
 
-        <script type="text/javascript">
-            $(document).ready(function() {
-                $('#sidebarCollapse').on('click', function() {
-                    $('#sidebar').toggleClass('active');
-                    $('#content').toggleClass('active');
-                });
 
-                $('.more-button,.body-overlay').on('click', function() {
-                    $('#sidebar,.body-overlay').toggleClass('show-nav');
-                });
-
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#sidebarCollapse').on('click', function() {
+                $('#sidebar').toggleClass('active');
+                $('#content').toggleClass('active');
             });
-        </script>
-        <!-- pagination -->
-        <script>
-            $(document).ready(function() {
-                $('#myTable').dataTable();
+
+            $('.more-button,.body-overlay').on('click', function() {
+                $('#sidebar,.body-overlay').toggleClass('show-nav');
             });
-        </script>
+
+        });
+    </script>
 </body>
 
 </html>

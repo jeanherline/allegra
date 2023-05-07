@@ -31,7 +31,7 @@ if ($result->num_rows > 0) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu Category</title>
+    <title>Private Dining List</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -63,6 +63,7 @@ if ($result->num_rows > 0) {
         }
 
         .container {
+            overflow: auto;
             height: auto;
             padding-bottom: 100px;
         }
@@ -101,7 +102,7 @@ if ($result->num_rows > 0) {
                 </li>
 
 
-                <li class="dropdown active">
+                <li class="dropdown">
                     <a href="#menuSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                         <i class="material-icons">inventory_2</i><span>Menu</span></a>
                     <ul class="collapse list-unstyled menu" id="menuSubmenu1">
@@ -172,7 +173,7 @@ if ($result->num_rows > 0) {
                     </ul>
                 </li>
 
-                <li class="dropdown">
+                <li class="dropdown active">
                     <a href="#footerSubmenu5" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                         <i class="material-icons">format_list_bulleted</i><span>Reservations</span></a>
                     <ul class="collapse list-unstyled menu" id="footerSubmenu5">
@@ -198,7 +199,7 @@ if ($result->num_rows > 0) {
                             <span class="material-icons">arrow_back_ios</span>
                         </button>
 
-                        <a class="navbar-brand"> Product List </a>
+                        <a class="navbar-brand"> Private Dining List </a>
 
                         <button class="d-inline-block d-lg-none ml-auto more-button" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="material-icons">more_vert</span>
@@ -235,7 +236,7 @@ if ($result->num_rows > 0) {
             </div>
 
             <div class="main-content">
-                <p class="category">Home / <strong>Product List</strong></p>
+                <p class="category">Reservations / <strong>Private Dining List</strong></p>
                 <div class="row">
 
                     <div class="container">
@@ -245,48 +246,60 @@ if ($result->num_rows > 0) {
 
                                 <thead>
                                     <tr>
-                                        <th>Image</th>
                                         <th>Name</th>
-                                        <th>Description</th>
-                                        <th>Price</th>
-                                        <th>Category</th>
-                                        <th>Availability</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>Number of Guests</th>
+                                        <th>Reservation Date</th>
+                                        <th>Reservation Time</th>
+                                        <th>Other</th>
+                                        <th>Special Requests</th>
+                                        <th>Created At</th>
+                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $sql = "SELECT m.*, c.category_name FROM menu m INNER JOIN category c ON m.category = c.category_id";
+                                    $sql = "SELECT * FROM private_dining";
                                     $result = $conn->query($sql);
                                     $numRows = mysqli_num_rows($result);
 
                                     if ($numRows > 0) {
                                         while ($row = mysqli_fetch_assoc($result)) {
-                                            $menu_id = $row['menu_id'];
-                                            $menu_photo = $row['menu_photo'];
-                                            $menu_name = $row['menu_name'];
-                                            $description = $row['description'];
-                                            $price = $row['price'];
-                                            $category = $row['category_name'];
-                                            $availability = $row['availability'];
+                                            $private_dining_id = $row['private_dining_id'];
+                                            $first_name = $row['first_name'];
+                                            $last_name = $row['last_name'];
+                                            $email = $row['email'];
+                                            $phone = $row['phone'];
+                                            $number_of_guests = $row['number_of_guests'];
+                                            $reservation_date = $row['reservation_date'];
+                                            $reservation_time = $row['reservation_time'];
+                                            $others = $row['others'];
+                                            $special_requests = $row['special_requests'];
                                             $status = $row['status'];
+                                            $created_at = $row['created_at'];
                                     ?>
                                             <tr>
-                                                <td><?php echo substr($menu_photo, 0, 10) . '...' ?></td>
-                                                <td><strong><?php echo $menu_name ?></strong></td>
-                                                <td><?php echo substr($description, 0, 20) . '...' ?></td>
-                                                <td><?php echo substr($price, 0, 30) . '...' ?></td>
-                                                <td><?php echo $category ?></td>
-                                                <td><?php echo $availability ?></td>
-                                                <td><?php echo $status ?></td>
+                                                <td><?php echo $first_name . " " . $last_name ?></td>
+                                                <td><?php echo substr($email, 0, 10) . '...' ?></td>
+                                                <td><?php echo $phone ?></td>
+
+                                                <td><?php echo $number_of_guests ?></td>
+                                                <td><strong><?php echo date("F j, Y", strtotime($reservation_date)) ?></strong></td>
+                                                <td><strong><?php echo date('g:i A', strtotime($reservation_time)); ?></strong></td>
+
+                                                <td><?php echo $others ?></td>
+                                                <td><?php echo $special_requests ?></td>
+
+                                                <td><?php echo $created_at ?></td>
+
                                                 <td>
                                                     <a href="editMenu.php?menu_id=<?php echo $menu_id; ?>">
                                                         <button><i class="fa fa-edit"></i></button>&nbsp&nbsp
                                                     </a>
 
                                                     <?php
-                                                    if ($availability == "Available Today") {
+                                                    if ($status == "Pending") {
                                                     ?>
                                                         <a href="unavailable.php?menu_id=<?php echo $menu_id; ?>">
                                                             <button><i class="fa fa-check"></i></button>&nbsp&nbsp
@@ -323,68 +336,70 @@ if ($result->num_rows > 0) {
                                     }
                                     mysqli_close($conn);
                                     ?>
-
                                 </tbody>
                             </table>
+                            <br><br><br><br><br><br><br><br><br><br><br>
+                            <br><br><br><br><br><br><br><br><br><br><br>
+
                         </div>
-                        <br><br>
                     </div>
+                </div>
 
-                    <footer class="footer">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <nav class="d-flex">
-                                        <ul class="m-0 p-0">
-                                            <li>
-                                                <a>
-                                                    Tech Support:
-                                                </a>
-                                            </li>
-                                        </ul>
-                                        <ul class="m-0 p-0">
-                                            <li>
-                                                <a>
-                                                    +63 929 301 0483
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </nav>
+                <footer class="footer">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <nav class="d-flex">
+                                    <ul class="m-0 p-0">
+                                        <li>
+                                            <a>
+                                                Tech Support:
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <ul class="m-0 p-0">
+                                        <li>
+                                            <a>
+                                                +63 929 301 0483
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
 
-                                </div>
-                                <div class="col-md-6">
-                                    <p class="copyright d-flex justify-content-end"> &copy <?php echo $company_year . " " . $company_name ?>
-                                    </p>
-                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="copyright d-flex justify-content-end"> &copy <?php echo $company_year . " " . $company_name ?>
+                                </p>
                             </div>
                         </div>
-                    </footer>
-                </div>
+                    </div>
+                </footer>
             </div>
         </div>
+    </div>
 
-        <!-- Optional JavaScript -->
-        <script src="../js/bootstrap.min.js"></script>
+    <!-- Optional JavaScript -->
+    <script src="../js/bootstrap.min.js"></script>
 
-        <script type="text/javascript">
-            $(document).ready(function() {
-                $('#sidebarCollapse').on('click', function() {
-                    $('#sidebar').toggleClass('active');
-                    $('#content').toggleClass('active');
-                });
-
-                $('.more-button,.body-overlay').on('click', function() {
-                    $('#sidebar,.body-overlay').toggleClass('show-nav');
-                });
-
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#sidebarCollapse').on('click', function() {
+                $('#sidebar').toggleClass('active');
+                $('#content').toggleClass('active');
             });
-        </script>
-        <!-- pagination -->
-        <script>
-            $(document).ready(function() {
-                $('#myTable').dataTable();
+
+            $('.more-button,.body-overlay').on('click', function() {
+                $('#sidebar,.body-overlay').toggleClass('show-nav');
             });
-        </script>
+
+        });
+    </script>
+    <!-- pagination -->
+    <script>
+        $(document).ready(function() {
+            $('#myTable').dataTable();
+        });
+    </script>
 </body>
 
 </html>

@@ -340,7 +340,6 @@ if ($result->num_rows > 0) {
                             </table>
                             <br><br><br><br><br><br><br><br><br><br><br>
                             <br><br><br><br><br><br><br><br><br><br><br>
-
                         </div>
                     </div>
                 </div>

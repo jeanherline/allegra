@@ -236,6 +236,7 @@ if ($result->num_rows > 0) {
                                         <th>Photo</th>
                                         <th>Name</th>
                                         <th>Link</th>
+                                        <th>Status</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -250,12 +251,14 @@ if ($result->num_rows > 0) {
                                             $partner_id = $row['partner_id'];
                                             $partner_name = $row['partner_name'];
                                             $partner_link = $row['partner_link'];
+                                            $status = $row['status'];
                                             $background_image = $row['partner_photo'];
                                     ?>
                                             <tr>
                                                 <td><?php echo $background_image ?></td>
                                                 <td><?php echo $partner_name ?></td>
                                                 <td><?php echo substr($partner_link, 0, 30) . '...' ?></td>
+                                                <td><?php echo $status ?></td>
                                                 <td>
                                                     <a href="editPartner.php?partner_id=<?php echo $partner_id; ?>">
                                                         <button><i class="fa fa-edit"></i></button>

@@ -48,8 +48,9 @@ if ($result->num_rows > 0) {
 
     <style>
         .container {
+            overflow: auto;
             height: auto;
-            padding-bottom: 100px;
+            padding-bottom: 300px;
         }
     </style>
 
@@ -319,12 +320,7 @@ if ($result->num_rows > 0) {
                     </footer>
                 </div>
             </div>
-            <style>
-                .container {
-                    height: auto;
-                    padding-bottom: 50px;
-                }
-            </style>
+
         </div>
 
         <!-- Optional JavaScript -->

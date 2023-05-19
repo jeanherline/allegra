@@ -48,8 +48,8 @@ if ($result->num_rows > 0) {
 
     <style>
         .container {
-            height: auto;
-            padding-bottom: 100px;
+            padding-bottom: 300px;
+            height: 130vh !important;
         }
     </style>
 
@@ -160,13 +160,26 @@ if ($result->num_rows > 0) {
 
                 <li class="dropdown">
                     <a href="#footerSubmenu5" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                        <i class="material-icons">format_list_bulleted</i><span>Reservations</span></a>
+                        <i class="material-icons">add_task</i><span>Reservations</span></a>
                     <ul class="collapse list-unstyled menu" id="footerSubmenu5">
                         <li>
                             <a href="../admin/pdList.php">Private Dining List</a>
                         </li>
                         <li>
                             <a href="../admin/trList.php">Table Reservation List</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#footerSubmenu6" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="material-icons">groups</i><span>Engagements</span></a>
+                    <ul class="collapse list-unstyled menu" id="footerSubmenu6">
+                        <li>
+                            <a href="../admin/contactList.php">Contact Submission List</a>
+                        </li>
+                        <li>
+                            <a href="../admin/feedbackList.php">Feedback Submission List</a>
                         </li>
                     </ul>
                 </li>
@@ -194,10 +207,11 @@ if ($result->num_rows > 0) {
                             <ul class="nav navbar-nav ml-auto">
 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">
+                                    <a class="nav-link" href="../index.php">
                                         <span class="material-icons">web</span>
                                     </a>
                                 </li>
+
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">
                                         <span class="material-icons">settings</span>
@@ -231,8 +245,11 @@ if ($result->num_rows > 0) {
                         if (isset($_GET['menu_id'])) {
                             $id = $_GET['menu_id'];
 
-                            $sql = "SELECT m.*, c.category_name FROM menu m INNER JOIN category c ON m.category = c.category_id WHERE menu_id = $id";
-                            $result = $conn->query($sql);
+                            $sql = "SELECT m.*, c.category_name FROM menu m INNER JOIN category c ON m.category = c.category_id WHERE menu_id = ?";
+                            $stmt = $conn->prepare($sql);
+                            $stmt->bind_param("i", $id);
+                            $stmt->execute();
+                            $result = $stmt->get_result();
 
                             if ($result->num_rows > 0) {
                                 $row = $result->fetch_assoc();
@@ -263,10 +280,23 @@ if ($result->num_rows > 0) {
                                 <input type="text" id="price" name="price" value="<?php echo isset($_POST['price']) ? $_POST['price'] : $price; ?>">
 
                                 <label for="category">Category</label>
+                                <?php
+                                $sql = "SELECT * FROM category WHERE status = 'active' AND category_name = ?";
+                                $stmt = $conn->prepare($sql);
+                                $stmt->bind_param("s", $category);
+                                $stmt->execute();
+                                $result = $stmt->get_result();
+                                $numRows = $result->num_rows;
+
+                                if ($numRows > 0) {
+                                    $row = $result->fetch_assoc();
+                                    $categ_id = $row['category_id'];
+                                }
+                                ?>
                                 <select id="category" name="category">
-                                    <option value="" selected disabled><?php echo $category; ?></option>
+                                    <option value="<?php echo isset($_POST['categ_id']) ? $_POST['categ_id'] : $categ_id; ?>" selected disabled><?php echo isset($_POST['category']) ? $_POST['category'] : $category; ?></option>
                                     <?php
-                                    $sql = "SELECT * FROM category WHERE status IN ('active') AND category_id > 1";
+                                    $sql = "SELECT * FROM category WHERE status = 'active' AND category_id > 1";
                                     $result = mysqli_query($conn, $sql);
                                     $numRows = mysqli_num_rows($result);
 
@@ -275,26 +305,29 @@ if ($result->num_rows > 0) {
                                             $category_id = $row['category_id'];
                                             $category_name = $row['category_name'];
                                     ?>
-                                            <option value="<?php echo $category_id ?>"><?php echo $category_name ?></option>
+                                            <option value="<?php echo isset($_POST['category_id']) ? $_POST['category_id'] : $category_id; ?>" <?php echo $category_id == $categ_id ? 'selected' : ''; ?>><?php echo isset($_POST['category_name']) ? $_POST['category_name'] : $category_name; ?></option>
                                     <?php
                                         }
                                     }
                                     ?>
                                 </select>
 
+
                                 <label for="availability">Availability</label>
                                 <select id="availability" name="availability">
-                                    <option value="<?php echo isset($_POST['availability']) ? $_POST['availability'] : $availability; ?>" selected disabled><?php echo isset($_POST['availability']) ? $_POST['availability'] : $availability; ?></option>
-                                    <option value="Available Today">Available Today</option>
-                                    <option value="Unavailable Today">Unavailable Today</option>
-
+                                    <option value="<?php echo $availability; ?>" disabled selected><?php echo $availability; ?></option>
+                                    <option value="Available Today" <?php echo $availability == 'Available Today' ? 'selected' : ''; ?>>Available Today</option>
+                                    <option value="Unavailable Today" <?php echo $availability == 'Unavailable Today' ? 'selected' : ''; ?>>Unavailable Today</option>
                                 </select>
+
+
+
                                 <?php
                                 if (isset($_POST['submit'])) {
                                     $image = $menu_id;
 
                                     if (!empty($_FILES["image"]["name"])) {
-                                        //file name
+                                        // File name
                                         $tempname = $_FILES["image"]["tmp_name"];
                                         $folder = "../images/";
                                         $target_file = $folder . basename($_FILES["image"]["name"]);
@@ -317,54 +350,69 @@ if ($result->num_rows > 0) {
                                     $availability = isset($_POST['availability']) ? $_POST['availability'] : $availability;
 
                                     // Check if the selected category exists in the category table
-                                    $sql = "SELECT * FROM category WHERE category_id = $category AND status = 'active'";
-                                    $result = mysqli_query($conn, $sql);
+                                    $stmt = $conn->prepare("SELECT * FROM category WHERE category_id = ? AND status = 'Active'");
+                                    $stmt->bind_param("i", $category);
+                                    $stmt->execute();
+                                    $result = $stmt->get_result();
 
-                                    if (mysqli_num_rows($result) == 0) {
+                                    if ($result->num_rows == 0) {
                                         // Category does not exist, display error message
                                         echo '<br><div style="text-align:center;">
-                                        <div class="banner">
-                                        <div class="banner__content">
-                                            <div class="banner__text">
-                                            Invalid Category
+                                            <div class="banner">
+                                                <div class="banner__content">
+                                                    <div class="banner__text">
+                                                        Invalid Category
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        </div>
-                                    </div>';
+                                        </div>';
                                     } else {
                                         // Category exists, update the record
-                                        $query = "UPDATE menu SET menu_name = '$menu_name', description = '$description', price = '$price', category = '$category', availability = '$availability'";
+                                        $query = "UPDATE menu SET menu_name = ?, description = ?, price = ?, category = ?, availability = ?";
 
                                         if (!empty($_FILES["image"]["name"])) {
-                                            $query .= ", image = '$image'";
+                                            $query .= ", image = ?";
                                         }
 
-                                        $query .= " WHERE menu_id = $id";
+                                        $query .= " WHERE menu_id = ?";
 
-                                        $result = mysqli_query($conn, $query);
+                                        $stmt = $conn->prepare($query);
+
+                                        if (!empty($_FILES["image"]["name"])) {
+                                            $stmt->bind_param("ssssissi", $menu_name, $description, $price, $category, $availability, $image, $id);
+                                        } else {
+                                            $stmt->bind_param("sssssi", $menu_name, $description, $price, $category, $availability, $id);
+                                        }
+
+
+
+                                        $result = $stmt->execute();
+
+
 
                                         if ($result) {
                                             echo '<br><br><div style="text-align:center;">
-                                        <div class="banner">
-                                            <div class="banner__content">
-                                            <div class="banner__text">
-                                                Data Updated
+                                            <div class="banner">
+                                                <div class="banner__content">
+                                                    <div class="banner__text">
+                                                        Data Updated
+                                                    </div>
+                                                </div>
                                             </div>
-                                            </div>
-                                        </div>
                                         </div>';
                                         } else {
                                             echo '<br><div style="text-align:center;">
-                                        <div class="banner">
-                                            <div class="banner__content">
-                                            <div class="banner__text">
-                                                Data Not Updated
+                                            <div class="banner">
+                                                <div class="banner__content">
+                                                    <div class="banner__text">
+                                                        Data Not Updated
+                                                    </div>
+                                                </div>
                                             </div>
-                                            </div>
-                                        </div>
                                         </div>';
                                         }
                                     }
+                                    $stmt->close();
                                 }
                                 mysqli_close($conn);
                                 ?>
@@ -377,6 +425,7 @@ if ($result->num_rows > 0) {
                         }
                         ?>
                     </div>
+
 
                     <footer class="footer">
                         <div class="container-fluid">
@@ -392,9 +441,7 @@ if ($result->num_rows > 0) {
                                         </ul>
                                         <ul class="m-0 p-0">
                                             <li>
-                                                <a>
-                                                    +63 929 301 0483
-                                                </a>
+                                                <a href="mailto:jynerline@gmail.com" style="font-style: italic;">jynerline@gmail.com</a>
                                             </li>
                                         </ul>
                                     </nav>

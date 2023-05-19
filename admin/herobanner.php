@@ -46,6 +46,12 @@ if ($result->num_rows > 0) {
 
     <link rel="icon" href="../images/<?php echo $logo_icon ?>" type="images" />
 
+    <style>
+        .container {
+            padding-bottom: 300px;
+            height: 100vh !important;
+        }
+    </style>
 </head>
 
 <body>
@@ -169,6 +175,19 @@ if ($result->num_rows > 0) {
                                 </li>
                             </ul>
                         </li>
+
+                        <li class="dropdown">
+                            <a href="#footerSubmenu6" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                                <i class="material-icons">groups</i><span>Engagements</span></a>
+                            <ul class="collapse list-unstyled menu" id="footerSubmenu6">
+                                <li>
+                                    <a href="../admin/contactList.php">Contact Submission List</a>
+                                </li>
+                                <li>
+                                    <a href="../admin/feedbackList.php">Feedback Submission List</a>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
                 </nav>
 
@@ -193,7 +212,7 @@ if ($result->num_rows > 0) {
                                     <ul class="nav navbar-nav ml-auto">
 
                                         <li class="nav-item">
-                                            <a class="nav-link" href="#">
+                                            <a class="nav-link" href="../index.php">
                                                 <span class="material-icons">web</span>
                                             </a>
                                         </li>
@@ -436,6 +455,19 @@ if ($result->num_rows > 0) {
                                             </li>
                                             <li>
                                                 <a href="../admin/trList.php">Table Reservation List</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                    <li class="dropdown">
+                                        <a href="#footerSubmenu6" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                                            <i class="material-icons">groups</i><span>Engagements</span></a>
+                                        <ul class="collapse list-unstyled menu" id="footerSubmenu6">
+                                            <li>
+                                                <a href="../admin/contactList.php">Contact Submission List</a>
+                                            </li>
+                                            <li>
+                                                <a href="../admin/feedbackList.php">Feedback Submission List</a>
                                             </li>
                                         </ul>
                                     </li>

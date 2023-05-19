@@ -1,6 +1,16 @@
 <?php
 include('db.php');
 
+// Get the current month and year
+$currentMonthYear = date('Y-m');
+
+// Update the visit count for the current month in the database
+$sql = "INSERT INTO monthly_visits (month_year, visit_count)
+        VALUES ('$currentMonthYear', 1)
+        ON DUPLICATE KEY UPDATE visit_count = visit_count + 1";
+
+$conn->query($sql);
+
 $sql = "SELECT * FROM company WHERE company_id = 1";
 $result = $conn->query($sql);
 

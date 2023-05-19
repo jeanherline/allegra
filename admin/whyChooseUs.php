@@ -48,8 +48,8 @@ if ($result->num_rows > 0) {
 
     <style>
         .container {
-            height: auto;
-            padding-bottom: 100px;
+            padding-bottom: 300px;
+            height: 130vh !important;
         }
     </style>
 
@@ -160,13 +160,26 @@ if ($result->num_rows > 0) {
 
                 <li class="dropdown">
                     <a href="#footerSubmenu5" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                        <i class="material-icons">format_list_bulleted</i><span>Reservations</span></a>
+                        <i class="material-icons">add_task</i><span>Reservations</span></a>
                     <ul class="collapse list-unstyled menu" id="footerSubmenu5">
                         <li>
                             <a href="../admin/pdList.php">Private Dining List</a>
                         </li>
                         <li>
                             <a href="../admin/trList.php">Table Reservation List</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#footerSubmenu6" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="material-icons">groups</i><span>Engagements</span></a>
+                    <ul class="collapse list-unstyled menu" id="footerSubmenu6">
+                        <li>
+                            <a href="../admin/contactList.php">Contact Submission List</a>
+                        </li>
+                        <li>
+                            <a href="../admin/feedbackList.php">Feedback Submission List</a>
                         </li>
                     </ul>
                 </li>
@@ -194,10 +207,11 @@ if ($result->num_rows > 0) {
                             <ul class="nav navbar-nav ml-auto">
 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">
+                                    <a class="nav-link" href="../index.php">
                                         <span class="material-icons">web</span>
                                     </a>
                                 </li>
+
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">
                                         <span class="material-icons">settings</span>
@@ -259,7 +273,7 @@ if ($result->num_rows > 0) {
                             <input type="text" id="subheading" name="subheading" value="<?php echo isset($_POST['subheading']) ? $_POST['subheading'] : $subheading; ?>">
 
                             <label for="title">Title</label>
-                            <textarea id="title" name="title" style="height:100px"><?php echo isset($_POST['title']) ? $_POST['title'] : $title; ?></textarea>
+                            <input type="text" id="title" name="title" value="<?php echo isset($_POST['title']) ? $_POST['title'] : $title; ?>">
 
                             <label for="description">Description</label>
                             <textarea id="description" name="description" style="height:100px"><?php echo isset($_POST['description']) ? $_POST['description'] : $description; ?></textarea>
@@ -272,7 +286,7 @@ if ($result->num_rows > 0) {
                                 $heading = isset($_POST['heading']) ? $_POST['heading'] : $menu_name;
                                 $subheading = isset($_POST['subheading']) ? $_POST['subheading'] : $subheading;
                                 $title = isset($_POST['title']) ? $_POST['title'] : $title;
-                                $description = isset($_POST['description']) ? $_POST['description'] : $description;
+                                $description = isset($_POST['description']) ? nl2br($_POST['description']) : $description;
                                 $image = isset($_FILES['image']['name']) ? $_FILES['image']['name'] : '';
                                 $index_photo = isset($_FILES['index_photo']['name']) ? $_FILES['index_photo']['name'] : '';
 
@@ -346,9 +360,10 @@ if ($result->num_rows > 0) {
                                 mysqli_close($conn);
                             }
                             ?>
-
                             <br><br>
                             <input type="submit" value="Submit" id="submit" name="submit">
+                            <br><br>
+                            <br><br>
                         </form>
 
 
@@ -368,9 +383,7 @@ if ($result->num_rows > 0) {
                                         </ul>
                                         <ul class="m-0 p-0">
                                             <li>
-                                                <a>
-                                                    +63 929 301 0483
-                                                </a>
+                                                <a href="mailto:jynerline@gmail.com" style="font-style: italic;">jynerline@gmail.com</a>
                                             </li>
                                         </ul>
                                     </nav>

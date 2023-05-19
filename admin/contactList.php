@@ -31,7 +31,7 @@ if ($result->num_rows > 0) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Table Reservation</title>
+    <title>Contact Submission List</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -39,14 +39,28 @@ if ($result->num_rows > 0) {
     <link rel="stylesheet" href="../css/custom.css">
     <!-- SLIDER REVOLUTION 4.x CSS SETTINGS -->
 
-    <link rel="stylesheet" href="../css/admin.css">
+    <!-- icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 
     <!--google material icon-->
     <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
 
+    <!-- pagination -->
+    <meta name="description" content="Bootstrap.">
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"> -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
+    <script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+
     <link rel="icon" href="../images/<?php echo $logo_icon ?>" type="images" />
 
     <style>
+        #myTable td,
+        th {
+            font-size: 14px;
+            text-align: center;
+        }
+
         .container {
             padding-bottom: 300px;
             height: 100vh !important;
@@ -58,7 +72,6 @@ if ($result->num_rows > 0) {
 <body>
 
     <div class="wrapper">
-        <div class="body-overlay"></div>
 
         <!-- Sidebar  -->
         <nav id="sidebar">
@@ -106,7 +119,7 @@ if ($result->num_rows > 0) {
                     </ul>
                 </li>
 
-                <li class="dropdown active">
+                <li class="dropdown">
                     <a href="#serviceSubmenu2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                         <i class="material-icons">groups</i><span>Services</span></a>
                     <ul class="collapse list-unstyled menu" id="serviceSubmenu2">
@@ -160,7 +173,7 @@ if ($result->num_rows > 0) {
 
                 <li class="dropdown">
                     <a href="#footerSubmenu5" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                        <i class="material-icons">add_task</i><span>Reservations</span></a>
+                        <i class="material-icons">format_list_bulleted</i><span>Reservations</span></a>
                     <ul class="collapse list-unstyled menu" id="footerSubmenu5">
                         <li>
                             <a href="../admin/pdList.php">Private Dining List</a>
@@ -171,7 +184,7 @@ if ($result->num_rows > 0) {
                     </ul>
                 </li>
 
-                <li class="dropdown">
+                <li class="dropdown active">
                     <a href="#footerSubmenu6" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                         <i class="material-icons">groups</i><span>Engagements</span></a>
                     <ul class="collapse list-unstyled menu" id="footerSubmenu6">
@@ -197,7 +210,7 @@ if ($result->num_rows > 0) {
                             <span class="material-icons">arrow_back_ios</span>
                         </button>
 
-                        <a class="navbar-brand"> Table Reservation </a>
+                        <a class="navbar-brand"> Contact Submission List </a>
 
                         <button class="d-inline-block d-lg-none ml-auto more-button" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="material-icons">more_vert</span>
@@ -235,125 +248,112 @@ if ($result->num_rows > 0) {
             </div>
 
             <div class="main-content">
-                <p class="category">Services / <strong>Table Reservation</strong></p>
+                <p class="category">Engagements / <strong>Contact Submission List</strong></p>
                 <div class="row">
+
                     <div class="container">
                         <br>
-                        <?php
-                        include('../db.php');
+                        <div class="header_fixed">
+                            <table id="myTable" class="table table-bordered table-responsive table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>Message</th>
+                                        <th>Created At</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $sql = "SELECT * FROM contact ORDER BY created_at DESC";
+                                    $result = $conn->query($sql);
+                                    $numRows = mysqli_num_rows($result);
 
-                        $sql = "SELECT * FROM edit_table";
-                        $result = $conn->query($sql);
-
-                        if ($result->num_rows > 0) {
-                            $row = $result->fetch_assoc();
-                            $heading = $row['heading'];
-                            $subheading = $row['subheading'];
-                        } else {
-                            echo " ";
-                        }
-                        ?>
-                        <form action="" method="POST" autocomplete="on" enctype="multipart/form-data">
-
-                            <label for="heading">Heading</label>
-                            <input type="text" id="heading" name="heading" value="<?php echo isset($_POST['heading']) ? $_POST['heading'] : $heading; ?>">
-
-                            <label for="subheading">Subheading</label>
-                            <input type="text" id="subheading" name="subheading" value="<?php echo isset($_POST['subheading']) ? $_POST['subheading'] : $subheading; ?>">
-
-                            <br>
-
-                            <?php
-                            if (isset($_POST['submit'])) {
-                                $heading = isset($_POST['heading']) ? $_POST['heading'] : $heading;
-                                $subheading = isset($_POST['subheading']) ? $_POST['subheading'] : $subheading;
-
-                                // Update database with new values
-                                $sql = "UPDATE edit_table SET heading='$heading', subheading='$subheading' WHERE edit_table_id=1";
-                                if ($conn->query($sql) === TRUE) {
-                                    echo '<br><br><div style="text-align:center;">
-                                    <div class="banner">
-                                        <div class="banner__content">
-                                        <div class="banner__text">
-                                            Data Updated
-                                        </div>
-                                        </div>
-                                    </div>
-                                    </div>';
-                                } else {
-                                    echo '<br><div style="text-align:center;">
-                                    <div class="banner">
-                                        <div class="banner__content">
-                                        <div class="banner__text">
-                                            Data Not Updated
-                                        </div>
-                                        </div>
-                                    </div>
-                                    </div>';
-                                }
-                            }
-                            mysqli_close($conn);
-                            ?>
-
-                            <br><br>
-                            <input type="submit" value="Submit" id="submit" name="submit">
-                            <br><br><br><br><br><br><br><br><br><br><br><br><br>
-                        </form>
-
+                                    if ($numRows > 0) {
+                                        while ($row = mysqli_fetch_assoc($result)) {
+                                            $contact_id = $row['contact_id'];
+                                            $first_name = $row['first_name'];
+                                            $last_name = $row['last_name'];
+                                            $email = $row['email'];
+                                            $phone = $row['phone'];
+                                            $message = $row['message'];
+                                            $created_at = $row['created_at'];
+                                    ?>
+                                            <tr>
+                                                <td><strong><?php echo $first_name . " " . $last_name ?></strong></td>
+                                                <td><?php echo $email ?></td>
+                                                <td><?php echo $phone ?></td>
+                                                <td><?php echo $message ?></td>
+                                                <td><?php echo date("F j, Y", strtotime($created_at)); ?><br><?php echo date("g:i A", strtotime($created_at)); ?></td>
+                                            </tr>
+                                    <?php
+                                        }
+                                    } else {
+                                        echo "<tr><td colspan='5'>No contact submissions found.</td></tr>";
+                                    }
+                                    mysqli_close($conn);
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
 
-                    <footer class="footer">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <nav class="d-flex">
-                                        <ul class="m-0 p-0">
-                                            <li>
-                                                <a>
-                                                    Tech Support:
-                                                </a>
-                                            </li>
-                                        </ul>
-                                        <ul class="m-0 p-0">
+                </div>
+
+                <footer class="footer">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <nav class="d-flex">
+                                    <ul class="m-0 p-0">
+                                        <li>
+                                            <a>
+                                                Tech Support:
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <ul class="m-0 p-0">
                                             <li>
                                                 <a href="mailto:jynerline@gmail.com" style="font-style: italic;">jynerline@gmail.com</a>
                                             </li>
                                         </ul>
-                                    </nav>
+                                </nav>
 
-                                </div>
-                                <div class="col-md-6">
-                                    <p class="copyright d-flex justify-content-end"> &copy <?php echo $company_year . " " . $company_name ?>
-                                    </p>
-                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="copyright d-flex justify-content-end"> &copy <?php echo $company_year . " " . $company_name ?>
+                                </p>
                             </div>
                         </div>
-                    </footer>
-                </div>
+                    </div>
+                </footer>
             </div>
         </div>
+    </div>
 
-        <!-- Optional JavaScript -->
-        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-        <script src="../js/jquery-3.3.1.slim.min.js"></script>
-        <script src="../js/popper.min.js"></script>
-        <script src="../js/bootstrap.min.js"></script>
-        <script src="../js/jquery-3.3.1.min.js"></script>
+    <!-- Optional JavaScript -->
+    <script src="../js/bootstrap.min.js"></script>
 
-
-        <script type="text/javascript">
-            $(document).ready(function() {
-                $('#sidebarCollapse').on('click', function() {
-                    $('#sidebar').toggleClass('active');
-                    $('#content').toggleClass('active');
-                });
-
-                $('.more-button,.body-overlay').on('click', function() {
-                    $('#sidebar,.body-overlay').toggleClass('show-nav');
-                });
-
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#sidebarCollapse').on('click', function() {
+                $('#sidebar').toggleClass('active');
+                $('#content').toggleClass('active');
             });
-        </script>
+
+            $('.more-button,.body-overlay').on('click', function() {
+                $('#sidebar,.body-overlay').toggleClass('show-nav');
+            });
+
+        });
+    </script>
+    <!-- pagination -->
+    <script>
+        $(document).ready(function() {
+            $('#myTable').dataTable();
+        });
+    </script>
 </body>
 
 </html>

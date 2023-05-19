@@ -22,6 +22,10 @@ if ($result->num_rows > 0) {
 } else {
     echo " ";
 }
+
+if (isset($_GET['table_reservation_id'])) {
+    $id = $_GET['table_reservation_id'];
+}
 ?>
 
 <!DOCTYPE html>
@@ -31,7 +35,7 @@ if ($result->num_rows > 0) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Table Reservation</title>
+    <title>Edit Table Reservation # <?php echo $id ?></title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -49,7 +53,21 @@ if ($result->num_rows > 0) {
     <style>
         .container {
             padding-bottom: 300px;
-            height: 100vh !important;
+            height: 160vh !important;
+        }
+
+        input[type=text],
+        input[type=date],
+        input[type=time],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            margin-top: 15px;
+            margin-bottom: 16px;
+            resize: vertical;
         }
     </style>
 
@@ -87,7 +105,7 @@ if ($result->num_rows > 0) {
                 </li>
 
 
-                <li class="dropdown">
+                <li class="dropdown active">
                     <a href="#menuSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                         <i class="material-icons">inventory_2</i><span>Menu</span></a>
                     <ul class="collapse list-unstyled menu" id="menuSubmenu1">
@@ -106,7 +124,7 @@ if ($result->num_rows > 0) {
                     </ul>
                 </li>
 
-                <li class="dropdown active">
+                <li class="dropdown">
                     <a href="#serviceSubmenu2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                         <i class="material-icons">groups</i><span>Services</span></a>
                     <ul class="collapse list-unstyled menu" id="serviceSubmenu2">
@@ -197,7 +215,7 @@ if ($result->num_rows > 0) {
                             <span class="material-icons">arrow_back_ios</span>
                         </button>
 
-                        <a class="navbar-brand"> Table Reservation </a>
+                        <a class="navbar-brand"> Edit Table Reservation # <?php echo $id ?> </a>
 
                         <button class="d-inline-block d-lg-none ml-auto more-button" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="material-icons">more_vert</span>
@@ -235,43 +253,132 @@ if ($result->num_rows > 0) {
             </div>
 
             <div class="main-content">
-                <p class="category">Services / <strong>Table Reservation</strong></p>
+                <p class="category">Reservations / <a href="pdList.php">Table Reservation List / </a><strong>Edit</strong></p>
+                <br>
                 <div class="row">
                     <div class="container">
-                        <br>
                         <?php
                         include('../db.php');
 
-                        $sql = "SELECT * FROM edit_table";
-                        $result = $conn->query($sql);
-
-                        if ($result->num_rows > 0) {
-                            $row = $result->fetch_assoc();
-                            $heading = $row['heading'];
-                            $subheading = $row['subheading'];
+                        if (isset($_GET['table_reservation_id'])) {
+                            $id = $_GET['table_reservation_id'];
                         } else {
-                            echo " ";
+                            echo "ID not set.";
+                            return;
+                        }
+
+                        $sql = "SELECT * FROM private_dining WHERE private_dining_id = $id";
+                        $result = $conn->query($sql);
+                        $numRows = $result->num_rows;
+
+                        if ($numRows > 0) {
+                            $row = $result->fetch_assoc();
+                            $first_name = $row['first_name'];
+                            $last_name = $row['last_name'];
+                            $email = $row['email'];
+                            $phone = $row['phone'];
+                            $number_of_guests = $row['number_of_guests'];
+                            $reservation_date = $row['reservation_date'];
+                            $reservation_time = $row['reservation_time'];
+                            $others = $row['others'];
+                            $request = $row['special_requests'];
+                            $status = $row['status'];
+                            $created_at = $row['created_at'];
+                        } else {
+                            echo "No record found.";
                         }
                         ?>
                         <form action="" method="POST" autocomplete="on" enctype="multipart/form-data">
+                            <label for="first_name">First Name</label>
+                            <input type="text" id="first_name" name="first_name" value="<?php echo isset($_POST['first_name']) ? $_POST['first_name'] : $first_name; ?>">
 
-                            <label for="heading">Heading</label>
-                            <input type="text" id="heading" name="heading" value="<?php echo isset($_POST['heading']) ? $_POST['heading'] : $heading; ?>">
+                            <label for="last_name">Last Name</label>
+                            <input type="text" id="last_name" name="last_name" value="<?php echo isset($_POST['last_name']) ? $_POST['last_name'] : $last_name; ?>">
 
-                            <label for="subheading">Subheading</label>
-                            <input type="text" id="subheading" name="subheading" value="<?php echo isset($_POST['subheading']) ? $_POST['subheading'] : $subheading; ?>">
+                            <label for="email">Email</label>
+                            <input type="text" id="email" name="email" value="<?php echo isset($_POST['email']) ? $_POST['email'] : $email; ?>">
 
-                            <br>
+                            <label for="guests">Number of Guests</label>
+                            <select class="box" id="guests" name="guests">
+                                <option value="<?php echo $number_of_guests; ?>" selected disabled>
+                                    <?php echo isset($_POST['guests']) ? $_POST['guests'] : $number_of_guests; ?>
+                                </option>
+                                <?php
+                                for ($i = 1; $i <= 11; $i++) {
+                                    $selected = isset($_POST['guests']) && $_POST['guests'] == $i ? 'selected' : '';
+                                    echo "<option value='$i' $selected>$i</option>";
+                                }
+                                ?>
+                            </select>
+
+                            <label for="date" id="date">Date of Reservation</label>
+                            <input type="date" name="date" id="date" class="box" value="<?php echo isset($_POST['reservation_date']) ? $_POST['reservation_date'] : $reservation_date; ?>" min="<?php echo isset($_POST['date']) ? $_POST['date'] : $date; ?>">
+
+                            <script>
+                                // Clear the date input value on focus
+                                document.getElementById("date").addEventListener("focus", function() {
+                                    if (this.value === "mm/dd/yyyy") {
+                                        this.value = "";
+                                    }
+                                });
+
+                                // Restore the date input value if empty on blur
+                                document.getElementById("date").addEventListener("blur", function() {
+                                    if (this.value === "") {
+                                        this.value = "mm/dd/yyyy";
+                                    }
+                                });
+                            </script>
+
+                            <label for="time" id="time">Time of Reservation</label>
+                            <input type="time" name="time" id="time" class="box" value="<?php echo isset($_POST['reservation_time']) ? $_POST['reservation_time'] : $reservation_time; ?>" step="60">
+
+                            <label for="others">Others</label>
+                            <input type="text" id="others" name="others" value="<?php echo isset($_POST['others']) ? $_POST['others'] : $others; ?>" class="box">
+
+                            <label for="request">Special Requests</label>
+                            <textarea name="request" class="box" id="request" cols="30" rows="10"><?php echo isset($_POST['request']) ? $_POST['request'] : $request; ?></textarea>
+
 
                             <?php
                             if (isset($_POST['submit'])) {
-                                $heading = isset($_POST['heading']) ? $_POST['heading'] : $heading;
-                                $subheading = isset($_POST['subheading']) ? $_POST['subheading'] : $subheading;
+                                $first_name = $_POST['first_name'];
+                                $last_name = $_POST['last_name'];
+                                $email = $_POST['email'];
+                                $number_of_guests = isset($_POST['guests']) ? $_POST['guests'] : $number_of_guests;
+                                $reservation_date = $_POST['date'];
+                                $reservation_time = $_POST['time'];
 
-                                // Update database with new values
-                                $sql = "UPDATE edit_table SET heading='$heading', subheading='$subheading' WHERE edit_table_id=1";
-                                if ($conn->query($sql) === TRUE) {
-                                    echo '<br><br><div style="text-align:center;">
+                                if (empty($_POST['others'])) {
+                                    $others = "N/A";
+                                } else {
+                                    $others = $_POST['others'];
+                                }
+                                if (empty($_POST['request'])) {
+                                    $special_requests = "N/A";
+                                } else {
+                                    $special_requests = $_POST['request'];
+                                }
+
+                                $stmt = $conn->prepare("UPDATE table_reservation SET
+                                            first_name = ?,
+                                            last_name = ?,
+                                            email = ?,
+                                            number_of_guests = ?,
+                                            reservation_date = ?,
+                                            reservation_time = ?,
+                                            others = ?,
+                                            special_requests = ?
+                                        WHERE table_reservation_id = ?");
+
+                                if ($stmt === false) {
+                                    die('prepare() failed: ' . htmlspecialchars($conn->error));
+                                }
+
+                                $stmt->bind_param('ssssssssi', $first_name, $last_name, $email, $number_of_guests, $reservation_date, $reservation_time, $others, $special_requests, $id);
+
+                                if ($stmt->execute() === TRUE) {
+                                    echo '<br><div style="text-align:center;">
                                     <div class="banner">
                                         <div class="banner__content">
                                         <div class="banner__text">
@@ -291,15 +398,15 @@ if ($result->num_rows > 0) {
                                     </div>
                                     </div>';
                                 }
+                                $stmt->close();
+                                mysqli_close($conn);
                             }
-                            mysqli_close($conn);
                             ?>
-
                             <br><br>
                             <input type="submit" value="Submit" id="submit" name="submit">
-                            <br><br><br><br><br><br><br><br><br><br><br><br><br>
+                            <br><br>
+                            <br><br>
                         </form>
-
                     </div>
 
                     <footer class="footer">

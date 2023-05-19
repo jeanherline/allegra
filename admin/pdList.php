@@ -59,13 +59,11 @@ if ($result->num_rows > 0) {
         th {
             font-size: 14px;
             text-align: center;
-            /* Adjust the font size as needed */
         }
 
         .container {
-            overflow: auto;
-            height: auto;
-            padding-bottom: 100px;
+            padding-bottom: 300px;
+            height: 100vh !important;
         }
     </style>
 
@@ -185,6 +183,19 @@ if ($result->num_rows > 0) {
                         </li>
                     </ul>
                 </li>
+
+                <li class="dropdown">
+                    <a href="#footerSubmenu6" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="material-icons">groups</i><span>Engagements</span></a>
+                    <ul class="collapse list-unstyled menu" id="footerSubmenu6">
+                        <li>
+                            <a href="../admin/contactList.php">Contact Submission List</a>
+                        </li>
+                        <li>
+                            <a href="../admin/feedbackList.php">Feedback Submission List</a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </nav>
 
@@ -209,10 +220,11 @@ if ($result->num_rows > 0) {
                             <ul class="nav navbar-nav ml-auto">
 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">
+                                    <a class="nav-link" href="../index.php">
                                         <span class="material-icons">web</span>
                                     </a>
                                 </li>
+
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">
                                         <span class="material-icons">settings</span>
@@ -249,18 +261,16 @@ if ($result->num_rows > 0) {
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Phone</th>
-                                        <th>Number of Guests</th>
-                                        <th>Reservation Date</th>
-                                        <th>Reservation Time</th>
-                                        <th>Other</th>
-                                        <th>Special Requests</th>
-                                        <th>Created At</th>
+                                        <th>No. of Guests</th>
+                                        <th>Reserv. Date</th>
+                                        <th>Reserv. Time</th>
+                                        <th>Status</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $sql = "SELECT * FROM private_dining";
+                                    $sql = "SELECT * FROM private_dining ORDER BY CASE WHEN status = 'pending' THEN 0 ELSE 1 END, reservation_date ASC, reservation_time ASC";
                                     $result = $conn->query($sql);
                                     $numRows = mysqli_num_rows($result);
 
@@ -280,52 +290,38 @@ if ($result->num_rows > 0) {
                                             $created_at = $row['created_at'];
                                     ?>
                                             <tr>
-                                                <td><?php echo $first_name . " " . $last_name ?></td>
-                                                <td><?php echo substr($email, 0, 10) . '...' ?></td>
+                                                <td><strong><?php echo $first_name . " " . $last_name ?></strong></td>
+                                                <td><?php echo $email ?></td>
                                                 <td><?php echo $phone ?></td>
 
                                                 <td><?php echo $number_of_guests ?></td>
                                                 <td><strong><?php echo date("F j, Y", strtotime($reservation_date)) ?></strong></td>
                                                 <td><strong><?php echo date('g:i A', strtotime($reservation_time)); ?></strong></td>
 
-                                                <td><?php echo $others ?></td>
-                                                <td><?php echo $special_requests ?></td>
-
-                                                <td><?php echo $created_at ?></td>
+                                                <td><?php echo $status ?></td>
 
                                                 <td>
-                                                    <a href="editMenu.php?menu_id=<?php echo $menu_id; ?>">
-                                                        <button><i class="fa fa-edit"></i></button>&nbsp&nbsp
+                                                    <a href="viewPD.php?private_dining_id=<?php echo $private_dining_id; ?>">
+                                                        <button><i class="fa fa-eye"></i></button>&nbsp
+                                                    </a>
+                                                    <a href="editPD.php?private_dining_id=<?php echo $private_dining_id; ?>">
+                                                        <button><i class="fa fa-edit"></i></button>&nbsp
                                                     </a>
 
                                                     <?php
                                                     if ($status == "Pending") {
                                                     ?>
-                                                        <a href="unavailable.php?menu_id=<?php echo $menu_id; ?>">
-                                                            <button><i class="fa fa-check"></i></button>&nbsp&nbsp
+                                                        <a href="donePD.php?private_dining_id=<?php echo $private_dining_id; ?>">
+                                                            <button><i class="fa fa-check"></i></button>&nbsp
                                                         </a>
                                                     <?php
                                                     } else {
                                                     ?>
-                                                        <a href="available.php?menu_id=<?php echo $menu_id; ?>">
-                                                            <button><i class="fa fa-ban"></i></button>&nbsp&nbsp
+                                                        <a href="pendingPD.php?private_dining_id=<?php echo $private_dining_id; ?>">
+                                                            <button><i class="fa fa-ban"></i></button>&nbsp
                                                         </a>
                                                     <?php
                                                     }
-                                                    if ($status == "Active") {
-                                                    ?>
-                                                        <a href="archiveMenu.php?menu_id=<?php echo $menu_id; ?>">
-                                                            <button><i class="fa fa-trash"></i></button>&nbsp&nbsp
-                                                        </a>
-                                                    <?php
-                                                    } else {
-                                                    ?>
-                                                        <a href="undoMenu.php?menu_id=<?php echo $menu_id; ?>">
-                                                            <button><i class="fa fa-undo"></i></button>&nbsp&nbsp
-                                                        </a>
-                                                    <?php
-                                                    }
-
                                                     ?>
                                                 </td>
                                             </tr>
@@ -338,8 +334,6 @@ if ($result->num_rows > 0) {
                                     ?>
                                 </tbody>
                             </table>
-                            <br><br><br><br><br><br><br><br><br><br><br>
-                            <br><br><br><br><br><br><br><br><br><br><br>
                         </div>
                     </div>
                 </div>
@@ -357,12 +351,10 @@ if ($result->num_rows > 0) {
                                         </li>
                                     </ul>
                                     <ul class="m-0 p-0">
-                                        <li>
-                                            <a>
-                                                +63 929 301 0483
-                                            </a>
-                                        </li>
-                                    </ul>
+                                            <li>
+                                                <a href="mailto:jynerline@gmail.com" style="font-style: italic;">jynerline@gmail.com</a>
+                                            </li>
+                                        </ul>
                                 </nav>
 
                             </div>

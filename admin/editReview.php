@@ -49,6 +49,12 @@ if ($result->num_rows > 0) {
 
     <link rel="icon" href="../images/<?php echo $logo_icon ?>" type="images" />
 
+    <style>
+        .container {
+            padding-bottom: 300px;
+            height: 100vh !important;
+        }
+    </style>
 </head>
 
 <body>
@@ -156,13 +162,26 @@ if ($result->num_rows > 0) {
 
                 <li class="dropdown">
                     <a href="#footerSubmenu5" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                        <i class="material-icons">format_list_bulleted</i><span>Reservations</span></a>
+                        <i class="material-icons">add_task</i><span>Reservations</span></a>
                     <ul class="collapse list-unstyled menu" id="footerSubmenu5">
                         <li>
                             <a href="../admin/pdList.php">Private Dining List</a>
                         </li>
                         <li>
                             <a href="../admin/trList.php">Table Reservation List</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#footerSubmenu6" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="material-icons">groups</i><span>Engagements</span></a>
+                    <ul class="collapse list-unstyled menu" id="footerSubmenu6">
+                        <li>
+                            <a href="../admin/contactList.php">Contact Submission List</a>
+                        </li>
+                        <li>
+                            <a href="../admin/feedbackList.php">Feedback Submission List</a>
                         </li>
                     </ul>
                 </li>
@@ -190,10 +209,11 @@ if ($result->num_rows > 0) {
                             <ul class="nav navbar-nav ml-auto">
 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">
+                                    <a class="nav-link" href="../index.php">
                                         <span class="material-icons">web</span>
                                     </a>
                                 </li>
+
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">
                                         <span class="material-icons">settings</span>
@@ -295,7 +315,6 @@ if ($result->num_rows > 0) {
                                             $image = basename($_FILES["image"]["name"], "." . $imageFileType) . "_" . time() . "." . $imageFileType;
                                             $target_file = $folder . $image;
                                         }
-
                                         move_uploaded_file($tempname, $target_file);
                                     }
 
@@ -350,12 +369,10 @@ if ($result->num_rows > 0) {
                                         </li>
                                     </ul>
                                     <ul class="m-0 p-0">
-                                        <li>
-                                            <a>
-                                                +63 929 301 0483
-                                            </a>
-                                        </li>
-                                    </ul>
+                                            <li>
+                                                <a href="mailto:jynerline@gmail.com" style="font-style: italic;">jynerline@gmail.com</a>
+                                            </li>
+                                        </ul>
                                 </nav>
 
                             </div>

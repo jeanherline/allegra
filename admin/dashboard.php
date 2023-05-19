@@ -377,9 +377,9 @@ if ($result->num_rows > 0) {
                             <div class="card-footer">
                                 <div class="stats">
                                     <i class="material-icons text-info">info</i>
-                                    <a href="contactForm.php">Contact</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <a href="contactList.php">Contact</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <i class="material-icons text-info">info</i>
-                                    <a href="feedbackSuggestion.php">Feedback</a>
+                                    <a href="feedbackList.php">Feedback</a>
                                 </div>
                             </div>
                         </div>
@@ -572,10 +572,10 @@ if ($result->num_rows > 0) {
                                         </li>
                                     </ul>
                                     <ul class="m-0 p-0">
-                                            <li>
-                                                <a href="mailto:jynerline@gmail.com" style="font-style: italic;">jynerline@gmail.com</a>
-                                            </li>
-                                        </ul>
+                                        <li>
+                                            <a href="mailto:jynerline@gmail.com" style="font-style: italic;">jynerline@gmail.com</a>
+                                        </li>
+                                    </ul>
                                 </nav>
 
                             </div>

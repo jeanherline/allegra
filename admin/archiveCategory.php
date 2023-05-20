@@ -1,5 +1,5 @@
 <?php
-// require('secure.php');
+require('../secure.php');
 
 if (isset($_GET['category_id'])) {
     include("../db.php");

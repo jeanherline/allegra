@@ -1,15 +1,19 @@
 <?php
+session_start();
 include('db.php');
 
-// Get the current month and year
-$currentMonthYear = date('Y-m');
+// Check if the session variable for visit count is set and if the page has not been refreshed or navigated back
+if (!isset($_SESSION['visit_count']) && !isset($_SERVER['HTTP_CACHE_CONTROL']) && !isset($_SERVER['HTTP_PRAGMA'])) {
+   // Update the visit count for the current month in the database
+   $currentMonthYear = date('Y-m');
+   $sql = "INSERT INTO monthly_visits (month_year, visit_count)
+            VALUES ('$currentMonthYear', 1)
+            ON DUPLICATE KEY UPDATE visit_count = visit_count + 1";
+   $conn->query($sql);
 
-// Update the visit count for the current month in the database
-$sql = "INSERT INTO monthly_visits (month_year, visit_count)
-        VALUES ('$currentMonthYear', 1)
-        ON DUPLICATE KEY UPDATE visit_count = visit_count + 1";
-
-$conn->query($sql);
+   // Set the session variable for visit count to 1
+   $_SESSION['visit_count'] = 1;
+}
 
 $sql = "SELECT * FROM company WHERE company_id = 1";
 $result = $conn->query($sql);
@@ -74,19 +78,8 @@ if ($result->num_rows > 0) {
 
             <nav class="nav">
                <a href="index.php">Home</a>
-               <div class="dropdown custom-dropdown">
-                  <a class="dropbtn">Menu <i class="fa fa-caret-down"></i></a>
-                  <div class="dropdown-content">
-                     <a href="menu.php">All</a>
-                     <a href="">New</a>
-                     <a href="">Best Seller</a>
-                     <a href="">Espresso Based</a>
-                     <a href="">Frappe Series</a>
-                     <a href="">Coolers</a>
-                     <a href="">Pasta & Snacks</a>
-                     <a href="">Waffles</a>
-                  </div>
-               </div>
+               <a href="menu.php">Menu</a>
+
                <div class="dropdown custom-dropdown">
                   <a class="dropbtn">Services <i class="fa fa-caret-down"></i></a>
                   <div class="dropdown-content">
@@ -115,7 +108,7 @@ if ($result->num_rows > 0) {
 
             <div class="icons">
                <div id="menu-btn" class="fas fa-bars"></div>
-               <div id="login-btn" class="fas fa-user"></div>
+               <div id="login-btn" class="fas fa-user" style="display: none;"></div>
             </div>
 
          </div>
@@ -211,8 +204,9 @@ if ($result->num_rows > 0) {
       $subheading = $row['subheading'];
       $description = $row['description'];
       $index_photo = $row['index_photo'];
+
       // Get the first paragraph of the description
-      $descriptionArray = explode('<br>', $description);
+      $descriptionArray = preg_split('/<br(\s*\/?)>/', $description);
       $firstParagraph = $descriptionArray[0];
    } else {
       echo "No landing page content found.";
@@ -220,17 +214,15 @@ if ($result->num_rows > 0) {
    ?>
 
    <section class="about" id="about">
-
       <div class="container">
          <div class="row align-items-center">
             <div class="col-md-6">
-               <img src="images/<?php echo $index_photo ?>" class="w-100" alt="">
+               <img src="images/<?php echo htmlspecialchars($index_photo) ?>" class="w-100" alt="">
             </div>
             <div class="col-md-6">
-
-               <span><?php echo $heading ?></span>
-               <h3 class="title"><?php echo $subheading ?></h3>
-               <p><?php echo $firstParagraph ?></p>
+               <span><?php echo htmlspecialchars($heading) ?></span>
+               <h3 class="title"><?php echo htmlspecialchars($subheading) ?></h3>
+               <p><?php echo htmlspecialchars($firstParagraph) ?></p>
                <a href="whychooseus.php" class="link-btn">Read More</a>
                <div class="icons-container">
                   <div class="icons">
@@ -249,8 +241,6 @@ if ($result->num_rows > 0) {
             </div>
          </div>
       </div>
-
-
    </section>
    <!-- menu section starts  -->
 

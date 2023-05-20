@@ -1,5 +1,5 @@
 <?php
-// require('secure.php');
+require('../secure.php');
 
 if (isset($_GET['partner_id'])) {
     include("../db.php");

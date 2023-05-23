@@ -55,7 +55,6 @@ if ($result->num_rows > 0) {
 
    <!-- custom css file link  -->
    <link rel="stylesheet" href="css/style.css">
-
    <!-- bannner  -->
    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
@@ -101,14 +100,11 @@ if ($result->num_rows > 0) {
                      <a href="feedback.php">Feedback & Suggestion</a>
                   </div>
                </div>
-
-               <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-               <script src="scripts.js"></script>
             </nav>
 
             <div class="icons">
                <div id="menu-btn" class="fas fa-bars"></div>
-               <div id="login-btn" class="fas fa-user" style="display: none;"></div>
+               <div id="login-btn" class="fas fa-user" style="display:none;"></div>
             </div>
 
          </div>
@@ -116,24 +112,23 @@ if ($result->num_rows > 0) {
       </div>
    </header>
 
-
    <!-- login form starts -->
 
    <div class="login-form">
 
       <form action="">
          <div id="close-login-form" class="fas fa-times"></div>
-         <a href="#" class="logo mr-auto"><img src="images/<?php echo $logo_orig ?>" alt=""></a>
-         <h3>let's start a new great day!</h3>
-         <input type="email" name="" placeholder="Enter Username" id="" class="box">
-         <input type="password" name="" placeholder="Enter Password" id="" class="box">
+         <a href="#" class="logo mr-auto"> <i class="fas fa-mug-hot"></i> coffee </a>
+         <h3>let's start a new great day</h3>
+         <input type="email" name="" placeholder="enter your email" id="" class="box">
+         <input type="password" name="" placeholder="enter your password" id="" class="box">
          <div class="flex">
-            <!-- <input type="checkbox" name="" id="remember-me">
-              <label for="remember-me">remember me</label> -->
-            <a href="#">Forgot password?</a>
+            <input type="checkbox" name="" id="remember-me">
+            <label for="remember-me">remember me</label>
+            <a href="#">forgot password?</a>
          </div>
-         <input type="submit" value="Login" class="link-btn">
-         <!-- <p class="account">don't have an account? <a href="#">create one!</a></p> -->
+         <input type="submit" value="login now" class="link-btn">
+         <p class="account">don't have an account? <a href="#">create one!</a></p>
       </form>
 
    </div>
@@ -472,6 +467,7 @@ if ($result->num_rows > 0) {
    <!-- custom js file link  -->
    <script src="js/script.js"></script>
    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
    <script>
       $(document).ready(function() {
          // Click event for the dropdown button
@@ -542,8 +538,6 @@ if ($result->num_rows > 0) {
       // Call the function to check store hours
       checkStoreHours();
    </script>
-
-
 </body>
 
 </html>

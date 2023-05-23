@@ -1,4 +1,6 @@
 <?php
+require('../secure.php');
+
 if (isset($_GET['menu_id'])) {
     include("../db.php");
 

@@ -1,4 +1,5 @@
 <?php
+require('../secure.php');
 include('../db.php');
 
 $sql = "SELECT * FROM company WHERE company_id = 1";
@@ -31,7 +32,7 @@ if ($result->num_rows > 0) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Edit Review</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -209,23 +210,24 @@ if ($result->num_rows > 0) {
                             <ul class="nav navbar-nav ml-auto">
 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="../index.php">
+                                    <a class="nav-link" href="../index.php" target="_blank">
                                         <span class="material-icons">web</span>
                                     </a>
                                 </li>
 
+
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">
+                                    <a class="nav-link" href="settings.php">
                                         <span class="material-icons">settings</span>
                                     </a>
                                 </li>
                                 <li class="dropdown nav-item active">
-                                    <a href="#" class="nav-link" data-toggle="dropdown">
+                                    <a href="" class="nav-link" data-toggle="dropdown">
                                         <span class="material-icons">logout</span>
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li>
-                                            <a href="#">Logout</a>
+                                            <a href="../logout.php">Logout</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -270,7 +272,7 @@ if ($result->num_rows > 0) {
                                 <input type="text" id="customer_name" name="customer_name" value="<?php echo isset($_POST['customer_name']) ? $_POST['customer_name'] : $customer_name; ?>">
 
                                 <label for="testimonial">Testimonial / Review</label>
-                                <textarea id="testimonial" name="testimonial" style="height:200px"><?php echo isset($_POST['testimonial']) ? $_POST['testimonial'] : $testimonial; ?></textarea>
+                                <textarea id="testimonial" name="testimonial" style="height:100px"><?php echo isset($_POST['testimonial']) ? $_POST['testimonial'] : $testimonial; ?></textarea>
 
                                 <?php
                                 if (isset($_POST['submit'])) {

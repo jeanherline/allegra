@@ -1,4 +1,5 @@
 <?php
+require('../secure.php');
 include('../db.php');
 
 $sql = "SELECT * FROM company WHERE company_id = 1";
@@ -220,23 +221,24 @@ if ($result->num_rows > 0) {
                             <ul class="nav navbar-nav ml-auto">
 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="../index.php">
+                                    <a class="nav-link" href="../index.php" target="_blank">
                                         <span class="material-icons">web</span>
                                     </a>
                                 </li>
 
+
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">
+                                    <a class="nav-link" href="settings.php">
                                         <span class="material-icons">settings</span>
                                     </a>
                                 </li>
                                 <li class="dropdown nav-item active">
-                                    <a href="#" class="nav-link" data-toggle="dropdown">
+                                    <a href="" class="nav-link" data-toggle="dropdown">
                                         <span class="material-icons">logout</span>
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li>
-                                            <a href="#">Logout</a>
+                                            <a href="../logout.php">Logout</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -282,7 +284,7 @@ if ($result->num_rows > 0) {
                                     ?>
                                             <tr>
                                                 <td><strong><?php echo $first_name . " " . $last_name ?></strong></td>
-                                                <td><?php echo $email ?></td>
+                                                <td><a href="mailto:<?php echo $email ?>"><?php echo $email ?></a></td>
                                                 <td><?php echo $phone ?></td>
                                                 <td><?php echo $message ?></td>
                                                 <td><?php echo date("F j, Y", strtotime($created_at)); ?><br><?php echo date("g:i A", strtotime($created_at)); ?></td>

@@ -1,4 +1,5 @@
 <?php
+require('../secure.php');
 include('../db.php');
 
 $sql = "SELECT * FROM company WHERE company_id = 1";
@@ -31,7 +32,7 @@ if ($result->num_rows > 0) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Herobanner</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../css/bootstrap.min.css">

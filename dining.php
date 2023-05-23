@@ -109,36 +109,12 @@ if ($result->num_rows > 0) {
 
                 <div class="icons">
                     <div id="menu-btn" class="fas fa-bars"></div>
-                    <div id="login-btn" class="fas fa-user"></div>
                 </div>
 
             </div>
 
         </div>
     </header>
-
-    <!-- login form starts -->
-
-    <div class="login-form">
-
-        <form action="">
-            <div id="close-login-form" class="fas fa-times"></div>
-            <a href="#" class="logo mr-auto"><img src="images/<?php echo $logo_orig ?>" alt=""></a>
-            <h3>let's start a new great day!</h3>
-            <input type="email" name="" placeholder="Enter Username" id="" class="box">
-            <input type="password" name="" placeholder="Enter Password" id="" class="box">
-            <div class="flex">
-                <!-- <input type="checkbox" name="" id="remember-me">
-                <label for="remember-me">remember me</label> -->
-                <a href="#">Forgot password?</a>
-            </div>
-            <input type="submit" value="Login" class="link-btn">
-            <!-- <p class="account">don't have an account? <a href="#">create one!</a></p> -->
-        </form>
-
-    </div>
-
-    <!-- login form ends -->
 
     <!-- header section ends    -->
 

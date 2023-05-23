@@ -1,5 +1,5 @@
 <?php
-// require('secure.php');
+require('../secure.php');
 
 if (isset($_GET['private_dining_id'])) {
     include("../db.php");

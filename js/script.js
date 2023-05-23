@@ -1,3 +1,8 @@
+let loginForm = document.querySelector('.login-form');
+
+document.querySelector('#login-btn').addEventListener('click', function () {
+    loginForm.classList.add('active');
+});
 
 document.querySelector('#close-login-form').addEventListener('click', function () {
     loginForm.classList.remove('active');

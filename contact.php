@@ -55,29 +55,32 @@ if ($result->num_rows > 0) {
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <style>
-        <?php
-        $sql = "SELECT * FROM company WHERE company_id = 1";
-        $result = $conn->query($sql);
+<?php
+$sql = "SELECT * FROM company WHERE company_id = 1";
+$result = $conn->query($sql);
 
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            $company_year = $row['company_year'];
-            $company_name = $row['company_name'];
-            $logo_orig = $row['logo_orig'];
-            $logo_white = $row['logo_white'];
-            $logo_icon = $row['logo_icon'];
-            $address = $row['address'];
-            $phone = $row['phone'];
-            $email = $row['email'];
-            $storehours = $row['store_hours'];
-            $google_map = $row['google_map'];
-            $facebook_link = $row['facebook_link'];
-            $instagram_link = $row['instagram_link'];
-            $twitter_link = $row['twitter_link'];
-        } else {
-            echo " ";
-        }
-        ?>?>
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $company_year = $row['company_year'];
+    $company_name = $row['company_name'];
+    $logo_orig = $row['logo_orig'];
+    $logo_white = $row['logo_white'];
+    $logo_icon = $row['logo_icon'];
+    $address = $row['address'];
+    $phone = $row['phone'];
+    $email = $row['email'];
+    $storehours = $row['store_hours'];
+    $google_map = $row['google_map'];
+    $facebook_link = $row['facebook_link'];
+    $instagram_link = $row['instagram_link'];
+    $twitter_link = $row['twitter_link'];
+} else {
+    echo " ";
+}
+?>
+?>
+        
+
     </style>
 </head>
 
@@ -134,6 +137,7 @@ if ($result->num_rows > 0) {
 
                 <div class="icons">
                     <div id="menu-btn" class="fas fa-bars"></div>
+                    <div id="login-btn" class="fas fa-user"></div>
                 </div>
 
             </div>
@@ -141,7 +145,31 @@ if ($result->num_rows > 0) {
         </div>
     </header>
 
+    <!-- login form starts -->
+
+    <div class="login-form">
+
+        <form action="">
+            <div id="close-login-form" class="fas fa-times"></div>
+            <a href="#" class="logo mr-auto"><img src="images/<?php echo $logo_orig ?>" alt=""></a>
+            <h3>let's start a new great day!</h3>
+            <input type="email" name="" placeholder="Enter Username" id="" class="box">
+            <input type="password" name="" placeholder="Enter Password" id="" class="box">
+            <div class="flex">
+                <!-- <input type="checkbox" name="" id="remember-me">
+                <label for="remember-me">remember me</label> -->
+                <a href="#">Forgot password?</a>
+            </div>
+            <input type="submit" value="Login" class="link-btn">
+            <!-- <p class="account">don't have an account? <a href="#">create one!</a></p> -->
+        </form>
+
+    </div>
+
+    <!-- login form ends -->
+
     <!-- header section ends    -->
+
 
     <!-- newsletter section starts  -->
 

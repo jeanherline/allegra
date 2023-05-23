@@ -35,7 +35,7 @@ if (isset($_GET['private_dining_id'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Private Dining Reservation # <?php echo $id ?></title>
+    <title>Edit Private Dining Reservation # <?php echo $id ?></title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -231,24 +231,23 @@ if (isset($_GET['private_dining_id'])) {
                             <ul class="nav navbar-nav ml-auto">
 
                                 <li class="nav-item">
-    <a class="nav-link" href="../index.php" target="_blank">
-        <span class="material-icons">web</span>
-    </a>
-</li>
-
+                                    <a class="nav-link" href="../index.php">
+                                        <span class="material-icons">web</span>
+                                    </a>
+                                </li>
 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="settings.php">
+                                    <a class="nav-link" href="#">
                                         <span class="material-icons">settings</span>
                                     </a>
                                 </li>
                                 <li class="dropdown nav-item active">
-                                    <a href="" class="nav-link" data-toggle="dropdown">
+                                    <a href="#" class="nav-link" data-toggle="dropdown">
                                         <span class="material-icons">logout</span>
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li>
-                                            <a href="../logout.php">Logout</a>
+                                            <a href="#">Logout</a>
                                         </li>
                                     </ul>
                                 </li>

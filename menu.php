@@ -64,21 +64,16 @@ if ($result->num_rows > 0) {
                     <div class="dropdown custom-dropdown">
                         <a class="dropbtn">Menu <i class="fa fa-caret-down"></i></a>
                         <div class="dropdown-content">
-                            <?php
-                            // Assuming you have established a database connection
-                            $sql = "SELECT category_name FROM category WHERE status = 'Active'";
-                            $result = mysqli_query($conn, $sql);
-
-                            while ($row = mysqli_fetch_assoc($result)) {
-                                $categoryName = $row['category_name'];
-                                $categoryUrl = "menu.php?category=" . urlencode($categoryName);
-
-                                echo '<a href="' . $categoryUrl . '">' . $categoryName . '</a>';
-                            }
-                            ?>
+                            <a href="menu.php">All</a>
+                            <a href="">New</a>
+                            <a href="">Best Seller</a>
+                            <a href="">Espresso Based</a>
+                            <a href="">Frappe Series</a>
+                            <a href="">Coolers</a>
+                            <a href="">Pasta & Snacks</a>
+                            <a href="">Waffles</a>
                         </div>
                     </div>
-
                     <div class="dropdown custom-dropdown">
                         <a class="dropbtn">Services <i class="fa fa-caret-down"></i></a>
                         <div class="dropdown-content">
@@ -107,7 +102,7 @@ if ($result->num_rows > 0) {
 
                 <div class="icons">
                     <div id="menu-btn" class="fas fa-bars"></div>
-                    <div id="login-btn" class="fas fa-user" style="display: none;"></div>
+                    <div id="login-btn" class="fas fa-user"></div>
                 </div>
 
             </div>
@@ -225,16 +220,61 @@ if ($result->num_rows > 0) {
             ?>
         </div>
 
+        <script>
+            // Add active class to selected category button and filter menu items
+            var filterBtns = document.querySelectorAll('.filter-btn');
+            var menuItems = document.querySelectorAll('.box');
+
+            filterBtns.forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    var categoryId = this.id;
+
+                    // Remove active class from all buttons
+                    filterBtns.forEach(function(btn) {
+                        btn.classList.remove('active-btn');
+                    });
+
+                    // Add active class to selected button
+                    this.classList.add('active-btn');
+
+                    // Show menu items for selected category
+                    if (categoryId == 'all') {
+                        menuItems.forEach(function(item) {
+                            item.style.display = 'block';
+                        });
+                    } else {
+                        menuItems.forEach(function(item) {
+                            item.style.display = 'none';
+                        });
+
+                        var categoryItems = document.querySelectorAll('.category-' + categoryId);
+                        if (categoryItems.length > 0) {
+                            categoryItems.forEach(function(item) {
+                                item.style.display = 'block';
+                            });
+                        } else {
+                            menuItems.forEach(function(item) {
+                                item.style.display = 'block';
+                            });
+                        }
+                    }
+                });
+            });
+        </script>
+
+
+        <section class="contact" id="contact">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-6 mb-5 mb-md-0 ">
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <div class="container box-container">
             <?php
-            // Check if a category is selected
-            if (isset($_GET['category'])) {
-                $selectedCategory = $_GET['category'];
-                $sql = "SELECT * FROM menu WHERE category = '$selectedCategory' AND status = 'active'";
-            } else {
-                $sql = "SELECT * FROM menu WHERE status = 'active'";
-            }
-
+            $sql = "SELECT * FROM menu WHERE status IN ('active')";
             $result = mysqli_query($conn, $sql);
             $numRows = mysqli_num_rows($result);
 
@@ -350,6 +390,8 @@ if ($result->num_rows > 0) {
             });
         });
     </script>
+
+    <!-- menu section ends -->
 
     <!-- footer section starts  -->
 

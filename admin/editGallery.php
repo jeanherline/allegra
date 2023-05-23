@@ -1,5 +1,4 @@
 <?php
-require('../secure.php');
 include('../db.php');
 
 $sql = "SELECT * FROM company WHERE company_id = 1";
@@ -32,7 +31,7 @@ if ($result->num_rows > 0) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Gallery</title>
+    <title>Dashboard</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -210,13 +209,13 @@ if ($result->num_rows > 0) {
                             <ul class="nav navbar-nav ml-auto">
 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="../index.php" target="_blank">
+                                    <a class="nav-link" href="../index.php">
                                         <span class="material-icons">web</span>
                                     </a>
                                 </li>
 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="settings.php">
+                                    <a class="nav-link" href="#">
                                         <span class="material-icons">settings</span>
                                     </a>
                                 </li>
@@ -270,7 +269,7 @@ if ($result->num_rows > 0) {
                                 <input type="text" id="title" name="title" value="<?php echo isset($_POST['title']) ? $_POST['title'] : $title; ?>">
 
                                 <label for="description">Description</label>
-                                <textarea id="description" name="description" style="height:100px"><?php echo isset($_POST['description']) ? $_POST['description'] : $description; ?></textarea>
+                                <textarea id="description" name="description" style="height:200px"><?php echo isset($_POST['description']) ? $_POST['description'] : $description; ?></textarea>
 
                                 <label for="link">Link</label>
                                 <input type="text" id="link" name="link" value="<?php echo isset($_POST['link']) ? $_POST['link'] : $link; ?>">

@@ -50,7 +50,7 @@ if ($result->num_rows > 0) {
     <style>
         .container {
             padding-bottom: 300px;
-            height: 200vh !important;
+            height: auto !important;
         }
     </style>
 

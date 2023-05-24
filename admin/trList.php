@@ -64,7 +64,7 @@ if ($result->num_rows > 0) {
 
         .container {
             padding-bottom: 300px;
-            height: 100vh !important;
+            height: auto !important;
         }
     </style>
 
@@ -260,6 +260,7 @@ if ($result->num_rows > 0) {
 
                                 <thead>
                                     <tr>
+                                        <th>#</th>
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Phone</th>
@@ -275,7 +276,7 @@ if ($result->num_rows > 0) {
                                     $sql = "SELECT * FROM table_reservation ORDER BY CASE WHEN status = 'pending' THEN 0 ELSE 1 END, reservation_date ASC, reservation_time ASC";
                                     $result = $conn->query($sql);
                                     $numRows = mysqli_num_rows($result);
-
+                                    $ctr = 1;
 
                                     if ($numRows > 0) {
                                         while ($row = mysqli_fetch_assoc($result)) {
@@ -293,6 +294,7 @@ if ($result->num_rows > 0) {
                                             $created_at = $row['created_at'];
                                     ?>
                                             <tr>
+                                                <td><?php echo $ctr++; ?></td>
                                                 <td><strong><?php echo $first_name . " " . $last_name ?></strong></td>
                                                 <td><a href="mailto:<?php echo $email ?>"><?php echo $email ?></a></td>
                                                 <td><?php echo $phone ?></td>
@@ -301,7 +303,15 @@ if ($result->num_rows > 0) {
                                                 <td><strong><?php echo date("F j, Y", strtotime($reservation_date)) ?></strong></td>
                                                 <td><strong><?php echo date('g:i A', strtotime($reservation_time)); ?></strong></td>
 
-                                                <td><?php echo $status ?></td>
+                                                <?php
+                                                if ($row['status'] == "Pending") {
+                                                    echo '<td><span class="badge badge-warning">' . $row['status'] . '</span></td>';
+                                                } elseif ($row['status'] == "Done") {
+                                                    echo '<td><span class="badge badge-success">' . $row['status'] . '</span></td>';
+                                                } else {
+                                                    echo '<td><span class="badge badge-danger">' . $row['status'] . '</span></td>';
+                                                }
+                                                ?>
 
                                                 <td>
                                                     <a href="viewTR.php?table_reservation_id=<?php echo $table_reservation_id; ?>">
@@ -320,7 +330,7 @@ if ($result->num_rows > 0) {
                                                     <?php
                                                     } else {
                                                     ?>
-                                                        <a href="pendingTR.php?private_dining_id=<?php echo $private_dining_id; ?>">
+                                                        <a href="pendingTR.php?table_reservation_id=<?php echo $table_reservation_id; ?>">
                                                             <button><i class="fa fa-ban"></i></button>&nbsp
                                                         </a>
                                                     <?php

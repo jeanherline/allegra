@@ -53,6 +53,7 @@ if ($result->num_rows > 0) {
     <style>
         .container {
             padding-bottom: 300px;
+            height: auto !important;
         }
     </style>
 
@@ -239,7 +240,7 @@ if ($result->num_rows > 0) {
             </div>
 
             <div class="main-content">
-                <p class="category">Compamy / <strong>Delivery Partners</strong></p>
+                <p class="category">Company / <strong>Delivery Partners</strong></p>
                 <div class="row">
 
                     <div class="container">

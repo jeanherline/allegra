@@ -65,7 +65,7 @@ if ($result->num_rows > 0) {
 
         .container {
             padding-bottom: 300px;
-            height: 100vh !important;
+            height: auto !important;
         }
     </style>
 
@@ -222,10 +222,10 @@ if ($result->num_rows > 0) {
                             <ul class="nav navbar-nav ml-auto">
 
                                 <li class="nav-item">
-    <a class="nav-link" href="../index.php" target="_blank">
-        <span class="material-icons">web</span>
-    </a>
-</li>
+                                    <a class="nav-link" href="../index.php" target="_blank">
+                                        <span class="material-icons">web</span>
+                                    </a>
+                                </li>
 
 
                                 <li class="nav-item">
@@ -261,6 +261,7 @@ if ($result->num_rows > 0) {
 
                                 <thead>
                                     <tr>
+                                        <th>#</th>
                                         <th>Image</th>
                                         <th>Name</th>
                                         <th>Description</th>
@@ -268,7 +269,7 @@ if ($result->num_rows > 0) {
                                         <th>Category</th>
                                         <th>Availability</th>
                                         <th>Status</th>
-                                        <th>Action</th>
+                                        <th >Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -276,6 +277,7 @@ if ($result->num_rows > 0) {
                                     $sql = "SELECT m.*, c.category_name FROM menu m INNER JOIN category c ON m.category = c.category_id";
                                     $result = $conn->query($sql);
                                     $numRows = mysqli_num_rows($result);
+                                    $ctr = 1;
 
                                     if ($numRows > 0) {
                                         while ($row = mysqli_fetch_assoc($result)) {
@@ -289,13 +291,32 @@ if ($result->num_rows > 0) {
                                             $status = $row['status'];
                                     ?>
                                             <tr>
+                                                <td><?php echo $ctr++; ?></td>
                                                 <td><?php echo substr($menu_photo, 0, 10) . '...' ?></td>
                                                 <td><strong><?php echo $menu_name ?></strong></td>
                                                 <td><?php echo substr($description, 0, 20) . '...' ?></td>
-                                                <td><?php echo substr($price, 0, 30) . '...' ?></td>
+                                                <td><?php echo substr($price, 0, 10) . '...' ?></td>
                                                 <td><?php echo $category ?></td>
-                                                <td><?php echo $availability ?></td>
-                                                <td><?php echo $status ?></td>
+                                                <?php
+                                                if ($row['availability'] == "Available Today") {
+                                                    echo '<td><span class="badge badge-warning">' . $row['availability'] . '</span></td>';
+                                                } elseif ($row['availability'] == "Unavailable Today") {
+                                                    echo '<td><span class="badge badge-danger">' . $row['availability'] . '</span></td>';
+                                                } else {
+                                                    echo '<td><span class="badge badge-danger">' . $row['availability'] . '</span></td>';
+                                                }
+                                                ?>
+                                                
+
+                                                <?php
+                                                if ($row['status'] == "Active") {
+                                                    echo '<td><span class="badge badge-success">' . $row['status'] . '</span></td>';
+                                                } elseif ($row['status'] == "Archived") {
+                                                    echo '<td><span class="badge badge-danger">' . $row['status'] . '</span></td>';
+                                                } else {
+                                                    echo '<td><span class="badge badge-danger">' . $row['status'] . '</span></td>';
+                                                }
+                                                ?>
                                                 <td>
                                                     <a href="editMenu.php?menu_id=<?php echo $menu_id; ?>">
                                                         <button><i class="fa fa-edit"></i></button>&nbsp&nbsp

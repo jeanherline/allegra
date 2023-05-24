@@ -61,23 +61,7 @@ if ($result->num_rows > 0) {
 
                 <nav class="nav">
                     <a href="index.php">Home</a>
-                    <div class="dropdown custom-dropdown">
-                        <a class="dropbtn">Menu <i class="fa fa-caret-down"></i></a>
-                        <div class="dropdown-content">
-                            <?php
-                            // Assuming you have established a database connection
-                            $sql = "SELECT category_name FROM category WHERE status = 'Active'";
-                            $result = mysqli_query($conn, $sql);
-
-                            while ($row = mysqli_fetch_assoc($result)) {
-                                $categoryName = $row['category_name'];
-                                $categoryUrl = "menu.php?category=" . urlencode($categoryName);
-
-                                echo '<a href="' . $categoryUrl . '">' . $categoryName . '</a>';
-                            }
-                            ?>
-                        </div>
-                    </div>
+                    <a href="menu.php">Menu</a>
 
                     <div class="dropdown custom-dropdown">
                         <a class="dropbtn">Services <i class="fa fa-caret-down"></i></a>
@@ -166,7 +150,7 @@ if ($result->num_rows > 0) {
             <div class="box-3">
                 <center>
                     <?php
-                    $sql = "SELECT * FROM delivery_partners";
+                    $sql = "SELECT * FROM delivery_partners WHERE status = 'active'";
                     $result = mysqli_query($conn, $sql);
                     $numRows = mysqli_num_rows($result);
 
@@ -224,7 +208,7 @@ if ($result->num_rows > 0) {
             }
             ?>
         </div>
-
+        <br>
         <div class="container box-container">
             <?php
             // Check if a category is selected
@@ -245,7 +229,17 @@ if ($result->num_rows > 0) {
                     <div class="box <?php echo 'category-' . $menuCategory; ?>">
                         <img src="images/menu/<?php echo $row['menu_photo']; ?>" alt="">
                         <h3><?php echo $row['menu_name']; ?></h3>
-                        <a class="link-btn-2" data-price="<?php echo $row['price']; ?>" data-image="<?php echo $row['menu_photo']; ?>" data-name="<?php echo $row['menu_name']; ?>">Available Today</a>
+                        <?php
+                        if ($row['availability'] == "Available Today") {
+                        ?>
+                            <a class="link-btn-2" data-price="<?php echo $row['price']; ?>" data-image="<?php echo $row['menu_photo']; ?>" data-name="<?php echo $row['menu_name']; ?>"><?php echo $row['availability']; ?></a>
+                        <?php
+                        } else {
+                        ?>
+                            <a class="link-btn-3" data-price="<?php echo $row['price']; ?>" data-image="<?php echo $row['menu_photo']; ?>" data-name="<?php echo $row['menu_name']; ?>"><?php echo $row['availability']; ?></a>
+                        <?php
+                        }
+                        ?>
                         <p><?php echo $row['description']; ?></p>
                     </div>
             <?php
@@ -377,7 +371,7 @@ if ($result->num_rows > 0) {
                     <h4 class="footer-title"><strong>Our Delivery Partners</strong></h4><br>
                     <div class="delivery-partners">
                         <?php
-                        $sql = "SELECT * FROM delivery_partners";
+                        $sql = "SELECT * FROM delivery_partners WHERE status = 'active'";
                         $result = mysqli_query($conn, $sql);
                         $numRows = mysqli_num_rows($result);
 

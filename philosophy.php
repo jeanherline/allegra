@@ -59,18 +59,8 @@ if ($result->num_rows > 0) {
 
                 <nav class="nav">
                     <a href="index.php">Home</a>
-                    <div class="dropdown custom-dropdown">
-                        <a class="dropbtn">Menu <i class="fa fa-caret-down"></i></a>
-                        <div class="dropdown-content">
-                            <a href="menu.php">All</a>
-                            <a href="">New</a>
-                            <a href="">Espresso Based</a>
-                            <a href="">Frappe Series</a>
-                            <a href="">Coolers</a>
-                            <a href="">Pasta & Snacks</a>
-                            <a href="">Waffles</a>
-                        </div>
-                    </div>
+                    <a href="menu.php">Menu</a>
+
                     <div class="dropdown custom-dropdown">
                         <a class="dropbtn">Services <i class="fa fa-caret-down"></i></a>
                         <div class="dropdown-content">
@@ -99,12 +89,34 @@ if ($result->num_rows > 0) {
 
                 <div class="icons">
                     <div id="menu-btn" class="fas fa-bars"></div>
+                    <div id="login-btn" class="fas fa-user" style="display:none;"></div>
                 </div>
 
             </div>
 
         </div>
     </header>
+
+    <!-- login form starts -->
+
+    <div class="login-form">
+
+        <form action="">
+            <div id="close-login-form" class="fas fa-times"></div>
+            <a href="#" class="logo mr-auto"> <i class="fas fa-mug-hot"></i> coffee </a>
+            <h3>let's start a new great day</h3>
+            <input type="email" name="" placeholder="enter your email" id="" class="box">
+            <input type="password" name="" placeholder="enter your password" id="" class="box">
+            <div class="flex">
+                <input type="checkbox" name="" id="remember-me">
+                <label for="remember-me">remember me</label>
+                <a href="#">forgot password?</a>
+            </div>
+            <input type="submit" value="login now" class="link-btn">
+            <p class="account">don't have an account? <a href="#">create one!</a></p>
+        </form>
+
+    </div>
 
     <!-- header section ends    -->
 
@@ -125,7 +137,6 @@ if ($result->num_rows > 0) {
                 $mission = $row['mission'];
                 $vision = $row['vision'];
                 $background_image = $row['background_image'];
-
             } else {
                 echo " ";
             }
@@ -149,14 +160,14 @@ if ($result->num_rows > 0) {
 
                 <div class="row align-items-center">
                     <div class="col-md-6">
-                        <img src="images/<?php echo $background_image?>" class="w-100" alt="">
+                        <img src="images/<?php echo $background_image ?>" class="w-100" alt="">
                     </div>
                     <div class="col-md-6" style="text-align: center;">
                         <h4 class="title"><strong>Mission</strong></h4>
-                        <p style="font-size: 16px;"><?php echo $mission?></p>
+                        <p style="font-size: 16px;"><?php echo $mission ?></p>
                         <br>
                         <h4 class="title"><strong>Vision</strong></h4>
-                        <p style="font-size: 16px;"><?php echo $vision?></p>
+                        <p style="font-size: 16px;"><?php echo $vision ?></p>
                     </div>
                 </div>
 
@@ -196,7 +207,7 @@ if ($result->num_rows > 0) {
                     <h4 class="footer-title"><strong>Our Delivery Partners</strong></h4><br>
                     <div class="delivery-partners">
                         <?php
-                        $sql = "SELECT * FROM delivery_partners";
+                        $sql = "SELECT * FROM delivery_partners WHERE status = 'active'";
                         $result = mysqli_query($conn, $sql);
                         $numRows = mysqli_num_rows($result);
 

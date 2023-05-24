@@ -64,7 +64,7 @@ if ($result->num_rows > 0) {
 
         .container {
             padding-bottom: 300px;
-            height: 100vh !important;
+            height: auto !important;
         }
     </style>
 
@@ -211,7 +211,7 @@ if ($result->num_rows > 0) {
                             <span class="material-icons">arrow_back_ios</span>
                         </button>
 
-                        <a class="navbar-brand"> Contact Submission List </a>
+                        <a class="navbar-brand"> Feedback Submission List </a>
 
                         <button class="d-inline-block d-lg-none ml-auto more-button" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="material-icons">more_vert</span>
@@ -259,6 +259,7 @@ if ($result->num_rows > 0) {
                             <table id="myTable" class="table table-bordered table-responsive table-hover">
                                 <thead>
                                     <tr>
+                                        <th>#</th>
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Message</th>
@@ -267,11 +268,13 @@ if ($result->num_rows > 0) {
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $sql = "SELECT * FROM feedback ORDER BY created_at DESC";
+                                    $sql = "SELECT * FROM feedback ORDER BY feedback_id DESC";
                                     $result = $conn->query($sql);
                                     $numRows = mysqli_num_rows($result);
+                                    $ctr = 1;
 
                                     if ($numRows > 0) {
+
                                         while ($row = mysqli_fetch_assoc($result)) {
                                             $feedback_id = $row['feedback_id'];
                                             $first_name = $row['first_name'];
@@ -281,6 +284,7 @@ if ($result->num_rows > 0) {
                                             $created_at = $row['created_at'];
                                     ?>
                                             <tr>
+                                                <td><?php echo $ctr++; ?></td>
                                                 <td><strong><?php echo $first_name . " " . $last_name ?></strong></td>
                                                 <td><a href="mailto:<?php echo $email ?>"><?php echo $email ?></a></td>
                                                 <td><?php echo $message ?></td>

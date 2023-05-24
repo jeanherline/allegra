@@ -7,15 +7,16 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 require('../secure.php');
-require('../db.php');
 
-if (isset($_GET['private_dining_id'])) {
-    $private_dining_id = $_GET['private_dining_id'];
-    $query = "UPDATE private_dining SET status = 'Done' WHERE private_dining_id = '$private_dining_id'";
+if (isset($_GET['table_reservation_id'])) {
+    include("../db.php");
+
+    $table_reservation_id = $_GET['table_reservation_id'];
+    $query = "UPDATE table_reservation SET status = 'Done' WHERE table_reservation_id = '$table_reservation_id'";
     $result = mysqli_query($conn, $query);
 
     // Fetch customer details
-    $query = "SELECT email, first_name, last_name FROM private_dining WHERE private_dining_id = '$private_dining_id'";
+    $query = "SELECT email, first_name, last_name FROM table_reservation WHERE table_reservation_id = '$table_reservation_id'";
     $result = mysqli_query($conn, $query);
     $row = mysqli_fetch_assoc($result);
     $email = $row['email'];
@@ -41,7 +42,7 @@ if (isset($_GET['private_dining_id'])) {
         $mail->addCustomHeader('X-Priority', '1');
         $mail->addCustomHeader('Importance', 'High');
         $mail->isHTML(true); // Set email as HTML
-        $mail->Subject = 'Thank You for Your Private Dining Experience with Cafe Allegra';
+        $mail->Subject = 'Thank You for Your Table Reservation Experience with Cafe Allegra';
         $mail->Body = "
         <html>
             <head>
@@ -59,7 +60,7 @@ if (isset($_GET['private_dining_id'])) {
                 </p>
                 <h1 style='font-size: 24px; font-family: Georgia, serif; color: #444;'>Good day, $fname $lname!</h1>
                 <p>
-                    Thank you for choosing Cafe Allegra for your private dining experience. We hope you had a successful and fun time dining with us.
+                    Thank you for choosing Cafe Allegra for your table reservation experience. We hope you had a successful and fun time dining with us.
                 </p>
                 <p>
                     We appreciate your support and the opportunity to serve you. Your satisfaction is our top priority, and we're delighted to hear that you enjoyed our services.
@@ -79,13 +80,10 @@ if (isset($_GET['private_dining_id'])) {
         </html>
     ";
 
-        if ($mail->send()) {
-            echo '<script>window.location.href = "pdList.php";</script>';
-            exit();
-        } else {
-            echo 'Error sending email: ', $mail->ErrorInfo;
-        }
+        $mail->send();
+        echo '<script>window.location.href = "trList.php";</script>';
+        exit();
     } catch (Exception $e) {
-        echo 'Error sending email: ', $e->getMessage();
+        echo 'Error sending email: ', $mail->ErrorInfo;
     }
 }

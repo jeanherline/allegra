@@ -71,18 +71,7 @@ if ($result->num_rows > 0) {
 
                 <nav class="nav">
                     <a href="index.php">Home</a>
-                    <div class="dropdown custom-dropdown">
-                        <a class="dropbtn">Menu <i class="fa fa-caret-down"></i></a>
-                        <div class="dropdown-content">
-                            <a href="menu.php">All</a>
-                            <a href="">New</a>
-                            <a href="">Espresso Based</a>
-                            <a href="">Frappe Series</a>
-                            <a href="">Coolers</a>
-                            <a href="">Pasta & Snacks</a>
-                            <a href="">Waffles</a>
-                        </div>
-                    </div>
+                    <a href="menu.php">Menu</a>
                     <div class="dropdown custom-dropdown">
                         <a class="dropbtn">Services <i class="fa fa-caret-down"></i></a>
                         <div class="dropdown-content">
@@ -110,13 +99,35 @@ if ($result->num_rows > 0) {
                 </nav>
 
                 <div class="icons">
-                    <div id="menu-btn" class="fas fa-bars"></div>
-                </div>
-
+               <div id="menu-btn" class="fas fa-bars"></div>
+               <div id="login-btn" class="fas fa-user" style="display:none;"></div>
             </div>
 
-        </div>
-    </header>
+         </div>
+
+      </div>
+   </header>
+
+   <!-- login form starts -->
+
+   <div class="login-form">
+
+      <form action="">
+         <div id="close-login-form" class="fas fa-times"></div>
+         <a href="#" class="logo mr-auto"> <i class="fas fa-mug-hot"></i> coffee </a>
+         <h3>let's start a new great day</h3>
+         <input type="email" name="" placeholder="enter your email" id="" class="box">
+         <input type="password" name="" placeholder="enter your password" id="" class="box">
+         <div class="flex">
+            <input type="checkbox" name="" id="remember-me">
+            <label for="remember-me">remember me</label>
+            <a href="#">forgot password?</a>
+         </div>
+         <input type="submit" value="login now" class="link-btn">
+         <p class="account">don't have an account? <a href="#">create one!</a></p>
+      </form>
+
+   </div>
 
     <!-- header section ends    -->
 
@@ -206,7 +217,6 @@ if ($result->num_rows > 0) {
 
         // close the statement and connection
         $stmt->close();
-        $conn->close();
 
         $mail = new PHPMailer(true);
 
@@ -241,9 +251,7 @@ if ($result->num_rows > 0) {
                     </style>
                 </head>
                 <body>
-                    <p>
-                        <img src='https://scontent.fmnl9-2.fna.fbcdn.net/v/t39.30808-6/297093510_102326959250266_2873349104751521933_n.png?_nc_cat=103&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeFfVXN5aNfVNIj0WBlWcP6dJHW-nmpeiGckdb6eal6IZwvxTaATQTjxWTsHa1phRMW5ydQykwzoPat_kb2MvEgK&_nc_ohc=EyyZUI6VNIMAX9ReSpo&_nc_zt=23&_nc_ht=scontent.fmnl9-2.fna&oh=00_AfCp-ShLPigb4bJMk0UeXKaOXYLkoyHAS9_cubMBp_uxCw&oe=6443E79F' alt='Cafe Allegra Logo' style='width: 150px; height: auto; display: block; margin-bottom: 10px;'>
-                    </p>
+                    
                     <h1 style='font-size: 24px; font-family: Georgia, serif; color: #444;'>Dear $fname $lname,</h1>
                     <p>
                         Thank you for sharing your feedback, comment and suggestion with Cafe Allegra. We appreciate your valuable insights and opinions.
@@ -298,9 +306,7 @@ if ($result->num_rows > 0) {
                     </style>
                 </head>
                     <body>
-                        <p>
-                            <img src='https://scontent.fmnl9-2.fna.fbcdn.net/v/t39.30808-6/297093510_102326959250266_2873349104751521933_n.png?_nc_cat=103&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeFfVXN5aNfVNIj0WBlWcP6dJHW-nmpeiGckdb6eal6IZwvxTaATQTjxWTsHa1phRMW5ydQykwzoPat_kb2MvEgK&_nc_ohc=EyyZUI6VNIMAX9ReSpo&_nc_zt=23&_nc_ht=scontent.fmnl9-2.fna&oh=00_AfCp-ShLPigb4bJMk0UeXKaOXYLkoyHAS9_cubMBp_uxCw&oe=6443E79F' alt='Cafe Allegra Logo' style='width: 150px; height: auto; display: block; margin-bottom: 10px;'>
-                        </p>
+
                         <h1 style='font-size: 20px; font-family: Arial, sans-serif; color: #444;'>Feedback from $fname $lname</h1>
                         <p style='font-size: 16px; font-family: Arial, sans-serif; color: #444;'><strong>Email:</strong> $email</p>
                         <p style='font-size: 16px; font-family: Arial, sans-serif; color: #444;'><strong>Message:</strong><br>$message</p>
@@ -352,7 +358,7 @@ if ($result->num_rows > 0) {
                     <h4 class="footer-title"><strong>Our Delivery Partners</strong></h4><br>
                     <div class="delivery-partners">
                         <?php
-                        $sql = "SELECT * FROM delivery_partners";
+                                                $sql = "SELECT * FROM delivery_partners WHERE status = 'active'";
                         $result = mysqli_query($conn, $sql);
                         $numRows = mysqli_num_rows($result);
 

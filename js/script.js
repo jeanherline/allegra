@@ -1,3 +1,9 @@
+//brown
+let loginForm = document.querySelector('.login-form');
+
+document.querySelector('#login-btn').onclick = () =>{
+   loginForm.classList.add('active');
+}
 
 document.querySelector('#close-login-form').addEventListener('click', function () {
     loginForm.classList.remove('active');

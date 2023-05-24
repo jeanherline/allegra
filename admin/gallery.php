@@ -247,7 +247,7 @@ if ($result->num_rows > 0) {
                             <table>
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
+                                        <th>#</th>
                                         <th>Image</th>
                                         <th>Title</th>
                                         <th>Description</th>

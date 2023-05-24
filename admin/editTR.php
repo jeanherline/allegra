@@ -54,7 +54,7 @@ if (isset($_GET['table_reservation_id'])) {
     <style>
         .container {
             padding-bottom: 300px;
-            height: 160vh !important;
+            height: auto !important;
         }
 
         input[type=text],

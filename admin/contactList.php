@@ -64,7 +64,7 @@ if ($result->num_rows > 0) {
 
         .container {
             padding-bottom: 300px;
-            height: 100vh !important;
+            height: auto !important;
         }
     </style>
 
@@ -259,6 +259,7 @@ if ($result->num_rows > 0) {
                             <table id="myTable" class="table table-bordered table-responsive table-hover">
                                 <thead>
                                     <tr>
+                                        <th>#</th>
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Phone</th>
@@ -268,9 +269,10 @@ if ($result->num_rows > 0) {
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $sql = "SELECT * FROM contact ORDER BY created_at DESC";
+                                    $sql = "SELECT * FROM contact ORDER BY contact_id DESC";
                                     $result = $conn->query($sql);
                                     $numRows = mysqli_num_rows($result);
+                                    $ctr = 1;
 
                                     if ($numRows > 0) {
                                         while ($row = mysqli_fetch_assoc($result)) {
@@ -283,11 +285,12 @@ if ($result->num_rows > 0) {
                                             $created_at = $row['created_at'];
                                     ?>
                                             <tr>
+                                                <td><?php echo $ctr++; ?></td>
                                                 <td><strong><?php echo $first_name . " " . $last_name ?></strong></td>
                                                 <td><a href="mailto:<?php echo $email ?>"><?php echo $email ?></a></td>
                                                 <td><?php echo $phone ?></td>
-                                                <td><?php echo $message ?></td>
-                                                <td><?php echo date("F j, Y", strtotime($created_at)); ?><br><?php echo date("g:i A", strtotime($created_at)); ?></td>
+                                                <td><strong><?php echo $message ?></strong></td>
+                                                <td><?php echo date("F j, Y", strtotime($created_at)); ?><?php echo " " . date("g:i A", strtotime($created_at)); ?></td>
                                             </tr>
                                     <?php
                                         }
@@ -316,10 +319,10 @@ if ($result->num_rows > 0) {
                                         </li>
                                     </ul>
                                     <ul class="m-0 p-0">
-                                            <li>
-                                                <a href="mailto:jynerline@gmail.com" style="font-style: italic;">jynerline@gmail.com</a>
-                                            </li>
-                                        </ul>
+                                        <li>
+                                            <a href="mailto:jynerline@gmail.com" style="font-style: italic;">jynerline@gmail.com</a>
+                                        </li>
+                                    </ul>
                                 </nav>
 
                             </div>

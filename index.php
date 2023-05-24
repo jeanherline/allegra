@@ -442,7 +442,7 @@ if ($result->num_rows > 0) {
                <h4 class="footer-title"><strong>Our Delivery Partners</strong></h4><br>
                <div class="delivery-partners">
                   <?php
-                  $sql = "SELECT * FROM delivery_partners";
+                                          $sql = "SELECT * FROM delivery_partners WHERE status = 'active'";
                   $result = mysqli_query($conn, $sql);
                   $numRows = mysqli_num_rows($result);
 

@@ -48,7 +48,7 @@ if ($result->num_rows > 0) {
     <style>
         .container {
             padding-bottom: 300px;
-            height: 100vh !important;
+            height: auto !important;
         }
     </style>
 </head>
@@ -392,77 +392,111 @@ if ($result->num_rows > 0) {
                     <div class="col-lg-7 col-md-12">
                         <div class="card" style="min-height: 485px">
                             <div class="card-header card-header-text">
-                                <h4 class="card-title">Cafe Reservations</h4>
+                                <h4 class="card-title">Pending Cafe Reservations</h4>
                                 <p class="category">Latest Report</p>
                             </div>
                             <div class="card-content table-responsive">
                                 <table class="table table-hover">
                                     <thead class="text-primary">
                                         <tr>
+                                            <th>#</th>
                                             <th>Name</th>
                                             <th>Type</th>
                                             <th>Date</th>
                                             <th>Time</th>
                                             <th>Guests</th>
+                                            <th>Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
                                         $sql = "SELECT *
-                                        FROM (
-                                            SELECT
-                                                first_name,
-                                                last_name,
-                                                reservation_date,
-                                                reservation_time,
-                                                number_of_guests,
-                                                'Private Dining' AS type
-                                            FROM private_dining
-                                            WHERE status = 'Pending'
-                                            
-                                            UNION ALL
-                                            
-                                            SELECT
-                                                first_name,
-                                                last_name,
-                                                reservation_date,
-                                                reservation_time,
-                                                number_of_guests,
-                                                'Table Reservation' AS type
-                                            FROM table_reservation
-                                            WHERE status = 'Pending'
-                                        ) AS combined_reservations
-                                        WHERE reservation_date >= CURDATE()
-                                        ORDER BY reservation_date ASC
-                                        LIMIT 10";
+                                                FROM (
+                                                    SELECT
+                                                        first_name,
+                                                        last_name,
+                                                        reservation_date,
+                                                        reservation_time,
+                                                        number_of_guests,
+                                                        'Private Dining' AS type
+                                                    FROM private_dining
+                                                    WHERE status = 'Pending'
+                                                    
+                                                    UNION ALL
+                                                    
+                                                    SELECT
+                                                        first_name,
+                                                        last_name,
+                                                        reservation_date,
+                                                        reservation_time,
+                                                        number_of_guests,
+                                                        'Table Reservation' AS type
+                                                    FROM table_reservation
+                                                    WHERE status = 'Pending'
+                                                ) AS combined_reservations
+                                                WHERE reservation_date >= CURDATE()
+                                                ORDER BY reservation_date ASC
+                                                LIMIT 7";
 
                                         $result = $conn->query($sql);
 
                                         if ($result->num_rows > 0) {
+                                            $ctr = 1;
                                             while ($row = $result->fetch_assoc()) {
                                                 $name = $row['first_name'] . ' ' . $row['last_name'];
                                                 $type = $row['type'];
                                                 $date = date('F j, Y', strtotime($row['reservation_date']));
                                                 $time = date('h:i A', strtotime($row['reservation_time']));
                                                 $guests = $row['number_of_guests'];
+                                                $status = '';
+
+                                                // Calculate the status based on the reservation date
+                                                $reservationDate = strtotime($row['reservation_date']);
+                                                $currentDate = strtotime(date('Y-m-d'));
+
+                                                if ($reservationDate > $currentDate) {
+                                                    $status = 'Soon';
+                                                    $statusBadgeClass = 'badge-success';
+                                                } elseif ($reservationDate < $currentDate) {
+                                                    $status = 'Past Due';
+                                                    $statusBadgeClass = 'badge-danger';
+                                                } else {
+                                                    $status = 'Today';
+                                                    $statusBadgeClass = 'badge-warning';
+                                                }
                                         ?>
+
                                                 <tr>
+                                                    <td><?php echo $ctr++; ?></td>
                                                     <td style="font-size: smaller;"><?php echo $name; ?></td>
-                                                    <td style="font-size: smaller;"><?php echo $type; ?></td>
+                                                    <?php
+                                                    if ($type == "Table Reservation") {
+                                                        echo '<td><span class="badge badge-warning">' . $row['type'] . '</span></td>';
+                                                    } elseif ($type == "Private Dining") {
+                                                        echo '<td><span class="badge badge-warning">' . $row['type'] . '</span></td>';
+                                                    } else {
+                                                        echo '<td><span class="badge badge-danger">' . $row['type'] . '</span></td>';
+                                                    }
+                                                    ?>
                                                     <td style="font-size: smaller;"><?php echo $date; ?></td>
                                                     <td style="font-size: smaller;"><?php echo $time; ?></td>
                                                     <td style="font-size: smaller;"><?php echo $guests; ?></td>
+                                                    <td><span class="badge <?php echo $statusBadgeClass; ?>"><?php echo $status; ?></span></td>
                                                 </tr>
+
                                             <?php
                                             }
                                         } else {
                                             ?>
+
                                             <tr>
                                                 <td colspan="5">No reservations found.</td>
                                             </tr>
+
                                         <?php
                                         }
                                         ?>
+
                                     </tbody>
                                 </table>
                             </div>
@@ -479,7 +513,7 @@ if ($result->num_rows > 0) {
                             <div class="card-content">
                                 <div class="streamline">
                                     <?php
-                                    $sqlFeedback = "SELECT * FROM feedback ORDER BY created_at DESC LIMIT 3";
+                                    $sqlFeedback = "SELECT * FROM feedback ORDER BY created_at DESC LIMIT 1";
                                     $resultFeedback = $conn->query($sqlFeedback);
 
                                     if ($resultFeedback->num_rows > 0) {
@@ -507,7 +541,7 @@ if ($result->num_rows > 0) {
                                         <?php
                                     }
 
-                                    $sqlContact = "SELECT * FROM contact ORDER BY created_at DESC LIMIT 3";
+                                    $sqlContact = "SELECT * FROM contact ORDER BY created_at DESC LIMIT 1";
                                     $resultContact = $conn->query($sqlContact);
 
                                     if ($resultContact->num_rows > 0) {
@@ -545,7 +579,7 @@ if ($result->num_rows > 0) {
                 </div>
 
                 <?php
-                $sql = "SELECT * FROM delivery_partners";
+                $sql = "SELECT * FROM delivery_partners WHERE status = 'active'";
                 $result = mysqli_query($conn, $sql);
                 $numRows = mysqli_num_rows($result);
 

@@ -64,7 +64,7 @@ if ($result->num_rows > 0) {
         }
 
         .container {
-            padding-bottom: 300px;
+            padding-bottom: 600px;
             height: auto !important;
         }
     </style>
@@ -269,7 +269,7 @@ if ($result->num_rows > 0) {
                                         <th>Category</th>
                                         <th>Availability</th>
                                         <th>Status</th>
-                                        <th >Action</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -306,7 +306,7 @@ if ($result->num_rows > 0) {
                                                     echo '<td><span class="badge badge-danger">' . $row['availability'] . '</span></td>';
                                                 }
                                                 ?>
-                                                
+
 
                                                 <?php
                                                 if ($row['status'] == "Active") {
@@ -326,13 +326,13 @@ if ($result->num_rows > 0) {
                                                     if ($availability == "Available Today") {
                                                     ?>
                                                         <a href="unavailable.php?menu_id=<?php echo $menu_id; ?>">
-                                                            <button><i class="fa fa-check"></i></button>&nbsp&nbsp
+                                                            <button><i class="fa fa-ban"></i></button>&nbsp&nbsp
                                                         </a>
                                                     <?php
                                                     } else {
                                                     ?>
                                                         <a href="available.php?menu_id=<?php echo $menu_id; ?>">
-                                                            <button><i class="fa fa-ban"></i></button>&nbsp&nbsp
+                                                            <button><i class="fa fa-check"></i></button>&nbsp&nbsp
                                                         </a>
                                                     <?php
                                                     }

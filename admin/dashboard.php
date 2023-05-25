@@ -46,8 +46,14 @@ if ($result->num_rows > 0) {
     <link rel="icon" href="../images/<?php echo $logo_icon ?>" type="images" />
 
     <style>
+        #myTable td,
+        th {
+            font-size: 14px;
+            text-align: center;
+        }
+
         .container {
-            padding-bottom: 300px;
+            padding-bottom: 700px;
             height: auto !important;
         }
     </style>
@@ -434,9 +440,9 @@ if ($result->num_rows > 0) {
                                                     FROM table_reservation
                                                     WHERE status = 'Pending'
                                                 ) AS combined_reservations
-                                                WHERE reservation_date >= CURDATE()
+                                                WHERE reservation_date 
                                                 ORDER BY reservation_date ASC
-                                                LIMIT 7";
+                                                LIMIT 10";
 
                                         $result = $conn->query($sql);
 
@@ -513,7 +519,7 @@ if ($result->num_rows > 0) {
                             <div class="card-content">
                                 <div class="streamline">
                                     <?php
-                                    $sqlFeedback = "SELECT * FROM feedback ORDER BY created_at DESC LIMIT 1";
+                                    $sqlFeedback = "SELECT * FROM feedback ORDER BY created_at DESC LIMIT 2";
                                     $resultFeedback = $conn->query($sqlFeedback);
 
                                     if ($resultFeedback->num_rows > 0) {
@@ -541,7 +547,7 @@ if ($result->num_rows > 0) {
                                         <?php
                                     }
 
-                                    $sqlContact = "SELECT * FROM contact ORDER BY created_at DESC LIMIT 1";
+                                    $sqlContact = "SELECT * FROM contact ORDER BY created_at DESC LIMIT 2";
                                     $resultContact = $conn->query($sqlContact);
 
                                     if ($resultContact->num_rows > 0) {

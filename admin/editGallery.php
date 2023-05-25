@@ -221,16 +221,16 @@ if ($result->num_rows > 0) {
                                     </a>
                                 </li>
                                 <li class="dropdown nav-item active">
-                                    <a href="#" class="nav-link" data-toggle="dropdown">
+                                    <a href="" class="nav-link" data-toggle="dropdown">
                                         <span class="material-icons">logout</span>
                                     </a>
-                                <li>
-                                    <a href="#">Logout</a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="../logout.php">Logout</a>
+                                        </li>
+                                    </ul>
                                 </li>
                             </ul>
-                            </li>
-                            </ul>
-
                         </div>
                     </div>
                 </nav>
@@ -360,10 +360,10 @@ if ($result->num_rows > 0) {
                                         </li>
                                     </ul>
                                     <ul class="m-0 p-0">
-                                            <li>
-                                                <a href="mailto:jynerline@gmail.com" style="font-style: italic;">jynerline@gmail.com</a>
-                                            </li>
-                                        </ul>
+                                        <li>
+                                            <a href="mailto:jynerline@gmail.com" style="font-style: italic;">jynerline@gmail.com</a>
+                                        </li>
+                                    </ul>
                                 </nav>
 
                             </div>

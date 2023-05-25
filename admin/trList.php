@@ -60,10 +60,11 @@ if ($result->num_rows > 0) {
         th {
             font-size: 14px;
             text-align: center;
+            /* Adjust the font size as needed */
         }
 
         .container {
-            padding-bottom: 300px;
+            padding-bottom: 600px;
             height: auto !important;
         }
     </style>

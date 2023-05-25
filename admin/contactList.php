@@ -60,10 +60,11 @@ if ($result->num_rows > 0) {
         th {
             font-size: 14px;
             text-align: center;
+            /* Adjust the font size as needed */
         }
 
         .container {
-            padding-bottom: 300px;
+            padding-bottom: 600px;
             height: auto !important;
         }
     </style>
@@ -289,7 +290,7 @@ if ($result->num_rows > 0) {
                                                 <td><strong><?php echo $first_name . " " . $last_name ?></strong></td>
                                                 <td><a href="mailto:<?php echo $email ?>"><?php echo $email ?></a></td>
                                                 <td><?php echo $phone ?></td>
-                                                <td><strong><?php echo $message ?></strong></td>
+                                                <td><?php echo $message ?></td>
                                                 <td><?php echo date("F j, Y", strtotime($created_at)); ?><?php echo " " . date("g:i A", strtotime($created_at)); ?></td>
                                             </tr>
                                     <?php

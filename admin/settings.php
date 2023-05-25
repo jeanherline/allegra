@@ -16,7 +16,11 @@ if ($result->num_rows > 0) {
     $phone = $row['phone'];
     $email = $row['email'];
     $storehours = $row['store_hours'];
+    $closing_time = $row['closing_time'];
+    $seat_capacity = $row['seat_capacity'];
+    $color_theme = $row['color_theme'];
     $google_map = $row['google_map'];
+    $address_link = $row['address_link'];
     $facebook_link = $row['facebook_link'];
     $instagram_link = $row['instagram_link'];
     $twitter_link = $row['twitter_link'];
@@ -49,7 +53,7 @@ if ($result->num_rows > 0) {
 
     <style>
         .container {
-            padding-bottom: 300px;
+            padding-bottom: 450px;
             height: auto !important;
         }
 
@@ -75,6 +79,11 @@ if ($result->num_rows > 0) {
             margin-top: 15px;
             margin-bottom: 16px;
             resize: vertical;
+        }
+
+        .navbar {
+            background-color: <?php echo $color_theme ?>;
+            color: #FFFFFF;
         }
     </style>
 
@@ -232,10 +241,10 @@ if ($result->num_rows > 0) {
                             <ul class="nav navbar-nav ml-auto">
 
                                 <li class="nav-item">
-    <a class="nav-link" href="../index.php" target="_blank">
-        <span class="material-icons">web</span>
-    </a>
-</li>
+                                    <a class="nav-link" href="../index.php" target="_blank">
+                                        <span class="material-icons">web</span>
+                                    </a>
+                                </li>
 
 
                                 <li class="nav-item">
@@ -388,20 +397,12 @@ if ($result->num_rows > 0) {
                                         $sql .= " WHERE id=1";
 
                                         if ($conn->query($sql) === TRUE) {
-                                            echo '<br><br><div style="text-align:center;">
+                                            echo '<br><div style="text-align:center;">
                                             <div class="banner">
                                                 <div class="banner__content">
-                                                    <div class="banner__text">';
-                                            if ($usernameChanged && $passwordChanged) {
-                                                echo "Username and Password Updated";
-                                            } elseif ($usernameChanged) {
-                                                echo "Username Updated";
-                                            } elseif ($passwordChanged) {
-                                                echo "Password Updated";
-                                            } else {
-                                                echo "No changes made";
-                                            }
-                                            echo '</div>
+                                                    <div class="banner__text">
+                                                        Updated
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>';
@@ -410,7 +411,7 @@ if ($result->num_rows > 0) {
                                             <div class="banner">
                                                 <div class="banner__content">
                                                     <div class="banner__text">
-                                                        Data Not Updated
+                                                        Not Updated
                                                     </div>
                                                 </div>
                                             </div>

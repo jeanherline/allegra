@@ -16,7 +16,12 @@ if ($result->num_rows > 0) {
     $phone = $row['phone'];
     $email = $row['email'];
     $storehours = $row['store_hours'];
+    $opening_time = $row['opening_time'];
+    $closing_time = $row['closing_time'];
+    $seat_capacity = $row['seat_capacity'];
+    $color_theme = $row['color_theme'];
     $google_map = $row['google_map'];
+    $address_link = $row['address_link'];
     $facebook_link = $row['facebook_link'];
     $instagram_link = $row['instagram_link'];
     $twitter_link = $row['twitter_link'];
@@ -42,6 +47,7 @@ if ($result->num_rows > 0) {
 
     <link rel="stylesheet" href="../css/admin.css">
 
+
     <!--google material icon-->
     <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
 
@@ -49,8 +55,13 @@ if ($result->num_rows > 0) {
 
     <style>
         .container {
-            padding-bottom: 300px;
+            padding-bottom: 450px;
             height: auto !important;
+        }
+
+        .navbar {
+            background-color: <?php echo $color_theme ?>;
+            color: #FFFFFF;
         }
     </style>
 
@@ -208,10 +219,10 @@ if ($result->num_rows > 0) {
                             <ul class="nav navbar-nav ml-auto">
 
                                 <li class="nav-item">
-    <a class="nav-link" href="../index.php" target="_blank">
-        <span class="material-icons">web</span>
-    </a>
-</li>
+                                    <a class="nav-link" href="../index.php" target="_blank">
+                                        <span class="material-icons">web</span>
+                                    </a>
+                                </li>
 
 
                                 <li class="nav-item">
@@ -257,6 +268,10 @@ if ($result->num_rows > 0) {
                             $email = $row['email'];
 
                             $store_hours = $row['store_hours'];
+                            $closing_time = $row['closing_time'];
+                            $color_theme = $row['color_theme'];
+                            $fixed_header = $row['fixed_header'];
+
                             $google_map = $row['google_map'];
 
                             $facebook_link = $row['facebook_link'];
@@ -274,39 +289,65 @@ if ($result->num_rows > 0) {
 
                             <label for="company_year">Company Year</label>
                             <input type="text" id="company_year" name="company_year" value="<?php echo isset($_POST['company_year']) ? $_POST['company_year'] : $company_year; ?>">
-
+                            <br><br>
                             <label for="company_name">Company Name</label>
                             <input type="text" id="company_name" name="company_name" value="<?php echo isset($_POST['company_name']) ? $_POST['company_name'] : $company_name; ?>">
-
+                            <br><br>
                             <label for="address">Address</label>
                             <input type="text" id="address" name="address" value="<?php echo isset($_POST['address']) ? $_POST['address'] : $address; ?>">
-
+                            <br><br>
                             <label for="phone">Phone</label>
                             <input type="text" id="phone" name="phone" value="<?php echo isset($_POST['phone']) ? $_POST['phone'] : $phone; ?>">
-
+                            <br><br>
                             <label for="email">Email</label>
                             <input type="text" id="email" name="email" value="<?php echo isset($_POST['email']) ? $_POST['email'] : $email; ?>">
-                            <br>
-                            <label for="store_hours">Store Hours</label>
+                            <br><br>
+                            <label for="store_hours">Store Hours Banner</label>
                             <input type="text" id="store_hours" name="store_hours" value="<?php echo isset($_POST['store_hours']) ? $_POST['store_hours'] : $store_hours; ?>">
+                            <br><br>
+                            <label for="opening_time">Start of Business Hours</label>
+                            <input type="time" id="opening_time" name="opening_time" value="<?php echo isset($_POST['opening_time']) ? $_POST['opening_time'] : $opening_time; ?>">
+                            <br><br>
+                            <label for="closing_time">End of Business Hours</label>
+                            <input type="time" id="closing_time" name="closing_time" value="<?php echo isset($_POST['closing_time']) ? $_POST['closing_time'] : $closing_time; ?>">
+                            <br><br>
+                            <label for="color_theme">Color Theme</label>
+                            <input type="color" id="color_theme" name="color_theme" value="<?php echo isset($_POST['color_theme']) ? $_POST['color_theme'] : $color_theme; ?>" onchange="updateColorCode()">
 
-                            <label for="google_map">Google Map Link</label>
+                            <!-- Display the selected color code -->
+                            <span id="colorCode"><em>Currect Color Theme: </em><?php echo isset($_POST['color_theme']) ? $_POST['color_theme'] : $color_theme; ?></span>
+                            <br><br>
+                            <script>
+                                // Function to update the color code when color picker value changes
+                                function updateColorCode() {
+                                    var colorPicker = document.getElementById("color_theme");
+                                    var colorCode = document.getElementById("colorCode");
+                                    colorCode.textContent = colorPicker.value.toUpperCase();
+                                }
+                            </script>
+
+                            <br><br>
+                            <label for="fixed_header">Fixed Header Image</label>
+                            <input type="file" id="fixed_header" name="fixed_header" accept=".jpg,.jpeg,.png">
+                            <br><br>
+                            <label for="google_map">Google Maps Location Embeded Link</label>
                             <textarea id="google_map" name="google_map" style="height:100px"><?php echo isset($_POST['google_map']) ? $_POST['google_map'] : $google_map; ?></textarea>
-
+                            <br><br>
+                            <label for="address_link">Address Link</label>
+                            <textarea id="address_link" name="address_link" style="height:50px"><?php echo isset($_POST['address_link']) ? $_POST['address_link'] : $address_link; ?></textarea>
+                            <br><br>
                             <label for="facebook_link">Facebook Link</label>
                             <input type="text" id="facebook_link" name="facebook_link" value="<?php echo isset($_POST['facebook_link']) ? $_POST['facebook_link'] : $facebook_link; ?>">
-
+                            <br><br>
                             <label for="instagram_link">Instagram Link</label>
                             <input type="text" id="instagram_link" name="instagram_link" value="<?php echo isset($_POST['instagram_link']) ? $_POST['instagram_link'] : $instagram_link; ?>">
-
+                            <br><br>
                             <label for="logo_orig">Original Logo</label>
                             <input type="file" id="logo_orig" name="logo_orig" accept=".jpg,.jpeg,.png">
-                            <br>
-
+                            <br><br>
                             <label for="logo_white">Logo White Version</label>
                             <input type="file" id="logo_white" name="logo_white" accept=".jpg,.jpeg,.png">
-                            <br>
-
+                            <br><br>
                             <label for="logo_icon">Icon Logo</label>
                             <input type="file" id="logo_icon" name="logo_icon" accept=".jpg,.jpeg,.png">
                             <br>
@@ -321,7 +362,12 @@ if ($result->num_rows > 0) {
                                 $phone = isset($_POST['phone']) ? $_POST['phone'] : $phone;
                                 $email = isset($_POST['email']) ? $_POST['email'] : $email;
                                 $store_hours = isset($_POST['store_hours']) ? $_POST['store_hours'] : $store_hours;
+                                $opening_time = isset($_POST['opening_time']) ? $_POST['opening_time'] : $opening_time;
+                                $closing_time = isset($_POST['closing_time']) ? $_POST['closing_time'] : $closing_time;
+                                $color_theme = isset($_POST['color_theme']) ? $_POST['color_theme'] : $color_theme;
+                                $fixed_header = $row['fixed_header'];
                                 $google_map = isset($_POST['google_map']) ? $_POST['google_map'] : $google_map;
+                                $address_link = isset($_POST['address_link']) ? $_POST['address_link'] : $address_link;
                                 $facebook_link = isset($_POST['facebook_link']) ? $_POST['facebook_link'] : $facebook_link;
                                 $instagram_link = isset($_POST['instagram_link']) ? $_POST['instagram_link'] : $instagram_link;
                                 $logo_orig = $row['logo_orig'];
@@ -329,6 +375,12 @@ if ($result->num_rows > 0) {
                                 $logo_icon = $row['logo_icon'];
 
                                 // Check if any logo files were uploaded and move them to the designated folder
+                                if (!empty($_FILES['fixed_header']['name'])) {
+                                    $fixed_header = $_FILES['fixed_header']['name'];
+                                    $temp_name = $_FILES['fixed_header']['tmp_name'];
+                                    $folder_path = "../images/";
+                                    move_uploaded_file($temp_name, $folder_path . $fixed_header);
+                                }
                                 if (!empty($_FILES['logo_orig']['name'])) {
                                     $logo_orig = $_FILES['logo_orig']['name'];
                                     $temp_name = $_FILES['logo_orig']['tmp_name'];
@@ -349,36 +401,47 @@ if ($result->num_rows > 0) {
                                 }
 
                                 // Update database with new values
-                                $stmt = $conn->prepare("UPDATE company SET company_year=?, company_name=?, address=?, phone=?, email=?, store_hours=?, google_map=?, facebook_link=?, instagram_link=?, logo_orig=?, logo_white=?, logo_icon=? WHERE company_id=1");
-                                $stmt->bind_param("ssssssssssss", $company_year, $company_name, $address, $phone, $email, $store_hours, $google_map, $facebook_link, $instagram_link, $logo_orig, $logo_white, $logo_icon);
+                                $stmt = $conn->prepare("UPDATE company SET company_year=?, company_name=?, address=?, phone=?, email=?, store_hours=?, opening_time=?, closing_time=?, color_theme=?, fixed_header=?, google_map=?, address_link=?, facebook_link=?, instagram_link=?, logo_orig=?, logo_white=?, logo_icon=? WHERE company_id=1");
+                                $stmt->bind_param("sssssssssssssssss", $company_year, $company_name, $address, $phone, $email, $store_hours, $opening_time, $closing_time, $color_theme, $fixed_header, $google_map, $address_link, $facebook_link, $instagram_link, $logo_orig, $logo_white, $logo_icon);
                                 if ($stmt->execute()) {
-                                    echo '<br><br><div style="text-align:center;">
-                                    <div class="banner">
-                                        <div class="banner__content">
-                                        <div class="banner__text">
-                                            Data Updated
-                                        </div>
-                                        </div>
-                                    </div>
-                                    </div>';
+                                    if ($stmt->affected_rows > 0) {
+                                        echo '<br><br><div style="text-align:center;">
+                                            <div class="banner">
+                                              <div class="banner__content">
+                                                <div class="banner__text">
+                                                  Updated
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>';
+                                    } else {
+                                        echo '<br><div style="text-align:center;">
+                                            <div class="banner">
+                                              <div class="banner__content">
+                                                <div class="banner__text">
+                                                  No Changes
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>';
+                                    }
                                 } else {
                                     echo '<br><div style="text-align:center;">
-                                    <div class="banner">
-                                        <div class="banner__content">
-                                        <div class="banner__text">
-                                            Data Not Updated
-                                        </div>
-                                        </div>
-                                    </div>
-                                    </div>';
+                                          <div class="banner">
+                                            <div class="banner__content">
+                                              <div class="banner__text">
+                                                Not Updated
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>';
                                 }
                                 mysqli_close($conn);
                             }
                             ?>
-
-
                             <br><br>
                             <input type="submit" value="Submit" id="submit" name="submit">
+                            <br><br><br><br><br><br>
                         </form>
 
                     </div>

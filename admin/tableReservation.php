@@ -16,7 +16,11 @@ if ($result->num_rows > 0) {
     $phone = $row['phone'];
     $email = $row['email'];
     $storehours = $row['store_hours'];
+    $closing_time = $row['closing_time'];
+    $seat_capacity = $row['seat_capacity'];
+    $color_theme = $row['color_theme'];
     $google_map = $row['google_map'];
+    $address_link = $row['address_link'];
     $facebook_link = $row['facebook_link'];
     $instagram_link = $row['instagram_link'];
     $twitter_link = $row['twitter_link'];
@@ -42,6 +46,7 @@ if ($result->num_rows > 0) {
 
     <link rel="stylesheet" href="../css/admin.css">
 
+
     <!--google material icon-->
     <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
 
@@ -49,8 +54,18 @@ if ($result->num_rows > 0) {
 
     <style>
         .container {
-            padding-bottom: 300px;
+            padding-bottom: 450px;
             height: auto !important;
+        }
+
+        .navbar {
+            background-color: <?php echo $color_theme ?>;
+            color: #FFFFFF;
+        }
+
+        .navbar {
+            background-color: <?php echo $color_theme ?>;
+            color: #FFFFFF;
         }
     </style>
 
@@ -208,10 +223,10 @@ if ($result->num_rows > 0) {
                             <ul class="nav navbar-nav ml-auto">
 
                                 <li class="nav-item">
-    <a class="nav-link" href="../index.php" target="_blank">
-        <span class="material-icons">web</span>
-    </a>
-</li>
+                                    <a class="nav-link" href="../index.php" target="_blank">
+                                        <span class="material-icons">web</span>
+                                    </a>
+                                </li>
 
 
                                 <li class="nav-item">
@@ -259,10 +274,9 @@ if ($result->num_rows > 0) {
 
                             <label for="heading">Heading</label>
                             <input type="text" id="heading" name="heading" value="<?php echo isset($_POST['heading']) ? $_POST['heading'] : $heading; ?>">
-
+                            <br><br>
                             <label for="subheading">Subheading</label>
                             <input type="text" id="subheading" name="subheading" value="<?php echo isset($_POST['subheading']) ? $_POST['subheading'] : $subheading; ?>">
-
                             <br>
 
                             <?php
@@ -273,26 +287,39 @@ if ($result->num_rows > 0) {
                                 // Update database with new values
                                 $sql = "UPDATE edit_table SET heading='$heading', subheading='$subheading' WHERE edit_table_id=1";
                                 if ($conn->query($sql) === TRUE) {
-                                    echo '<br><br><div style="text-align:center;">
-                                    <div class="banner">
-                                        <div class="banner__content">
-                                        <div class="banner__text">
-                                            Data Updated
-                                        </div>
-                                        </div>
-                                    </div>
-                                    </div>';
+                                    if ($conn->affected_rows > 0) {
+                                        echo '<br><br><div style="text-align:center;">
+                                            <div class="banner">
+                                                <div class="banner__content">
+                                                    <div class="banner__text">
+                                                        Updated
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>';
+                                    } else {
+                                        echo '<br><div style="text-align:center;">
+                                            <div class="banner">
+                                                <div class="banner__content">
+                                                    <div class="banner__text">
+                                                        No Changes
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>';
+                                    }
                                 } else {
                                     echo '<br><div style="text-align:center;">
-                                    <div class="banner">
-                                        <div class="banner__content">
-                                        <div class="banner__text">
-                                            Data Not Updated
+                                        <div class="banner">
+                                            <div class="banner__content">
+                                                <div class="banner__text">
+                                                    Not Updated
+                                                </div>
+                                            </div>
                                         </div>
-                                        </div>
-                                    </div>
                                     </div>';
                                 }
+                                
                             }
                             mysqli_close($conn);
                             ?>

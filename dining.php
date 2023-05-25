@@ -22,13 +22,20 @@ if ($result->num_rows > 0) {
     $phone = $row['phone'];
     $email = $row['email'];
     $storehours = $row['store_hours'];
+    $opening_time = $row['opening_time'];
+    $closing_time = $row['closing_time'];
+    $seat_capacity = $row['seat_capacity'];
+    $color_theme = $row['color_theme'];
     $google_map = $row['google_map'];
+    $address_link = $row['address_link'];
     $facebook_link = $row['facebook_link'];
     $instagram_link = $row['instagram_link'];
     $twitter_link = $row['twitter_link'];
 } else {
     echo " ";
 }
+
+include('css/dynamic_styles.php');
 ?>
 
 
@@ -163,7 +170,171 @@ if ($result->num_rows > 0) {
     </section>
 
     <!-- newsletter section ends -->
+    <?php
 
+    if (isset($_POST['submit'])) {
+        $fname = $_POST['fname'];
+        $lname = $_POST['lname'];
+        $email = $_POST['email'];
+        $phone = $_POST['phone'];
+
+        $guests = $_POST['guests'];
+        $date = $_POST['date'];
+        $time = $_POST['time'];
+
+        if (empty($_POST['others'])) {
+            $others = "N/A";
+        } else {
+            $others = $_POST['others'];
+        }
+        if (empty($_POST['request'])) {
+            $request = "N/A";
+        } else {
+            $request = $_POST['request'];
+        }
+
+        $closingTime = strtotime($closing_time);
+        $selectedTime = strtotime($time);
+        if ($time > $closingTime || $time < $opening_time) {
+            echo "<div style='text-align: center;'>
+                <div class='banner'>
+                    <div class='banner__content'>
+                        <div class='banner__text'>
+                        Apologies, but the selected time falls outside the store's operating hours.<br><br>Kindly submit the form again with a valid time.
+                        </div>
+                        <button class='banner__close' type='button'>
+                            <span class='material-icons'>
+                                close
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>";
+        } else {
+            // prepare the SQL statement
+            $stmt = $conn->prepare("INSERT INTO private_dining (first_name, last_name, email, phone, number_of_guests,
+        reservation_date, reservation_time, others, special_requests, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())");
+
+            // bind the parameters to the statement
+            $stmt->bind_param("sssssssss", $fname, $lname, $email,  $phone, $guests, $date, $time, $others, $request);
+
+            // execute the statement
+            $stmt->execute();
+
+            // close the statement and connection
+            $stmt->close();
+
+            $mail = new PHPMailer(true);
+
+            try {
+                // Customer email
+                $mail->SMTPDebug = 0;
+                $mail->isSMTP();
+                $mail->Host = 'smtp.gmail.com';
+                $mail->SMTPAuth = true;
+                $mail->Username = 'jeanherlinesantiago0329@gmail.com';
+                $mail->Password = 'fkryponqryuezjte';
+                $mail->SMTPSecure = 'tls';
+                $mail->Port = 587;
+
+                $mail->setFrom('noreply@cafeallegra.com', 'Cafe Allegra');
+                $mail->addAddress($email);
+                $mail->addCustomHeader('X-Priority', '1');
+                $mail->addCustomHeader('Importance', 'High');
+
+                $mail->isHTML(true);
+                $mail->Subject = 'RE: Request for Private Dining Reservation';
+                $mail->Body = "
+                <html>
+                    <head>
+                        <style>
+                            body {
+                                font-family: Times New Roman, serif;
+                                font-size: 16px;
+                                line-height: 1.5;
+                                color: #444;
+                            }
+                        </style>
+                    </head>
+                    <body>
+
+                        <h1 style='font-size: 24px; font-family: Georgia, serif; color: #444;'>Dear $fname $lname,</h1>
+                        <p>
+                            Thank you for considering Cafe Allegra for your private dining needs. We have received your inquiry and appreciate your interest in our services.
+                        </p>
+                        <p>
+                            Our team will review your reservation details and respond to your concerns as soon as possible. Should you have any additional questions or require further assistance, please do not hesitate to contact us.
+                        </p>
+                        <p>
+                            We look forward to providing you and your guests with an unforgettable private dining experience.
+                        </p>
+            
+                        <p>
+                            Sincerely,
+                        </p>
+            
+                        <p>
+                            The Cafe Allegra Team
+                        </p>
+                    </body>
+                </html>
+            ";
+
+                $mail->send();
+
+                // Cafe Allegra email
+                $mailToCafe = new PHPMailer(true);
+
+                $mailToCafe->isSMTP();
+                $mailToCafe->Host = 'smtp.gmail.com';
+                $mailToCafe->SMTPAuth = true;
+                $mailToCafe->Username = 'jeanherlinesantiago0329@gmail.com';
+                $mailToCafe->Password = 'fkryponqryuezjte';
+                $mailToCafe->SMTPSecure = 'tls';
+                $mailToCafe->Port = 587;
+
+                $mailToCafe->setFrom($email, 'Cafe Allegra Website');
+                $mailToCafe->addAddress('jeanherlinesantiago0329@gmail.com'); // Replace with Cafe Allegra's email address
+                $mailToCafe->isHTML(true);
+
+                $mailToCafe->Subject = "Private Dining Reservation";
+                $mailToCafe->Body = "
+
+                    <h1 style='font-size: 20px; font-family: Arial, sans-serif; color: #444;'>Private Dining Reservation from $fname $lname</h1>
+                    <p style='font-size: 16px; font-family: Arial, sans-serif; color: #444;'><strong>Email:</strong> $email</p>
+                    <p style='font-size: 16px; font-family: Arial, sans-serif; color: #444;'><strong>Phone:</strong> $phone</p>
+                    <p style='font-size: 16px; font-family: Arial, sans-serif; color: #444;'><strong>Date:</strong> " . date("F j, Y", strtotime($date)) . "</p>
+                    <p style='font-size: 16px; font-family: Arial, sans-serif; color: #444;'><strong>Time:</strong> " . date("h:i A", strtotime($time)) . "</p>
+                    <p style='font-size: 16px; font-family: Arial, sans-serif; color: #444;'><strong>Number of Guests:</strong> $guests</p>
+                    <p style='font-size: 16px; font-family: Arial, sans-serif; color: #444;'><strong>Others:</strong><br>$others</p>
+                    <p style='font-size: 16px; font-family: Arial, sans-serif; color: #444;'><strong>Special Requests:</strong><br>$request</p>
+                ";
+
+
+
+                $mailToCafe->send();
+
+                echo '<div style="text-align: center;">
+                <div class="banner">
+                    <div class="banner__content">
+                        <div class="banner__text">
+                            Thank you, we have received your private dining reservation.<br>Our team will respond to your request soon.
+                        </div>
+                        <button class="banner__close" type="button">
+                            <span class="material-icons">
+                                close
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>';
+            } catch (Exception $e) {
+                echo 'Error sending email: ', $mail->ErrorInfo;
+            }
+        }
+    }
+
+    ?>
 
     <!-- blogs section starts  -->
 
@@ -231,17 +402,12 @@ if ($result->num_rows > 0) {
                         <label for="guests" id="guests">Number of Guests<span style="color: red;">*</span></label>
                         <select class="box" id="guests" name="guests">
                             <option value="guests" selected disabled>Number of Guests</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                            <option value="11">11</option>
+                            <?php
+                            for ($i = 1; $i <= $seat_capacity; $i++) {
+                                $selected = isset($_POST['guests']) && $_POST['guests'] == $i ? 'selected' : '';
+                                echo "<option value='$i' $selected>$i</option>";
+                            }
+                            ?>
                         </select>
 
                         <label for="date" id="date">Date of Reservation<span style="color: red;">*</span></label>
@@ -262,9 +428,8 @@ if ($result->num_rows > 0) {
                             });
                         </script>
 
-                        <label for="time" id="time">Time of Reservation<span style="color: red;">*</span></label>
-                        <input type="time" name="time" id="time" class="box" value="HH:MM AM/PM" step="60">
-
+                        <label for="reservation_time">Time of Reservation<span style="color: red;">*</span></label>
+                        <input type="time" name="time" id="reservation_time" class="box" value="HH:MM AM/PM" step="60">
 
                         <label for="others" id="others">Others</label>
                         <input type="text" id="others" name="others" placeholder="If Other Above, please specify" class="box">
@@ -283,151 +448,7 @@ if ($result->num_rows > 0) {
     </section>
 
     <!-- contact section ends -->
-    <?php
 
-    if (isset($_POST['submit'])) {
-        $fname = $_POST['fname'];
-        $lname = $_POST['lname'];
-        $email = $_POST['email'];
-        $phone = $_POST['phone'];
-
-        $guests = $_POST['guests'];
-        $date = $_POST['date'];
-        $time = $_POST['time'];
-
-        if (empty($_POST['others'])) {
-            $others = "N/A";
-        } else {
-            $others = $_POST['others'];
-        }
-        if (empty($_POST['request'])) {
-            $request = "N/A";
-        } else {
-            $request = $_POST['request'];
-        }
-
-        // prepare the SQL statement
-        $stmt = $conn->prepare("INSERT INTO private_dining (first_name, last_name, email, phone, number_of_guests,
-        reservation_date, reservation_time, others, special_requests, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())");
-
-        // bind the parameters to the statement
-        $stmt->bind_param("sssssssss", $fname, $lname, $email,  $phone, $guests, $date, $time, $others, $request);
-
-        // execute the statement
-        $stmt->execute();
-
-        // close the statement and connection
-        $stmt->close();
-
-        $mail = new PHPMailer(true);
-
-        try {
-            // Customer email
-            $mail->SMTPDebug = 0;
-            $mail->isSMTP();
-            $mail->Host = 'smtp.gmail.com';
-            $mail->SMTPAuth = true;
-            $mail->Username = 'jeanherlinesantiago0329@gmail.com';
-            $mail->Password = 'fkryponqryuezjte';
-            $mail->SMTPSecure = 'tls';
-            $mail->Port = 587;
-
-            $mail->setFrom('noreply@cafeallegra.com', 'Cafe Allegra');
-            $mail->addAddress($email);
-            $mail->addCustomHeader('X-Priority', '1');
-            $mail->addCustomHeader('Importance', 'High');
-
-            $mail->isHTML(true);
-            $mail->Subject = 'RE: Request for Private Dining Reservation';
-            $mail->Body = "
-                <html>
-                    <head>
-                        <style>
-                            body {
-                                font-family: Times New Roman, serif;
-                                font-size: 16px;
-                                line-height: 1.5;
-                                color: #444;
-                            }
-                        </style>
-                    </head>
-                    <body>
-
-                        <h1 style='font-size: 24px; font-family: Georgia, serif; color: #444;'>Dear $fname $lname,</h1>
-                        <p>
-                            Thank you for considering Cafe Allegra for your private dining needs. We have received your inquiry and appreciate your interest in our services.
-                        </p>
-                        <p>
-                            Our team will review your reservation details and respond to your concerns as soon as possible. Should you have any additional questions or require further assistance, please do not hesitate to contact us.
-                        </p>
-                        <p>
-                            We look forward to providing you and your guests with an unforgettable private dining experience.
-                        </p>
-            
-                        <p>
-                            Sincerely,
-                        </p>
-            
-                        <p>
-                            The Cafe Allegra Team
-                        </p>
-                    </body>
-                </html>
-            ";
-
-            $mail->send();
-
-            // Cafe Allegra email
-            $mailToCafe = new PHPMailer(true);
-
-            $mailToCafe->isSMTP();
-            $mailToCafe->Host = 'smtp.gmail.com';
-            $mailToCafe->SMTPAuth = true;
-            $mailToCafe->Username = 'jeanherlinesantiago0329@gmail.com';
-            $mailToCafe->Password = 'fkryponqryuezjte';
-            $mailToCafe->SMTPSecure = 'tls';
-            $mailToCafe->Port = 587;
-
-            $mailToCafe->setFrom($email, 'Cafe Allegra Website');
-            $mailToCafe->addAddress('jeanherlinesantiago0329@gmail.com'); // Replace with Cafe Allegra's email address
-            $mailToCafe->isHTML(true);
-
-            $mailToCafe->Subject = "Private Dining Reservation";
-            $mailToCafe->Body = "
-
-            <h1 style='font-size: 20px; font-family: Arial, sans-serif; color: #444;'>Private Dining Reservation from $fname $lname</h1>
-            <p style='font-size: 16px; font-family: Arial, sans-serif; color: #444;'><strong>Email:</strong> $email</p>
-            <p style='font-size: 16px; font-family: Arial, sans-serif; color: #444;'><strong>Phone:</strong> $phone</p>
-            <p style='font-size: 16px; font-family: Arial, sans-serif; color: #444;'><strong>Date:</strong> " . date("F j, Y", strtotime($date)) . "</p>
-            <p style='font-size: 16px; font-family: Arial, sans-serif; color: #444;'><strong>Time:</strong> " . date("h:i A", strtotime($time)) . "</p>
-            <p style='font-size: 16px; font-family: Arial, sans-serif; color: #444;'><strong>Number of Guests:</strong> $guests</p>
-            <p style='font-size: 16px; font-family: Arial, sans-serif; color: #444;'><strong>Others:</strong><br>$others</p>
-            <p style='font-size: 16px; font-family: Arial, sans-serif; color: #444;'><strong>Special Requests:</strong><br>$request</p>
-        ";
-
-
-
-            $mailToCafe->send();
-
-            echo '<div style="text-align: center;">
-            <div class="banner">
-                <div class="banner__content">
-                    <div class="banner__text">
-                        Thank you, we have received your private dining reservation.<br>Our team will respond to your request soon.
-                    </div>
-                    <button class="banner__close" type="button">
-                        <span class="material-icons">
-                            close
-                        </span>
-                    </button>
-                </div>
-            </div>
-        </div>';
-        } catch (Exception $e) {
-            echo 'Error sending email: ', $mail->ErrorInfo;
-        }
-    }
-    ?>
     <!-- footer section starts  -->
 
     <section class="footer">
@@ -435,8 +456,8 @@ if ($result->num_rows > 0) {
             <div class="row">
                 <div class="col-md-4 col-sm-12">
                     <p style="font-size: 14px;"><em><?php echo $address ?></em></p>
-                    <p style="font-size: 14px;">Phone: <?php echo $phone ?></p>
-                    <p style="font-size: 14px;">Email: <?php echo $email ?></p>
+                    <p style="font-size: 14px;">Phone: <a href="tel:<?php echo $phone ?>"><?php echo $phone ?></a></p>
+                    <p style="font-size: 14px;">Email: <a href="mailto:<?php echo $email ?>"><?php echo $email ?></a></p>
                 </div>
                 <br><br><br><br><br><br>
                 <div class="col-md-4 col-sm-12 mb-4 mb-sm-0">

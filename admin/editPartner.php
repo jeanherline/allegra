@@ -16,6 +16,9 @@ if ($result->num_rows > 0) {
     $phone = $row['phone'];
     $email = $row['email'];
     $storehours = $row['store_hours'];
+    $closing_time = $row['closing_time'];
+    $seat_capacity = $row['seat_capacity'];
+    $color_theme = $row['color_theme'];
     $google_map = $row['google_map'];
     $facebook_link = $row['facebook_link'];
     $instagram_link = $row['instagram_link'];
@@ -32,7 +35,7 @@ if ($result->num_rows > 0) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Partner</title>
+    <title>Edit Delivery Partner</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -41,6 +44,7 @@ if ($result->num_rows > 0) {
     <!-- SLIDER REVOLUTION 4.x CSS SETTINGS -->
 
     <link rel="stylesheet" href="../css/admin.css">
+
 
     <!-- icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
@@ -52,8 +56,13 @@ if ($result->num_rows > 0) {
 
     <style>
         .container {
-            padding-bottom: 300px;
-            height: 100vh !important;
+            padding-bottom: 450px;
+            height: auto !important;
+        }
+
+        .navbar {
+            background-color: <?php echo $color_theme ?>;
+            color: #FFFFFF;
         }
     </style>
 </head>
@@ -200,7 +209,7 @@ if ($result->num_rows > 0) {
                             <span class="material-icons">arrow_back_ios</span>
                         </button>
 
-                        <a class="navbar-brand"> Edit Partner </a>
+                        <a class="navbar-brand"> Edit Delivery Partner </a>
 
                         <button class="d-inline-block d-lg-none ml-auto more-button" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="material-icons">more_vert</span>
@@ -210,10 +219,10 @@ if ($result->num_rows > 0) {
                             <ul class="nav navbar-nav ml-auto">
 
                                 <li class="nav-item">
-    <a class="nav-link" href="../index.php" target="_blank">
-        <span class="material-icons">web</span>
-    </a>
-</li>
+                                    <a class="nav-link" href="../index.php" target="_blank">
+                                        <span class="material-icons">web</span>
+                                    </a>
+                                </li>
 
 
                                 <li class="nav-item">
@@ -274,14 +283,13 @@ if ($result->num_rows > 0) {
                         <form action="" method="POST" enctype="multipart/form-data">
                             <label for="image">Partner Logo</label>
                             <input type="file" id="image" name="image" accept=".jpg,.jpeg,.png">
-                            <br>
-
+                            <br><br>
                             <label for="partner_name">Partner Name</label>
                             <input type="text" id="partner_name" name="partner_name" value="<?php echo isset($_POST['partner_name']) ? $_POST['partner_name'] : $partner_name; ?>">
-
+                            <br><br>
                             <label for="partner_link">Partner Link</label>
                             <input type="text" id="partner_link" name="partner_link" value="<?php echo isset($_POST['partner_link']) ? $_POST['partner_link'] : $partner_link; ?>">
-
+                            <br>
                             <?php
                             // Check if the form is submitted
                             if (isset($_POST['submit'])) {
@@ -308,26 +316,36 @@ if ($result->num_rows > 0) {
                                 $stmt->bind_param("sssi", $_POST['partner_name'], $_POST['partner_link'], $image, $partner_id);
                                 $stmt->execute();
 
-                                if ($stmt) {
+                                if ($result && mysqli_affected_rows($conn) > 0) {
                                     echo '<br><br><div style="text-align:center;">
                                     <div class="banner">
                                         <div class="banner__content">
-                                            <div class="banner__text">
-                                                Data Updated
-                                            </div>
+                                        <div class="banner__text">
+                                            Updated
+                                        </div>
                                         </div>
                                     </div>
-                                </div>';
+                                    </div>';
+                                } elseif ($result && mysqli_affected_rows($conn) === 0) {
+                                    echo '<br><div style="text-align:center;">
+                                    <div class="banner">
+                                        <div class="banner__content">
+                                        <div class="banner__text">
+                                            No changes
+                                        </div>
+                                        </div>
+                                    </div>
+                                    </div>';
                                 } else {
                                     echo '<br><div style="text-align:center;">
                                     <div class="banner">
                                         <div class="banner__content">
-                                            <div class="banner__text">
-                                                Data Not Updated
-                                            </div>
+                                        <div class="banner__text">
+                                            Not Updated
+                                        </div>
                                         </div>
                                     </div>
-                                </div>';
+                                    </div>';
                                 }
                                 mysqli_close($conn);
                             }
@@ -354,10 +372,10 @@ if ($result->num_rows > 0) {
                                         </li>
                                     </ul>
                                     <ul class="m-0 p-0">
-                                            <li>
-                                                <a href="mailto:jynerline@gmail.com" style="font-style: italic;">jynerline@gmail.com</a>
-                                            </li>
-                                        </ul>
+                                        <li>
+                                            <a href="mailto:jynerline@gmail.com" style="font-style: italic;">jynerline@gmail.com</a>
+                                        </li>
+                                    </ul>
                                 </nav>
 
                             </div>

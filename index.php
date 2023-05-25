@@ -19,23 +19,29 @@ $sql = "SELECT * FROM company WHERE company_id = 1";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
-   $row = $result->fetch_assoc();
-   $company_year = $row['company_year'];
-   $company_name = $row['company_name'];
-   $logo_orig = $row['logo_orig'];
-   $logo_white = $row['logo_white'];
-   $logo_icon = $row['logo_icon'];
-   $address = $row['address'];
-   $phone = $row['phone'];
-   $email = $row['email'];
-   $storehours = $row['store_hours'];
-   $google_map = $row['google_map'];
-   $facebook_link = $row['facebook_link'];
-   $instagram_link = $row['instagram_link'];
-   $twitter_link = $row['twitter_link'];
+    $row = $result->fetch_assoc();
+    $company_year = $row['company_year'];
+    $company_name = $row['company_name'];
+    $logo_orig = $row['logo_orig'];
+    $logo_white = $row['logo_white'];
+    $logo_icon = $row['logo_icon'];
+    $address = $row['address'];
+    $phone = $row['phone'];
+    $email = $row['email'];
+    $storehours = $row['store_hours'];
+    $closing_time = $row['closing_time'];
+    $seat_capacity = $row['seat_capacity'];
+    $color_theme = $row['color_theme'];
+    $google_map = $row['google_map'];
+    $address_link = $row['address_link'];
+    $facebook_link = $row['facebook_link'];
+    $instagram_link = $row['instagram_link'];
+    $twitter_link = $row['twitter_link'];
 } else {
-   echo " ";
+    echo " ";
 }
+
+include('css/dynamic_styles.php');
 ?>
 
 <!DOCTYPE html>
@@ -55,6 +61,8 @@ if ($result->num_rows > 0) {
 
    <!-- custom css file link  -->
    <link rel="stylesheet" href="css/style.css">
+
+
    <!-- bannner  -->
    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
@@ -423,8 +431,8 @@ if ($result->num_rows > 0) {
          <div class="row">
             <div class="col-md-4 col-sm-12">
                <p style="font-size: 14px;"><em><?php echo $address ?></em></p>
-               <p style="font-size: 14px;">Phone: <?php echo $phone ?></p>
-               <p style="font-size: 14px;">Email: <?php echo $email ?></p>
+               <p style="font-size: 14px;">Phone: <a href="tel:<?php echo $phone ?>"><?php echo $phone ?></a></p>
+               <p style="font-size: 14px;">Email: <a href="mailto:<?php echo $email ?>"><?php echo $email ?></a></p>
             </div>
             <br><br><br><br><br><br>
             <div class="col-md-4 col-sm-12 mb-4 mb-sm-0">
@@ -442,7 +450,7 @@ if ($result->num_rows > 0) {
                <h4 class="footer-title"><strong>Our Delivery Partners</strong></h4><br>
                <div class="delivery-partners">
                   <?php
-                                          $sql = "SELECT * FROM delivery_partners WHERE status = 'active'";
+                  $sql = "SELECT * FROM delivery_partners WHERE status = 'active'";
                   $result = mysqli_query($conn, $sql);
                   $numRows = mysqli_num_rows($result);
 
@@ -492,7 +500,7 @@ if ($result->num_rows > 0) {
          </div>
          <div class="modal-body">
             <p>We'll be back to serve you during our regular hours:<br>
-               Mon-Fri: 10AM-8PM | Sat-Sun: 11AM-8PM.<br>
+               <?php echo $storehours ?><br>
                Meanwhile, feel free to browse our menu by clicking the "Hide" button.
             </p>
             <p>Thank you for your patience!</p>
@@ -522,9 +530,13 @@ if ($result->num_rows > 0) {
          const isWeekday = day >= 1 && day <= 5;
          const isWeekend = day === 0 || day === 6;
 
+         // Get the opening and closing hours from the database
+         const openingHour = parseInt("<?php echo date('H', strtotime($opening_time)); ?>");
+         const closingHour = parseInt("<?php echo date('H', strtotime($closing_time)); ?>");
+
          // Check if the current time is outside store hours
-         const outsideWeekdayHours = isWeekday && (hour < 10 || hour >= 20);
-         const outsideWeekendHours = isWeekend && (hour < 11 || hour >= 20);
+         const outsideWeekdayHours = isWeekday && (hour < openingHour || hour >= closingHour);
+         const outsideWeekendHours = isWeekend && (hour < openingHour || hour >= closingHour);
 
          // Check if modal was already shown
          if (!localStorage.getItem('storeHoursModalShown')) {
@@ -538,6 +550,7 @@ if ($result->num_rows > 0) {
       // Call the function to check store hours
       checkStoreHours();
    </script>
+
 </body>
 
 </html>

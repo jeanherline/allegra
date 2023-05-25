@@ -12,23 +12,28 @@ $sql = "SELECT * FROM company WHERE company_id = 1";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-    $company_year = $row['company_year'];
-    $company_name = $row['company_name'];
-    $logo_orig = $row['logo_orig'];
-    $logo_white = $row['logo_white'];
-    $logo_icon = $row['logo_icon'];
-    $address = $row['address'];
-    $phone = $row['phone'];
-    $email = $row['email'];
-    $storehours = $row['store_hours'];
-    $google_map = $row['google_map'];
-    $facebook_link = $row['facebook_link'];
-    $instagram_link = $row['instagram_link'];
-    $twitter_link = $row['twitter_link'];
+   $row = $result->fetch_assoc();
+   $company_year = $row['company_year'];
+   $company_name = $row['company_name'];
+   $logo_orig = $row['logo_orig'];
+   $logo_white = $row['logo_white'];
+   $logo_icon = $row['logo_icon'];
+   $address = $row['address'];
+   $phone = $row['phone'];
+   $email = $row['email'];
+   $storehours = $row['store_hours'];
+   $closing_time = $row['closing_time'];
+   $seat_capacity = $row['seat_capacity'];
+   $color_theme = $row['color_theme'];
+   $google_map = $row['google_map'];
+   $facebook_link = $row['facebook_link'];
+   $instagram_link = $row['instagram_link'];
+   $twitter_link = $row['twitter_link'];
 } else {
-    echo " ";
+   echo " ";
 }
+
+include('css/dynamic_styles.php');
 ?>
 
 <!DOCTYPE html>
@@ -337,11 +342,11 @@ if ($result->num_rows > 0) {
     <section class="footer">
         <div class="container">
             <div class="row">
-                <div class="col-md-4 col-sm-12">
-                    <p style="font-size: 14px;"><em><?php echo $address ?></em></p>
-                    <p style="font-size: 14px;">Phone: <?php echo $phone ?></p>
-                    <p style="font-size: 14px;">Email: <?php echo $email ?></p>
-                </div>
+            <div class="col-md-4 col-sm-12">
+               <p style="font-size: 14px;"><em><?php echo $address ?></em></p>
+               <p style="font-size: 14px;">Phone: <a href="tel:<?php echo $phone ?>"><?php echo $phone ?></a></p>
+               <p style="font-size: 14px;">Email: <a href="mailto:<?php echo $email ?>"><?php echo $email ?></a></p>
+            </div>
                 <br><br><br><br><br><br>
                 <div class="col-md-4 col-sm-12 mb-4 mb-sm-0">
                     <a href="" class="logo"><img src="images/<?php echo $logo_orig ?>" alt=""></a>

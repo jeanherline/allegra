@@ -16,7 +16,11 @@ if ($result->num_rows > 0) {
     $phone = $row['phone'];
     $email = $row['email'];
     $storehours = $row['store_hours'];
+    $closing_time = $row['closing_time'];
+    $seat_capacity = $row['seat_capacity'];
+    $color_theme = $row['color_theme'];
     $google_map = $row['google_map'];
+    $address_link = $row['address_link'];
     $facebook_link = $row['facebook_link'];
     $instagram_link = $row['instagram_link'];
     $twitter_link = $row['twitter_link'];
@@ -42,6 +46,7 @@ if ($result->num_rows > 0) {
 
     <link rel="stylesheet" href="../css/admin.css">
 
+
     <!-- icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 
@@ -52,8 +57,13 @@ if ($result->num_rows > 0) {
 
     <style>
         .container {
-            padding-bottom: 300px;
-            height: 100vh !important;
+            padding-bottom: 450px;
+            height: auto !important;
+        }
+
+        .navbar {
+            background-color: <?php echo $color_theme ?>;
+            color: #FFFFFF;
         }
     </style>
 
@@ -211,10 +221,10 @@ if ($result->num_rows > 0) {
                             <ul class="nav navbar-nav ml-auto">
 
                                 <li class="nav-item">
-    <a class="nav-link" href="../index.php" target="_blank">
-        <span class="material-icons">web</span>
-    </a>
-</li>
+                                    <a class="nav-link" href="../index.php" target="_blank">
+                                        <span class="material-icons">web</span>
+                                    </a>
+                                </li>
 
 
                                 <li class="nav-item">
@@ -267,14 +277,14 @@ if ($result->num_rows > 0) {
 
                                 <label for="category_name">Category Name</label>
                                 <input type="text" id="category_name" name="category_name" value="<?php echo isset($_POST['category_name']) ? $_POST['category_name'] : $category_name; ?>">
-
+                                <br><br>
                                 <label for="status">Status</label>
                                 <select id="status" name="status">
                                     <option value="<?php echo isset($_POST['status']) ? $_POST['status'] : $status; ?>" selected disabled><?php echo isset($_POST['status']) ? $_POST['status'] : $status; ?></option>
                                     <option value="Active">Active</option>
                                     <option value="Archived">Archived</option>
                                 </select>
-
+                                <br>
                                 <?php
                                 if (isset($_POST['submit'])) {
                                     // Update values in input fields
@@ -287,26 +297,38 @@ if ($result->num_rows > 0) {
 
                                     $stmt->execute();
 
-                                    if ($result) {
-                                        echo '<br><br><div style="text-align:center;">
-                                        <div class="banner">
-                                            <div class="banner__content">
-                                                <div class="banner__text">
-                                                    Data Updated
+                                    if ($stmt->execute()) {
+                                        if ($stmt->affected_rows > 0) {
+                                            echo '<br><br><div style="text-align:center;">
+                                                <div class="banner">
+                                                  <div class="banner__content">
+                                                    <div class="banner__text">
+                                                      Updated
+                                                    </div>
+                                                  </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </div>';
+                                              </div>';
+                                        } else {
+                                            echo '<br><div style="text-align:center;">
+                                                <div class="banner">
+                                                  <div class="banner__content">
+                                                    <div class="banner__text">
+                                                      No Changes
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>';
+                                        }
                                     } else {
                                         echo '<br><div style="text-align:center;">
-                                        <div class="banner">
-                                            <div class="banner__content">
-                                                <div class="banner__text">
-                                                    Data Not Updated
+                                              <div class="banner">
+                                                <div class="banner__content">
+                                                  <div class="banner__text">
+                                                    Not Updated
+                                                  </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </div>';
+                                              </div>
+                                            </div>';
                                     }
                                     mysqli_close($conn);
                                 }
@@ -337,10 +359,10 @@ if ($result->num_rows > 0) {
                                         </li>
                                     </ul>
                                     <ul class="m-0 p-0">
-                                            <li>
-                                                <a href="mailto:jynerline@gmail.com" style="font-style: italic;">jynerline@gmail.com</a>
-                                            </li>
-                                        </ul>
+                                        <li>
+                                            <a href="mailto:jynerline@gmail.com" style="font-style: italic;">jynerline@gmail.com</a>
+                                        </li>
+                                    </ul>
                                 </nav>
 
                             </div>

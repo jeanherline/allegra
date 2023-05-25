@@ -6,22 +6,25 @@ $sql = "SELECT * FROM company WHERE company_id = 1";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-    $company_year = $row['company_year'];
-    $company_name = $row['company_name'];
-    $logo_orig = $row['logo_orig'];
-    $logo_white = $row['logo_white'];
-    $logo_icon = $row['logo_icon'];
-    $address = $row['address'];
-    $phone = $row['phone'];
-    $email = $row['email'];
-    $storehours = $row['store_hours'];
-    $google_map = $row['google_map'];
-    $facebook_link = $row['facebook_link'];
-    $instagram_link = $row['instagram_link'];
-    $twitter_link = $row['twitter_link'];
+   $row = $result->fetch_assoc();
+   $company_year = $row['company_year'];
+   $company_name = $row['company_name'];
+   $logo_orig = $row['logo_orig'];
+   $logo_white = $row['logo_white'];
+   $logo_icon = $row['logo_icon'];
+   $address = $row['address'];
+   $phone = $row['phone'];
+   $email = $row['email'];
+   $storehours = $row['store_hours'];
+   $closing_time = $row['closing_time'];
+   $seat_capacity = $row['seat_capacity'];
+   $color_theme = $row['color_theme'];
+   $google_map = $row['google_map'];
+   $facebook_link = $row['facebook_link'];
+   $instagram_link = $row['instagram_link'];
+   $twitter_link = $row['twitter_link'];
 } else {
-    echo " ";
+   echo " ";
 }
 ?>
 
@@ -32,7 +35,7 @@ if ($result->num_rows > 0) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Menu</title>
+    <title>Edit Menu Product</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -41,6 +44,7 @@ if ($result->num_rows > 0) {
     <!-- SLIDER REVOLUTION 4.x CSS SETTINGS -->
 
     <link rel="stylesheet" href="../css/admin.css">
+ 
 
     <!--google material icon-->
     <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
@@ -49,8 +53,12 @@ if ($result->num_rows > 0) {
 
     <style>
         .container {
-            padding-bottom: 300px;
-            height: 130vh !important;
+            padding-bottom: 450px;
+            height: auto !important;
+        }
+        .navbar {
+            background-color: <?php echo $color_theme ?>;
+            color: #FFFFFF;
         }
     </style>
 
@@ -208,10 +216,10 @@ if ($result->num_rows > 0) {
                             <ul class="nav navbar-nav ml-auto">
 
                                 <li class="nav-item">
-    <a class="nav-link" href="../index.php" target="_blank">
-        <span class="material-icons">web</span>
-    </a>
-</li>
+                                    <a class="nav-link" href="../index.php" target="_blank">
+                                        <span class="material-icons">web</span>
+                                    </a>
+                                </li>
 
 
                                 <li class="nav-item">
@@ -270,17 +278,16 @@ if ($result->num_rows > 0) {
                             <form action="" method="POST" autocomplete="on" enctype="multipart/form-data">
                                 <label for="image">Image</label>
                                 <input type="file" id="image" name="image" accept=".jpg,.jpeg,.png">
-                                <br>
-
+                                <br><br>
                                 <label for="menu_name">Menu Name</label>
                                 <input type="text" id="menu_name" name="menu_name" value="<?php echo isset($_POST['menu_name']) ? $_POST['menu_name'] : $menu_name; ?>">
-
+                                <br><br>
                                 <label for="description">Description</label>
                                 <textarea id="description" name="description" style="height:100px"><?php echo isset($_POST['description']) ? $_POST['description'] : $description; ?></textarea>
-
+                                <br><br>
                                 <label for="price">Price</label>
                                 <input type="text" id="price" name="price" value="<?php echo isset($_POST['price']) ? $_POST['price'] : $price; ?>">
-
+                                <br><br>
                                 <label for="category">Category</label>
                                 <?php
                                 $sql = "SELECT * FROM category WHERE status = 'active' AND category_name = ?";
@@ -313,7 +320,7 @@ if ($result->num_rows > 0) {
                                     }
                                     ?>
                                 </select>
-
+                                <br><br>
 
                                 <label for="availability">Availability</label>
                                 <select id="availability" name="availability">
@@ -321,9 +328,7 @@ if ($result->num_rows > 0) {
                                     <option value="Available Today" <?php echo $availability == 'Available Today' ? 'selected' : ''; ?>>Available Today</option>
                                     <option value="Unavailable Today" <?php echo $availability == 'Unavailable Today' ? 'selected' : ''; ?>>Unavailable Today</option>
                                 </select>
-
-
-
+                                <br>
                                 <?php
                                 if (isset($_POST['submit'])) {
                                     $image = $menu_id;
@@ -386,32 +391,38 @@ if ($result->num_rows > 0) {
                                             $stmt->bind_param("sssssi", $menu_name, $description, $price, $category, $availability, $id);
                                         }
 
-
-
                                         $result = $stmt->execute();
 
-
-
-                                        if ($result) {
+                                        if ($result && mysqli_affected_rows($conn) > 0) {
                                             echo '<br><br><div style="text-align:center;">
                                             <div class="banner">
                                                 <div class="banner__content">
-                                                    <div class="banner__text">
-                                                        Data Updated
-                                                    </div>
+                                                <div class="banner__text">
+                                                    Updated
+                                                </div>
                                                 </div>
                                             </div>
-                                        </div>';
+                                            </div>';
+                                        } elseif ($result && mysqli_affected_rows($conn) === 0) {
+                                            echo '<br><div style="text-align:center;">
+                                            <div class="banner">
+                                                <div class="banner__content">
+                                                <div class="banner__text">
+                                                    No changes
+                                                </div>
+                                                </div>
+                                            </div>
+                                            </div>';
                                         } else {
                                             echo '<br><div style="text-align:center;">
                                             <div class="banner">
                                                 <div class="banner__content">
-                                                    <div class="banner__text">
-                                                        Data Not Updated
-                                                    </div>
+                                                <div class="banner__text">
+                                                    Not Updated
+                                                </div>
                                                 </div>
                                             </div>
-                                        </div>';
+                                            </div>';
                                         }
                                     }
                                     $stmt->close();

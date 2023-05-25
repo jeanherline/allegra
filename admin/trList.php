@@ -6,22 +6,25 @@ $sql = "SELECT * FROM company WHERE company_id = 1";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-    $company_year = $row['company_year'];
-    $company_name = $row['company_name'];
-    $logo_orig = $row['logo_orig'];
-    $logo_white = $row['logo_white'];
-    $logo_icon = $row['logo_icon'];
-    $address = $row['address'];
-    $phone = $row['phone'];
-    $email = $row['email'];
-    $storehours = $row['store_hours'];
-    $google_map = $row['google_map'];
-    $facebook_link = $row['facebook_link'];
-    $instagram_link = $row['instagram_link'];
-    $twitter_link = $row['twitter_link'];
+   $row = $result->fetch_assoc();
+   $company_year = $row['company_year'];
+   $company_name = $row['company_name'];
+   $logo_orig = $row['logo_orig'];
+   $logo_white = $row['logo_white'];
+   $logo_icon = $row['logo_icon'];
+   $address = $row['address'];
+   $phone = $row['phone'];
+   $email = $row['email'];
+   $storehours = $row['store_hours'];
+   $closing_time = $row['closing_time'];
+   $seat_capacity = $row['seat_capacity'];
+   $color_theme = $row['color_theme'];
+   $google_map = $row['google_map'];
+   $facebook_link = $row['facebook_link'];
+   $instagram_link = $row['instagram_link'];
+   $twitter_link = $row['twitter_link'];
 } else {
-    echo " ";
+   echo " ";
 }
 ?>
 
@@ -66,6 +69,11 @@ if ($result->num_rows > 0) {
         .container {
             padding-bottom: 600px;
             height: auto !important;
+        }
+
+        .navbar {
+            background-color: <?php echo $color_theme ?>;
+            color: #FFFFFF;
         }
     </style>
 
@@ -298,7 +306,7 @@ if ($result->num_rows > 0) {
                                                 <td><?php echo $ctr++; ?></td>
                                                 <td><strong><?php echo $first_name . " " . $last_name ?></strong></td>
                                                 <td><a href="mailto:<?php echo $email ?>"><?php echo $email ?></a></td>
-                                                <td><?php echo $phone ?></td>
+                                                <td><a href="tel:<?php echo $phone ?>"><?php echo $phone ?></td>
 
                                                 <td><?php echo $number_of_guests ?></td>
                                                 <td><strong><?php echo date("F j, Y", strtotime($reservation_date)) ?></strong></td>

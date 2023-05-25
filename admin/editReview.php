@@ -16,7 +16,11 @@ if ($result->num_rows > 0) {
     $phone = $row['phone'];
     $email = $row['email'];
     $storehours = $row['store_hours'];
+    $closing_time = $row['closing_time'];
+    $seat_capacity = $row['seat_capacity'];
+    $color_theme = $row['color_theme'];
     $google_map = $row['google_map'];
+    $address_link = $row['address_link'];
     $facebook_link = $row['facebook_link'];
     $instagram_link = $row['instagram_link'];
     $twitter_link = $row['twitter_link'];
@@ -32,7 +36,7 @@ if ($result->num_rows > 0) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Review</title>
+    <title>Edit Testimony</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -41,6 +45,7 @@ if ($result->num_rows > 0) {
     <!-- SLIDER REVOLUTION 4.x CSS SETTINGS -->
 
     <link rel="stylesheet" href="../css/admin.css">
+
 
     <!-- icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
@@ -52,8 +57,13 @@ if ($result->num_rows > 0) {
 
     <style>
         .container {
-            padding-bottom: 300px;
-            height: 100vh !important;
+            padding-bottom: 450px;
+            height: auto !important;
+        }
+
+        .navbar {
+            background-color: <?php echo $color_theme ?>;
+            color: #FFFFFF;
         }
     </style>
 </head>
@@ -200,7 +210,7 @@ if ($result->num_rows > 0) {
                             <span class="material-icons">arrow_back_ios</span>
                         </button>
 
-                        <a class="navbar-brand"> Gallery </a>
+                        <a class="navbar-brand"> Testimonials </a>
 
                         <button class="d-inline-block d-lg-none ml-auto more-button" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="material-icons">more_vert</span>
@@ -232,7 +242,6 @@ if ($result->num_rows > 0) {
                                     </ul>
                                 </li>
                             </ul>
-
                         </div>
                     </div>
                 </nav>
@@ -266,13 +275,13 @@ if ($result->num_rows > 0) {
                             <form action="" method="POST" autocomplete="on" enctype="multipart/form-data">
                                 <label for="image">Image</label>
                                 <input type="file" id="image" name="image" accept=".jpg,.jpeg,.png">
-                                <br>
-
+                                <br><br>
                                 <label for="customer_name">Name</label>
                                 <input type="text" id="customer_name" name="customer_name" value="<?php echo isset($_POST['customer_name']) ? $_POST['customer_name'] : $customer_name; ?>">
-
+                                <br><br>
                                 <label for="testimonial">Testimonial / Review</label>
                                 <textarea id="testimonial" name="testimonial" style="height:100px"><?php echo isset($_POST['testimonial']) ? $_POST['testimonial'] : $testimonial; ?></textarea>
+                                <br>
 
                                 <?php
                                 if (isset($_POST['submit'])) {
@@ -322,25 +331,35 @@ if ($result->num_rows > 0) {
 
                                     $stmt->execute();
 
-                                    if ($result) {
+                                    if ($result && mysqli_affected_rows($conn) > 0) {
                                         echo '<br><br><div style="text-align:center;">
-                                            <div class="banner">
-                                                <div class="banner__content">
-                                                    <div class="banner__text">
-                                                        Data Updated
-                                                    </div>
-                                                </div>
+                                        <div class="banner">
+                                            <div class="banner__content">
+                                            <div class="banner__text">
+                                                Updated
                                             </div>
+                                            </div>
+                                        </div>
+                                        </div>';
+                                    } elseif ($result && mysqli_affected_rows($conn) === 0) {
+                                        echo '<br><div style="text-align:center;">
+                                        <div class="banner">
+                                            <div class="banner__content">
+                                            <div class="banner__text">
+                                                No changes
+                                            </div>
+                                            </div>
+                                        </div>
                                         </div>';
                                     } else {
                                         echo '<br><div style="text-align:center;">
-                                            <div class="banner">
-                                                <div class="banner__content">
-                                                    <div class="banner__text">
-                                                        Data Not Updated
-                                                    </div>
-                                                </div>
+                                        <div class="banner">
+                                            <div class="banner__content">
+                                            <div class="banner__text">
+                                                Not Updated
                                             </div>
+                                            </div>
+                                        </div>
                                         </div>';
                                     }
                                 }
@@ -371,10 +390,10 @@ if ($result->num_rows > 0) {
                                         </li>
                                     </ul>
                                     <ul class="m-0 p-0">
-                                            <li>
-                                                <a href="mailto:jynerline@gmail.com" style="font-style: italic;">jynerline@gmail.com</a>
-                                            </li>
-                                        </ul>
+                                        <li>
+                                            <a href="mailto:jynerline@gmail.com" style="font-style: italic;">jynerline@gmail.com</a>
+                                        </li>
+                                    </ul>
                                 </nav>
 
                             </div>

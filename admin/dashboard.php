@@ -16,7 +16,11 @@ if ($result->num_rows > 0) {
     $phone = $row['phone'];
     $email = $row['email'];
     $storehours = $row['store_hours'];
+    $closing_time = $row['closing_time'];
+    $seat_capacity = $row['seat_capacity'];
+    $color_theme = $row['color_theme'];
     $google_map = $row['google_map'];
+    $address_link = $row['address_link'];
     $facebook_link = $row['facebook_link'];
     $instagram_link = $row['instagram_link'];
     $twitter_link = $row['twitter_link'];
@@ -47,14 +51,19 @@ if ($result->num_rows > 0) {
 
     <style>
         #myTable td,
-        th {
-            font-size: 14px;
+        th,
+        td {
             text-align: center;
         }
 
         .container {
             padding-bottom: 700px;
             height: auto !important;
+        }
+
+        .navbar {
+            background-color: <?php echo $color_theme ?>;
+            color: #FFFFFF;
         }
     </style>
 </head>
@@ -442,7 +451,7 @@ if ($result->num_rows > 0) {
                                                 ) AS combined_reservations
                                                 WHERE reservation_date 
                                                 ORDER BY reservation_date ASC
-                                                LIMIT 10";
+                                                LIMIT 13";
 
                                         $result = $conn->query($sql);
 

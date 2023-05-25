@@ -16,7 +16,11 @@ if ($result->num_rows > 0) {
     $phone = $row['phone'];
     $email = $row['email'];
     $storehours = $row['store_hours'];
+    $closing_time = $row['closing_time'];
+    $seat_capacity = $row['seat_capacity'];
+    $color_theme = $row['color_theme'];
     $google_map = $row['google_map'];
+    $address_link = $row['address_link'];
     $facebook_link = $row['facebook_link'];
     $instagram_link = $row['instagram_link'];
     $twitter_link = $row['twitter_link'];
@@ -42,6 +46,7 @@ if ($result->num_rows > 0) {
 
     <link rel="stylesheet" href="../css/admin.css">
 
+
     <!-- icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 
@@ -52,8 +57,13 @@ if ($result->num_rows > 0) {
 
     <style>
         .container {
-            padding-bottom: 300px;
-            height: 100vh !important;
+            padding-bottom: 450px;
+            height: auto !important;
+        }
+
+        .navbar {
+            background-color: <?php echo $color_theme ?>;
+            color: #FFFFFF;
         }
     </style>
 </head>
@@ -264,17 +274,16 @@ if ($result->num_rows > 0) {
                             <form action="" method="POST" autocomplete="on" enctype="multipart/form-data">
                                 <label for="image">Image</label>
                                 <input type="file" id="image" name="image" accept=".jpg,.jpeg,.png">
-                                <br>
-
+                                <br><br>
                                 <label for="title">Title</label>
                                 <input type="text" id="title" name="title" value="<?php echo isset($_POST['title']) ? $_POST['title'] : $title; ?>">
-
+                                <br><br>
                                 <label for="description">Description</label>
                                 <textarea id="description" name="description" style="height:100px"><?php echo isset($_POST['description']) ? $_POST['description'] : $description; ?></textarea>
-
+                                <br><br>
                                 <label for="link">Link</label>
                                 <input type="text" id="link" name="link" value="<?php echo isset($_POST['link']) ? $_POST['link'] : $link; ?>">
-
+                                <br>
                                 <?php
                                 if (isset($_POST['submit'])) {
                                     $image = $gallery_id;
@@ -310,25 +319,35 @@ if ($result->num_rows > 0) {
 
                                     $result = mysqli_query($conn, $query);
 
-                                    if ($result) {
+                                    if ($result && mysqli_affected_rows($conn) > 0) {
                                         echo '<br><br><div style="text-align:center;">
                                         <div class="banner">
                                             <div class="banner__content">
-                                                <div class="banner__text">
-                                                    Data Updated
-                                                </div>
+                                            <div class="banner__text">
+                                                Updated
+                                            </div>
                                             </div>
                                         </div>
-                                    </div>';
+                                        </div>';
+                                    } elseif ($result && mysqli_affected_rows($conn) === 0) {
+                                        echo '<br><div style="text-align:center;">
+                                        <div class="banner">
+                                            <div class="banner__content">
+                                            <div class="banner__text">
+                                                No changes
+                                            </div>
+                                            </div>
+                                        </div>
+                                        </div>';
                                     } else {
                                         echo '<br><div style="text-align:center;">
-                                            <div class="banner">
-                                                <div class="banner__content">
-                                                    <div class="banner__text">
-                                                        Data Not Updated
-                                                    </div>
-                                                </div>
+                                        <div class="banner">
+                                            <div class="banner__content">
+                                            <div class="banner__text">
+                                                Not Updated
                                             </div>
+                                            </div>
+                                        </div>
                                         </div>';
                                     }
                                 }

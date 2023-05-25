@@ -22,13 +22,19 @@ if ($result->num_rows > 0) {
     $phone = $row['phone'];
     $email = $row['email'];
     $storehours = $row['store_hours'];
+    $closing_time = $row['closing_time'];
+    $seat_capacity = $row['seat_capacity'];
+    $color_theme = $row['color_theme'];
     $google_map = $row['google_map'];
+    $address_link = $row['address_link'];
     $facebook_link = $row['facebook_link'];
     $instagram_link = $row['instagram_link'];
     $twitter_link = $row['twitter_link'];
 } else {
     echo " ";
 }
+
+include('css/dynamic_styles.php');
 ?>
 
 <!DOCTYPE html>
@@ -49,36 +55,12 @@ if ($result->num_rows > 0) {
     <!-- custom css file link  -->
     <link rel="stylesheet" href="css/style.css">
 
+
+
     <link rel="icon" href="images/<?php echo $logo_icon ?>" type="images" />
 
     <!-- bannner  -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-    <style>
-        <?php
-        $sql = "SELECT * FROM company WHERE company_id = 1";
-        $result = $conn->query($sql);
-
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            $company_year = $row['company_year'];
-            $company_name = $row['company_name'];
-            $logo_orig = $row['logo_orig'];
-            $logo_white = $row['logo_white'];
-            $logo_icon = $row['logo_icon'];
-            $address = $row['address'];
-            $phone = $row['phone'];
-            $email = $row['email'];
-            $storehours = $row['store_hours'];
-            $google_map = $row['google_map'];
-            $facebook_link = $row['facebook_link'];
-            $instagram_link = $row['instagram_link'];
-            $twitter_link = $row['twitter_link'];
-        } else {
-            echo " ";
-        }
-        ?>?>
-    </style>
 </head>
 
 <body>
@@ -188,19 +170,19 @@ if ($result->num_rows > 0) {
             <div class="contact-info-container">
 
                 <div class="box">
-                    <i class="fas fa-phone"></i>
+                    <a href="tel:<?php echo $phone; ?>"><i class="fas fa-phone"></i></a>
                     <h3>phone</h3>
                     <p><?php echo $phone ?></p>
                 </div>
 
                 <div class="box">
-                    <i class="fas fa-map"></i>
+                    <a href="<?php echo $address_link; ?>" target="_blank"><i class="fas fa-map"></i></a>
                     <h3>address</h3>
                     <p><?php echo $address ?></p>
                 </div>
 
                 <div class="box">
-                    <i class="fas fa-envelope"></i>
+                    <a href="mailto:<?php echo $email; ?>"><i class="fas fa-envelope"></i></a>
                     <h3>email</h3>
                     <p><?php echo $email ?></p>
                 </div>
@@ -368,8 +350,8 @@ if ($result->num_rows > 0) {
             <div class="row">
                 <div class="col-md-4 col-sm-12">
                     <p style="font-size: 14px;"><em><?php echo $address ?></em></p>
-                    <p style="font-size: 14px;">Phone: <?php echo $phone ?></p>
-                    <p style="font-size: 14px;">Email: <?php echo $email ?></p>
+                    <p style="font-size: 14px;">Phone: <a href="tel:<?php echo $phone ?>"><?php echo $phone ?></a></p>
+                    <p style="font-size: 14px;">Email: <a href="mailto:<?php echo $email ?>"><?php echo $email ?></a></p>
                 </div>
                 <br><br><br><br><br><br>
                 <div class="col-md-4 col-sm-12 mb-4 mb-sm-0">

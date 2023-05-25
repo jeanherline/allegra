@@ -15,7 +15,7 @@ if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 
     // Last activity was more than $timeout seconds ago
     session_unset();     // Unset session variables
     session_destroy();   // Destroy the session
-    header("Location: sessionTimeout.php"); // Redirect to timeout page
+    header("Location: ../sessionTimeout.php"); // Redirect to timeout page
     exit();
 }
 

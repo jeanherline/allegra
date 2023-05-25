@@ -16,7 +16,12 @@ if ($result->num_rows > 0) {
     $phone = $row['phone'];
     $email = $row['email'];
     $storehours = $row['store_hours'];
+    $opening_time = $row['opening_time'];
+    $closing_time = $row['closing_time'];
+    $seat_capacity = $row['seat_capacity'];
+    $color_theme = $row['color_theme'];
     $google_map = $row['google_map'];
+    $address_link = $row['address_link'];
     $facebook_link = $row['facebook_link'];
     $instagram_link = $row['instagram_link'];
     $twitter_link = $row['twitter_link'];
@@ -36,7 +41,7 @@ if (isset($_GET['table_reservation_id'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Table Reservation # <?php echo $id ?></title>
+    <title>Edit Table Reservation</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -46,6 +51,7 @@ if (isset($_GET['table_reservation_id'])) {
 
     <link rel="stylesheet" href="../css/admin.css">
 
+
     <!--google material icon-->
     <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
 
@@ -53,7 +59,7 @@ if (isset($_GET['table_reservation_id'])) {
 
     <style>
         .container {
-            padding-bottom: 300px;
+            padding-bottom: 450px;
             height: auto !important;
         }
 
@@ -69,6 +75,11 @@ if (isset($_GET['table_reservation_id'])) {
             margin-top: 15px;
             margin-bottom: 16px;
             resize: vertical;
+        }
+
+        .navbar {
+            background-color: <?php echo $color_theme ?>;
+            color: #FFFFFF;
         }
     </style>
 
@@ -216,7 +227,7 @@ if (isset($_GET['table_reservation_id'])) {
                             <span class="material-icons">arrow_back_ios</span>
                         </button>
 
-                        <a class="navbar-brand"> Edit Table Reservation # <?php echo $id ?> </a>
+                        <a class="navbar-brand"> Edit Table Reservation</a>
 
                         <button class="d-inline-block d-lg-none ml-auto more-button" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="material-icons">more_vert</span>
@@ -226,10 +237,10 @@ if (isset($_GET['table_reservation_id'])) {
                             <ul class="nav navbar-nav ml-auto">
 
                                 <li class="nav-item">
-    <a class="nav-link" href="../index.php" target="_blank">
-        <span class="material-icons">web</span>
-    </a>
-</li>
+                                    <a class="nav-link" href="../index.php" target="_blank">
+                                        <span class="material-icons">web</span>
+                                    </a>
+                                </li>
 
 
                                 <li class="nav-item">
@@ -255,7 +266,7 @@ if (isset($_GET['table_reservation_id'])) {
             </div>
 
             <div class="main-content">
-                <p class="category">Reservations / <a href="pdList.php">Table Reservation List / </a><strong>Edit</strong></p>
+                <p class="category">Reservations / <a href="trList.php">Table Reservation List / </a><strong>Edit</strong></p>
                 <br>
                 <div class="row">
                     <div class="container">
@@ -293,29 +304,29 @@ if (isset($_GET['table_reservation_id'])) {
                         <form action="" method="POST" autocomplete="on" enctype="multipart/form-data">
                             <label for="first_name">First Name</label>
                             <input type="text" id="first_name" name="first_name" value="<?php echo isset($_POST['first_name']) ? $_POST['first_name'] : $first_name; ?>">
-
+                            <br><br>
                             <label for="last_name">Last Name</label>
                             <input type="text" id="last_name" name="last_name" value="<?php echo isset($_POST['last_name']) ? $_POST['last_name'] : $last_name; ?>">
-
+                            <br><br>
                             <label for="email">Email</label>
                             <input type="text" id="email" name="email" value="<?php echo isset($_POST['email']) ? $_POST['email'] : $email; ?>">
-
+                            <br><br>
                             <label for="guests">Number of Guests</label>
                             <select class="box" id="guests" name="guests">
                                 <option value="<?php echo $number_of_guests; ?>" selected disabled>
                                     <?php echo isset($_POST['guests']) ? $_POST['guests'] : $number_of_guests; ?>
                                 </option>
                                 <?php
-                                for ($i = 1; $i <= 11; $i++) {
+                                for ($i = 1; $i <= $seat_capacity; $i++) {
                                     $selected = isset($_POST['guests']) && $_POST['guests'] == $i ? 'selected' : '';
                                     echo "<option value='$i' $selected>$i</option>";
                                 }
                                 ?>
                             </select>
-
+                            <br><br>
                             <label for="date" id="date">Date of Reservation</label>
                             <input type="date" name="date" id="date" class="box" value="<?php echo isset($_POST['reservation_date']) ? $_POST['reservation_date'] : $reservation_date; ?>" min="<?php echo isset($_POST['date']) ? $_POST['date'] : $date; ?>">
-
+                            <br><br>
                             <script>
                                 // Clear the date input value on focus
                                 document.getElementById("date").addEventListener("focus", function() {
@@ -334,13 +345,13 @@ if (isset($_GET['table_reservation_id'])) {
 
                             <label for="time" id="time">Time of Reservation</label>
                             <input type="time" name="time" id="time" class="box" value="<?php echo isset($_POST['reservation_time']) ? $_POST['reservation_time'] : $reservation_time; ?>" step="60">
-
+                            <br><br>
                             <label for="others">Others</label>
                             <input type="text" id="others" name="others" value="<?php echo isset($_POST['others']) ? $_POST['others'] : $others; ?>" class="box">
-
+                            <br><br>
                             <label for="request">Special Requests</label>
                             <textarea name="request" class="box" id="request" cols="30" rows="10"><?php echo isset($_POST['request']) ? $_POST['request'] : $request; ?></textarea>
-
+                            <br>
 
                             <?php
                             if (isset($_POST['submit'])) {
@@ -361,47 +372,73 @@ if (isset($_GET['table_reservation_id'])) {
                                 } else {
                                     $special_requests = $_POST['request'];
                                 }
-
-                                $stmt = $conn->prepare("UPDATE table_reservation SET
-                                            first_name = ?,
-                                            last_name = ?,
-                                            email = ?,
-                                            number_of_guests = ?,
-                                            reservation_date = ?,
-                                            reservation_time = ?,
-                                            others = ?,
-                                            special_requests = ?
-                                        WHERE table_reservation_id = ?");
-
-                                if ($stmt === false) {
-                                    die('prepare() failed: ' . htmlspecialchars($conn->error));
-                                }
-
-                                $stmt->bind_param('ssssssssi', $first_name, $last_name, $email, $number_of_guests, $reservation_date, $reservation_time, $others, $special_requests, $id);
-
-                                if ($stmt->execute() === TRUE) {
-                                    echo '<br><div style="text-align:center;">
-                                    <div class="banner">
-                                        <div class="banner__content">
-                                        <div class="banner__text">
-                                            Data Updated
-                                        </div>
+                                $openingTime = strtotime($opening_time);
+                                $closingTime = strtotime($closing_time);
+                                $selectedTime = strtotime($reservation_time);
+                                if ($selectedTime > $closingTime || $selectedTime < $openingTime) {
+                                    echo "<div style='text-align: center;'>
+                                    <div class='banner'>
+                                        <div class='banner__content'>
+                                            <div class='banner__text'>
+                                            Invalid Time
+                                            </div>
                                         </div>
                                     </div>
-                                    </div>';
+                                </div>";
                                 } else {
-                                    echo '<br><div style="text-align:center;">
-                                    <div class="banner">
-                                        <div class="banner__content">
-                                        <div class="banner__text">
-                                            Data Not Updated
-                                        </div>
-                                        </div>
-                                    </div>
-                                    </div>';
+                                    $stmt = $conn->prepare("UPDATE table_reservation SET
+                                    first_name = ?,
+                                    last_name = ?,
+                                    email = ?,
+                                    number_of_guests = ?,
+                                    reservation_date = ?,
+                                    reservation_time = ?,
+                                    others = ?,
+                                    special_requests = ?
+                                WHERE table_reservation_id = ?");
+
+                                    if ($stmt === false) {
+                                        die('prepare() failed: ' . htmlspecialchars($conn->error));
+                                    }
+
+                                    $stmt->bind_param('ssssssssi', $first_name, $last_name, $email, $number_of_guests, $reservation_date, $reservation_time, $others, $special_requests, $id);
+
+                                    if ($stmt->execute()) {
+                                        if ($stmt->affected_rows > 0) {
+                                            echo '<br><br><div style="text-align:center;">
+                                                <div class="banner">
+                                                  <div class="banner__content">
+                                                    <div class="banner__text">
+                                                      Updated
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>';
+                                        } else {
+                                            echo '<br><div style="text-align:center;">
+                                                <div class="banner">
+                                                  <div class="banner__content">
+                                                    <div class="banner__text">
+                                                      No Changes
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>';
+                                        }
+                                    } else {
+                                        echo '<br><div style="text-align:center;">
+                                              <div class="banner">
+                                                <div class="banner__content">
+                                                  <div class="banner__text">
+                                                    Not Updated
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>';
+                                    }
+                                    $stmt->close();
+                                    mysqli_close($conn);
                                 }
-                                $stmt->close();
-                                mysqli_close($conn);
                             }
                             ?>
                             <br><br>

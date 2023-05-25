@@ -16,7 +16,11 @@ if ($result->num_rows > 0) {
     $phone = $row['phone'];
     $email = $row['email'];
     $storehours = $row['store_hours'];
+    $closing_time = $row['closing_time'];
+    $seat_capacity = $row['seat_capacity'];
+    $color_theme = $row['color_theme'];
     $google_map = $row['google_map'];
+    $address_link = $row['address_link'];
     $facebook_link = $row['facebook_link'];
     $instagram_link = $row['instagram_link'];
     $twitter_link = $row['twitter_link'];
@@ -32,7 +36,7 @@ if ($result->num_rows > 0) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Product</title>
+    <title>Add New Product</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -42,11 +46,22 @@ if ($result->num_rows > 0) {
 
     <link rel="stylesheet" href="../css/admin.css">
 
+
     <!--google material icon-->
     <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
 
     <link rel="icon" href="../images/<?php echo $logo_icon ?>" type="images" />
+    <style>
+        .container {
+            padding-bottom: 450px;
+            height: auto !important;
+        }
 
+        .navbar {
+            background-color: <?php echo $color_theme ?>;
+            color: #FFFFFF;
+        }
+    </style>
 </head>
 
 <body>
@@ -237,17 +252,16 @@ if ($result->num_rows > 0) {
                         <form action="" method="POST" autocomplete="on" enctype="multipart/form-data">
                             <label for="image">Image<span style="color: red;"> *</span></label>
                             <input type="file" id="image" name="image" accept=".jpg,.jpeg,.png" required>
-                            <br>
-
+                            <br><br>
                             <label for="menu_name">Product Name<span style="color: red;"> *</span></label>
                             <input type="text" id="menu_name" name="menu_name" placeholder="Enter Product Name" required>
-
+                            <br><br>
                             <label for="description">Description<span style="color: red;"> *</span></label>
                             <textarea id="description" name="description" style="height:100px" placeholder="Enter Description" required></textarea>
-
+                            <br><br>
                             <label for="price">Price<span style="color: red;"> *</span></label>
                             <input type="text" id="price" name="price" placeholder="Enter Price" value="₱" required>
-
+                            <br><br>
                             <label for="category">Category<span style="color: red;"> *</span></label>
                             <select id="status" name="category" required>
                                 <option value="" selected disabled>Select Menu Category</option>
@@ -267,6 +281,7 @@ if ($result->num_rows > 0) {
                                 }
                                 ?>
                             </select>
+                            <br>
 
                             <?php
                             if (isset($_POST['submit'])) {
@@ -303,7 +318,7 @@ if ($result->num_rows > 0) {
                                     <div class="banner">
                                         <div class="banner__content">
                                             <div class="banner__text">
-                                                New Category Added
+                                                Added
                                             </div>
                                         </div>
                                     </div>
@@ -313,7 +328,7 @@ if ($result->num_rows > 0) {
                                     <div class="banner">
                                         <div class="banner__content">
                                             <div class="banner__text">
-                                                Category Not Added
+                                                Not Added
                                             </div>
                                         </div>
                                     </div>

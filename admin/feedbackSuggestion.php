@@ -6,22 +6,25 @@ $sql = "SELECT * FROM company WHERE company_id = 1";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-    $company_year = $row['company_year'];
-    $company_name = $row['company_name'];
-    $logo_orig = $row['logo_orig'];
-    $logo_white = $row['logo_white'];
-    $logo_icon = $row['logo_icon'];
-    $address = $row['address'];
-    $phone = $row['phone'];
-    $email = $row['email'];
-    $storehours = $row['store_hours'];
-    $google_map = $row['google_map'];
-    $facebook_link = $row['facebook_link'];
-    $instagram_link = $row['instagram_link'];
-    $twitter_link = $row['twitter_link'];
+   $row = $result->fetch_assoc();
+   $company_year = $row['company_year'];
+   $company_name = $row['company_name'];
+   $logo_orig = $row['logo_orig'];
+   $logo_white = $row['logo_white'];
+   $logo_icon = $row['logo_icon'];
+   $address = $row['address'];
+   $phone = $row['phone'];
+   $email = $row['email'];
+   $storehours = $row['store_hours'];
+   $closing_time = $row['closing_time'];
+   $seat_capacity = $row['seat_capacity'];
+   $color_theme = $row['color_theme'];
+   $google_map = $row['google_map'];
+   $facebook_link = $row['facebook_link'];
+   $instagram_link = $row['instagram_link'];
+   $twitter_link = $row['twitter_link'];
 } else {
-    echo " ";
+   echo " ";
 }
 ?>
 
@@ -41,6 +44,7 @@ if ($result->num_rows > 0) {
     <!-- SLIDER REVOLUTION 4.x CSS SETTINGS -->
 
     <link rel="stylesheet" href="../css/admin.css">
+ 
 
     <!--google material icon-->
     <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
@@ -49,8 +53,13 @@ if ($result->num_rows > 0) {
 
     <style>
         .container {
-            padding-bottom: 300px;
-            height: 100vh !important;
+            padding-bottom: 450px;
+            height: auto !important;
+        }
+
+        .navbar {
+            background-color: <?php echo $color_theme ?>;
+            color: #FFFFFF;
         }
     </style>
 
@@ -259,14 +268,13 @@ if ($result->num_rows > 0) {
                         <form action="" method="POST" autocomplete="on" enctype="multipart/form-data">
                             <label for="image">Image</label>
                             <input type="file" id="image" name="image" accept=".jpg,.jpeg,.png">
-                            <br>
-
+                            <br><br>
                             <label for="heading">Heading</label>
                             <input type="text" id="heading" name="heading" value="<?php echo isset($_POST['heading']) ? $_POST['heading'] : $heading; ?>">
-
+                            <br><br>
                             <label for="subheading">Subheading</label>
                             <input type="text" id="subheading" name="subheading" value="<?php echo isset($_POST['subheading']) ? $_POST['subheading'] : $subheading; ?>">
-
+                            <br>
                             <?php
                             if (isset($_POST['submit'])) {
                                 include('../db.php');
@@ -292,25 +300,37 @@ if ($result->num_rows > 0) {
                                 $stmt->bind_param(str_repeat("s", count($params)), ...$params);
 
                                 if ($stmt->execute()) {
-                                    echo '<br><br><div style="text-align:center;">
-                                    <div class="banner">
-                                        <div class="banner__content">
-                                            <div class="banner__text">
-                                                Data Updated
+                                    if ($stmt->affected_rows > 0) {
+                                        echo '<br><br><div style="text-align:center;">
+                                            <div class="banner">
+                                              <div class="banner__content">
+                                                <div class="banner__text">
+                                                  Updated
+                                                </div>
+                                              </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>';
+                                          </div>';
+                                    } else {
+                                        echo '<br><div style="text-align:center;">
+                                            <div class="banner">
+                                              <div class="banner__content">
+                                                <div class="banner__text">
+                                                  No Changes
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>';
+                                    }
                                 } else {
                                     echo '<br><div style="text-align:center;">
-                                    <div class="banner">
-                                        <div class="banner__content">
-                                            <div class="banner__text">
-                                                Data Not Updated
+                                          <div class="banner">
+                                            <div class="banner__content">
+                                              <div class="banner__text">
+                                                Not Updated
+                                              </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>';
+                                          </div>
+                                        </div>';
                                 }
                                 mysqli_close($conn);
                             }

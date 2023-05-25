@@ -6,22 +6,25 @@ $sql = "SELECT * FROM company WHERE company_id = 1";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-    $company_year = $row['company_year'];
-    $company_name = $row['company_name'];
-    $logo_orig = $row['logo_orig'];
-    $logo_white = $row['logo_white'];
-    $logo_icon = $row['logo_icon'];
-    $address = $row['address'];
-    $phone = $row['phone'];
-    $email = $row['email'];
-    $storehours = $row['store_hours'];
-    $google_map = $row['google_map'];
-    $facebook_link = $row['facebook_link'];
-    $instagram_link = $row['instagram_link'];
-    $twitter_link = $row['twitter_link'];
+   $row = $result->fetch_assoc();
+   $company_year = $row['company_year'];
+   $company_name = $row['company_name'];
+   $logo_orig = $row['logo_orig'];
+   $logo_white = $row['logo_white'];
+   $logo_icon = $row['logo_icon'];
+   $address = $row['address'];
+   $phone = $row['phone'];
+   $email = $row['email'];
+   $storehours = $row['store_hours'];
+   $closing_time = $row['closing_time'];
+   $seat_capacity = $row['seat_capacity'];
+   $color_theme = $row['color_theme'];
+   $google_map = $row['google_map'];
+   $facebook_link = $row['facebook_link'];
+   $instagram_link = $row['instagram_link'];
+   $twitter_link = $row['twitter_link'];
 } else {
-    echo " ";
+   echo " ";
 }
 ?>
 
@@ -41,6 +44,7 @@ if ($result->num_rows > 0) {
     <!-- SLIDER REVOLUTION 4.x CSS SETTINGS -->
 
     <link rel="stylesheet" href="../css/admin.css">
+ 
 
     <!-- icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
@@ -52,8 +56,12 @@ if ($result->num_rows > 0) {
 
     <style>
         .container {
-            padding-bottom: 300px;
+            padding-bottom: 450px;
             height: auto !important;
+        }
+        .navbar {
+            background-color: <?php echo $color_theme ?>;
+            color: #FFFFFF;
         }
     </style>
 
@@ -302,14 +310,14 @@ if ($result->num_rows > 0) {
                             <br>
                             <label><strong>Add New Delivery Partner</strong></label><br><br>
                             <label for="partner_photo">Partner Logo</label>
-                            <input type="file" id="partner_photo" name="partner_photo" accept=".jpg,.jpeg,.png">
-                            <br>
-
+                            <input type="file" id="partner_photo" name="partner_photo" accept=".jpg,.jpeg,.png" required>
+                            <br><br>
                             <label for="partner_name">Partner Name</label>
-                            <input type="text" id="partner_name" name="partner_name" placeholder="Enter Partner Name">
-
+                            <input type="text" id="partner_name" name="partner_name" placeholder="Enter Partner Name" required>
+                            <br><br>
                             <label for="partner_link">Partner Link</label>
-                            <input type="text" id="partner_link" name="partner_link" placeholder="Enter Partner Link">
+                            <input type="text" id="partner_link" name="partner_link" placeholder="Enter Partner Link" required>
+                            <br>
                             <?php
                             if (isset($_POST['submit'])) {
                                 $partner_name = $_POST['partner_name'];

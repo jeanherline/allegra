@@ -19,25 +19,25 @@ $sql = "SELECT * FROM company WHERE company_id = 1";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
-   $row = $result->fetch_assoc();
-   $company_year = $row['company_year'];
-   $company_name = $row['company_name'];
-   $logo_orig = $row['logo_orig'];
-   $logo_white = $row['logo_white'];
-   $logo_icon = $row['logo_icon'];
-   $address = $row['address'];
-   $phone = $row['phone'];
-   $email = $row['email'];
-   $storehours = $row['store_hours'];
-   $closing_time = $row['closing_time'];
-   $seat_capacity = $row['seat_capacity'];
-   $color_theme = $row['color_theme'];
-   $google_map = $row['google_map'];
-   $facebook_link = $row['facebook_link'];
-   $instagram_link = $row['instagram_link'];
-   $twitter_link = $row['twitter_link'];
+    $row = $result->fetch_assoc();
+    $company_year = $row['company_year'];
+    $company_name = $row['company_name'];
+    $logo_orig = $row['logo_orig'];
+    $logo_white = $row['logo_white'];
+    $logo_icon = $row['logo_icon'];
+    $address = $row['address'];
+    $phone = $row['phone'];
+    $email = $row['email'];
+    $storehours = $row['store_hours'];
+    $closing_time = $row['closing_time'];
+    $seat_capacity = $row['seat_capacity'];
+    $color_theme = $row['color_theme'];
+    $google_map = $row['google_map'];
+    $facebook_link = $row['facebook_link'];
+    $instagram_link = $row['instagram_link'];
+    $twitter_link = $row['twitter_link'];
 } else {
-   echo " ";
+    echo " ";
 }
 
 include('css/dynamic_styles.php');
@@ -154,7 +154,7 @@ if (isset($_POST['login'])) {
             width: 90%;
             padding: 0.3rem 1rem;
             border: 0.1rem solid #512a10;
-            font-size: 1.3rem;
+            font-size: 1.25rem;
             /* Adjust the font size as desired */
             margin: 0.8rem 0;
         }
@@ -264,8 +264,8 @@ if (isset($_POST['login'])) {
 <body>
     <div class="login-form">
         <form action="" method="POST">
-            <a href="#" class="logo mr-auto"><img width="25%" src="images/<?php echo $logo_orig ?>" alt=""></a>
-            <h3>let's start a new great day!</h3>
+            <img width="25%" src="images/<?php echo $logo_orig ?>" alt="">
+            <h3>Let's start a new great day!</h3>
             <input type="text" name="username" id="username" placeholder="Enter Username" class="box">
             <br>
             <input type="password" name="password" id="password" placeholder="Enter Password" class="box">
@@ -279,9 +279,27 @@ if (isset($_POST['login'])) {
             ?>
             <div class="flex">
             </div>
+            <div class="password-toggle">
+                <input type="checkbox" onclick="togglePasswordVisibility()" id="showPassword">
+                <label for="showPassword">Show Password</label>
+            </div>
             <input type="submit" value="Login" id="login" name="login" class="link-btn">
             <!-- <p class="account">don't have an account? <a href="#">create one!</a></p> -->
         </form>
+
+        <script>
+            function togglePasswordVisibility() {
+                var passwordInput = document.getElementById("password");
+                var showPasswordCheckbox = document.getElementById("showPassword");
+
+                if (showPasswordCheckbox.checked) {
+                    passwordInput.type = "text";
+                } else {
+                    passwordInput.type = "password";
+                }
+            }
+        </script>
+
         <!-- rest of your code -->
 
     </div>

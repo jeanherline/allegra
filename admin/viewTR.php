@@ -38,7 +38,7 @@ if (isset($_GET['table_reservation_id'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Table Reservation # <?php echo $id ?></title>
+    <title>View Table Reservation</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../css/bootstrap.min.css">

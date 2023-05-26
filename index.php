@@ -452,9 +452,11 @@ include('css/dynamic_styles.php');
                   $numRows = mysqli_num_rows($result);
 
                   if ($numRows > 0) {
-                     while ($row = mysqli_fetch_assoc($result)) {
                   ?>
-                        <h4 class="footer-title"><strong>Our Delivery Partners</strong></h4><br>
+                     <h4 class="footer-title"><strong>Our Delivery Partners</strong></h4><br>
+                     <?php
+                     while ($row = mysqli_fetch_assoc($result)) {
+                     ?>
 
                         <a href="<?php echo $row['partner_link'] ?>"><img src="images/<?php echo $row['partner_photo'] ?>" alt="<?php echo $row['partner_name'] ?>" style="width: 20%;"></a>
                   <?php

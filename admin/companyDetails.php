@@ -311,6 +311,9 @@ if ($result->num_rows > 0) {
                             <label for="closing_time">End of Business Hours</label>
                             <input type="time" id="closing_time" name="closing_time" value="<?php echo isset($_POST['closing_time']) ? $_POST['closing_time'] : $closing_time; ?>">
                             <br><br>
+                            <label for="seat_capacity">Seat Capacity</label>
+                            <input type="number" id="seat_capacity" name="seat_capacity" value="<?php echo isset($_POST['seat_capacity']) ? $_POST['seat_capacity'] : $seat_capacity; ?>">
+                            <br><br>
                             <label for="color_theme">Color Theme</label>
                             <input type="color" id="color_theme" name="color_theme" value="<?php echo isset($_POST['color_theme']) ? $_POST['color_theme'] : $color_theme; ?>" onchange="updateColorCode()">
 
@@ -367,6 +370,7 @@ if ($result->num_rows > 0) {
                                 $store_hours = isset($_POST['store_hours']) ? $_POST['store_hours'] : $store_hours;
                                 $opening_time = isset($_POST['opening_time']) ? $_POST['opening_time'] : $opening_time;
                                 $closing_time = isset($_POST['closing_time']) ? $_POST['closing_time'] : $closing_time;
+                                $seat_capacity = isset($_POST['seat_capacity']) ? $_POST['seat_capacity'] : $seat_capacity;
                                 $color_theme = isset($_POST['color_theme']) ? $_POST['color_theme'] : $color_theme;
                                 $fixed_header = $row['fixed_header'];
                                 $google_map = isset($_POST['google_map']) ? $_POST['google_map'] : $google_map;
@@ -405,8 +409,8 @@ if ($result->num_rows > 0) {
                                 }
 
                                 // Update database with new values
-                                $stmt = $conn->prepare("UPDATE company SET company_year=?, company_name=?, address=?, phone=?, email=?, store_hours=?, opening_time=?, closing_time=?, color_theme=?, fixed_header=?, google_map=?, address_link=?, facebook_link=?, instagram_link=?, twitter_link=?, logo_orig=?, logo_white=?, logo_icon=? WHERE company_id=1");
-                                $stmt->bind_param("ssssssssssssssssss", $company_year, $company_name, $address, $phone, $email, $store_hours, $opening_time, $closing_time, $color_theme, $fixed_header, $google_map, $address_link, $facebook_link, $instagram_link, $twitter_link, $logo_orig, $logo_white, $logo_icon);
+                                $stmt = $conn->prepare("UPDATE company SET company_year=?, company_name=?, address=?, phone=?, email=?, store_hours=?, opening_time=?, closing_time=?, seat_capacity=?, color_theme=?, fixed_header=?, google_map=?, address_link=?, facebook_link=?, instagram_link=?, twitter_link=?, logo_orig=?, logo_white=?, logo_icon=? WHERE company_id=1");
+                                $stmt->bind_param("sssssssssssssssssss", $company_year, $company_name, $address, $phone, $email, $store_hours, $opening_time, $closing_time, $seat_capacity, $color_theme, $fixed_header, $google_map, $address_link, $facebook_link, $instagram_link, $twitter_link, $logo_orig, $logo_white, $logo_icon);
                                 if ($stmt->execute()) {
                                     if ($stmt->affected_rows > 0) {
                                         echo '<br><br><div style="text-align:center;">

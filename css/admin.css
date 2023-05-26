@@ -51,6 +51,7 @@ input[type=file],
 input[type=date],
 input[type=time],
 input[type=color],
+input[type=number],
 select,
 textarea {
     width: 100%;

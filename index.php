@@ -19,26 +19,26 @@ $sql = "SELECT * FROM company WHERE company_id = 1";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-    $company_year = $row['company_year'];
-    $company_name = $row['company_name'];
-    $logo_orig = $row['logo_orig'];
-    $logo_white = $row['logo_white'];
-    $logo_icon = $row['logo_icon'];
-    $address = $row['address'];
-    $phone = $row['phone'];
-    $email = $row['email'];
-    $storehours = $row['store_hours'];
-    $closing_time = $row['closing_time'];
-    $seat_capacity = $row['seat_capacity'];
-    $color_theme = $row['color_theme'];
-    $google_map = $row['google_map'];
-    $address_link = $row['address_link'];
-    $facebook_link = $row['facebook_link'];
-    $instagram_link = $row['instagram_link'];
-    $twitter_link = $row['twitter_link'];
+   $row = $result->fetch_assoc();
+   $company_year = $row['company_year'];
+   $company_name = $row['company_name'];
+   $logo_orig = $row['logo_orig'];
+   $logo_white = $row['logo_white'];
+   $logo_icon = $row['logo_icon'];
+   $address = $row['address'];
+   $phone = $row['phone'];
+   $email = $row['email'];
+   $storehours = $row['store_hours'];
+   $closing_time = $row['closing_time'];
+   $seat_capacity = $row['seat_capacity'];
+   $color_theme = $row['color_theme'];
+   $google_map = $row['google_map'];
+   $address_link = $row['address_link'];
+   $facebook_link = $row['facebook_link'];
+   $instagram_link = $row['instagram_link'];
+   $twitter_link = $row['twitter_link'];
 } else {
-    echo " ";
+   echo " ";
 }
 
 include('css/dynamic_styles.php');
@@ -81,8 +81,7 @@ include('css/dynamic_styles.php');
          <div class="row align-items-center">
 
             <!-- <a href="#" class="logo mr-auto"> <i class="fas fa-mug-hot"></i> coffee </a> -->
-            <a href="index.php" class="logo mr-auto"><img src="images/logo.png" alt=""></a>
-
+            <a href="index.php" class="logo mr-auto"><img src="images/<?php echo $logo_white ?>" alt=""></a>
             <nav class="nav">
                <a href="index.php">Home</a>
                <a href="menu.php">Menu</a>
@@ -446,8 +445,6 @@ include('css/dynamic_styles.php');
             </div>
             <br><br><br><br><br><br>
             <div class="col-md-4 col-sm-12 mb-4 mb-sm-0">
-
-               <h4 class="footer-title"><strong>Our Delivery Partners</strong></h4><br>
                <div class="delivery-partners">
                   <?php
                   $sql = "SELECT * FROM delivery_partners WHERE status = 'active'";
@@ -457,11 +454,13 @@ include('css/dynamic_styles.php');
                   if ($numRows > 0) {
                      while ($row = mysqli_fetch_assoc($result)) {
                   ?>
+                        <h4 class="footer-title"><strong>Our Delivery Partners</strong></h4><br>
+
                         <a href="<?php echo $row['partner_link'] ?>"><img src="images/<?php echo $row['partner_photo'] ?>" alt="<?php echo $row['partner_name'] ?>" style="width: 20%;"></a>
                   <?php
                      }
                   } else {
-                     echo "No landing page content found.";
+                     echo "";
                   }
                   ?>
                </div>

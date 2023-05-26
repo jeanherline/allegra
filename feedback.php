@@ -12,25 +12,25 @@ $sql = "SELECT * FROM company WHERE company_id = 1";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
-   $row = $result->fetch_assoc();
-   $company_year = $row['company_year'];
-   $company_name = $row['company_name'];
-   $logo_orig = $row['logo_orig'];
-   $logo_white = $row['logo_white'];
-   $logo_icon = $row['logo_icon'];
-   $address = $row['address'];
-   $phone = $row['phone'];
-   $email = $row['email'];
-   $storehours = $row['store_hours'];
-   $closing_time = $row['closing_time'];
-   $seat_capacity = $row['seat_capacity'];
-   $color_theme = $row['color_theme'];
-   $google_map = $row['google_map'];
-   $facebook_link = $row['facebook_link'];
-   $instagram_link = $row['instagram_link'];
-   $twitter_link = $row['twitter_link'];
+    $row = $result->fetch_assoc();
+    $company_year = $row['company_year'];
+    $company_name = $row['company_name'];
+    $logo_orig = $row['logo_orig'];
+    $logo_white = $row['logo_white'];
+    $logo_icon = $row['logo_icon'];
+    $address = $row['address'];
+    $phone = $row['phone'];
+    $email = $row['email'];
+    $storehours = $row['store_hours'];
+    $closing_time = $row['closing_time'];
+    $seat_capacity = $row['seat_capacity'];
+    $color_theme = $row['color_theme'];
+    $google_map = $row['google_map'];
+    $facebook_link = $row['facebook_link'];
+    $instagram_link = $row['instagram_link'];
+    $twitter_link = $row['twitter_link'];
 } else {
-   echo " ";
+    echo " ";
 }
 
 include('css/dynamic_styles.php');
@@ -72,7 +72,7 @@ include('css/dynamic_styles.php');
             <div class="row align-items-center">
 
                 <!-- <a href="#" class="logo mr-auto"> <i class="fas fa-mug-hot"></i> coffee </a> -->
-                <a href="index.php" class="logo mr-auto"><img src="images/logo.png" alt=""></a>
+                <a href="index.php" class="logo mr-auto"><img src="images/<?php echo $logo_white ?>" alt=""></a>
 
                 <nav class="nav">
                     <a href="index.php">Home</a>
@@ -104,35 +104,35 @@ include('css/dynamic_styles.php');
                 </nav>
 
                 <div class="icons">
-               <div id="menu-btn" class="fas fa-bars"></div>
-               <div id="login-btn" class="fas fa-user" style="display:none;"></div>
+                    <div id="menu-btn" class="fas fa-bars"></div>
+                    <div id="login-btn" class="fas fa-user" style="display:none;"></div>
+                </div>
+
             </div>
 
-         </div>
+        </div>
+    </header>
 
-      </div>
-   </header>
+    <!-- login form starts -->
 
-   <!-- login form starts -->
+    <div class="login-form">
 
-   <div class="login-form">
+        <form action="">
+            <div id="close-login-form" class="fas fa-times"></div>
+            <a href="#" class="logo mr-auto"> <i class="fas fa-mug-hot"></i> coffee </a>
+            <h3>let's start a new great day</h3>
+            <input type="email" name="" placeholder="enter your email" id="" class="box">
+            <input type="password" name="" placeholder="enter your password" id="" class="box">
+            <div class="flex">
+                <input type="checkbox" name="" id="remember-me">
+                <label for="remember-me">remember me</label>
+                <a href="#">forgot password?</a>
+            </div>
+            <input type="submit" value="login now" class="link-btn">
+            <p class="account">don't have an account? <a href="#">create one!</a></p>
+        </form>
 
-      <form action="">
-         <div id="close-login-form" class="fas fa-times"></div>
-         <a href="#" class="logo mr-auto"> <i class="fas fa-mug-hot"></i> coffee </a>
-         <h3>let's start a new great day</h3>
-         <input type="email" name="" placeholder="enter your email" id="" class="box">
-         <input type="password" name="" placeholder="enter your password" id="" class="box">
-         <div class="flex">
-            <input type="checkbox" name="" id="remember-me">
-            <label for="remember-me">remember me</label>
-            <a href="#">forgot password?</a>
-         </div>
-         <input type="submit" value="login now" class="link-btn">
-         <p class="account">don't have an account? <a href="#">create one!</a></p>
-      </form>
-
-   </div>
+    </div>
 
     <!-- header section ends    -->
 
@@ -162,47 +162,6 @@ include('css/dynamic_styles.php');
     </section>
 
     <!-- newsletter section ends -->
-
-    <!-- contact section starts  -->
-
-    <section class="contact" id="contact">
-
-        <div class="container">
-
-            <div class="contact-info-container">
-            </div>
-            <div class="row align-items-center">
-
-                <div class="col-md-6 mb-5 mb-md-0 ">
-                    <div>
-                        <img src="images/<?php echo $background_image ?>" class="w-100" alt="">
-                    </div>
-                </div>
-
-                <form action="" method="POST" class="col-md-6">
-                    <h3>Share Your Thoughts</h3>
-                    <label for="fname" id="fname">First Name<span style="color: red;">*</span></label>
-                    <input type="text" id="fname" name="fname" placeholder="Enter First Name" class="box" required>
-
-                    <label for="lname" id="lname">Last Name<span style="color: red;">*</span></label>
-                    <input type="text" id="lname" name="lname" placeholder="Enter Last Name" class="box">
-
-                    <label for="email" id="email">Email Address<span style="color: red;">*</span></label>
-                    <input type="email" id="email" name="email" placeholder="Enter Email Address" class="box">
-
-                    <label for="message" id="message">Feedback/Comment & Suggestion<span style="color: red;">*</label>
-                    <textarea name="message" itemid="message" placeholder="Enter Message" class="box" id="" cols="30" rows="10"></textarea>
-
-                    <input type="submit" id="submit" name="submit" value="Send Message" class="link-btn">
-                </form>
-
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- contact section ends -->
     <?php
 
     if (isset($_POST['submit'])) {
@@ -244,40 +203,40 @@ include('css/dynamic_styles.php');
             $mail->isHTML(true);
             $mail->Subject = 'RE: Regarding Your Feedback/Suggestion';
             $mail->Body = "
-            <html>
-                <head>
-                    <style>
-                        body {
-                            font-family: Times New Roman, serif;
-                            font-size: 16px;
-                            line-height: 1.5;
-                            color: #444;
-                        }
-                    </style>
-                </head>
-                <body>
-                    
-                    <h1 style='font-size: 24px; font-family: Georgia, serif; color: #444;'>Dear $fname $lname,</h1>
-                    <p>
-                        Thank you for sharing your feedback, comment and suggestion with Cafe Allegra. We appreciate your valuable insights and opinions.
-                    </p>
-                    <p>
-                        Our team will review your message and take it into consideration as we strive to improve our services. Should you have any additional feedback, comments or suggestions, please do not hesitate to contact us.
-                    </p>
-                    <p>
-                        Thank you again for your support and patronage.
-                    </p>
-            
-                    <p>
-                        Best regards,
-                    </p>
-            
-                    <p>
-                        The Cafe Allegra Team
-                    </p>
-                </body>
-            </html>
-            ";
+        <html>
+            <head>
+                <style>
+                    body {
+                        font-family: Times New Roman, serif;
+                        font-size: 16px;
+                        line-height: 1.5;
+                        color: #444;
+                    }
+                </style>
+            </head>
+            <body>
+                
+                <h1 style='font-size: 24px; font-family: Georgia, serif; color: #444;'>Dear $fname $lname,</h1>
+                <p>
+                    Thank you for sharing your feedback, comment and suggestion with Cafe Allegra. We appreciate your valuable insights and opinions.
+                </p>
+                <p>
+                    Our team will review your message and take it into consideration as we strive to improve our services. Should you have any additional feedback, comments or suggestions, please do not hesitate to contact us.
+                </p>
+                <p>
+                    Thank you again for your support and patronage.
+                </p>
+        
+                <p>
+                    Best regards,
+                </p>
+        
+                <p>
+                    The Cafe Allegra Team
+                </p>
+            </body>
+        </html>
+        ";
 
 
             $mail->send();
@@ -299,54 +258,95 @@ include('css/dynamic_styles.php');
 
             $mailToCafe->Subject = "Customer Feedback";
             $mailToCafe->Body = "
-                <html>
-                <head>
-                    <style>
-                        body {
-                            font-family: Times New Roman, serif;
-                            font-size: 16px;
-                            line-height: 1.5;
-                            color: #444;
-                        }
-                    </style>
-                </head>
-                    <body>
+            <html>
+            <head>
+                <style>
+                    body {
+                        font-family: Times New Roman, serif;
+                        font-size: 16px;
+                        line-height: 1.5;
+                        color: #444;
+                    }
+                </style>
+            </head>
+                <body>
 
-                        <h1 style='font-size: 20px; font-family: Arial, sans-serif; color: #444;'>Feedback from $fname $lname</h1>
-                        <p style='font-size: 16px; font-family: Arial, sans-serif; color: #444;'><strong>Email:</strong> $email</p>
-                        <p style='font-size: 16px; font-family: Arial, sans-serif; color: #444;'><strong>Message:</strong><br>$message</p>
-                    </body>
-                </html>";
+                    <h1 style='font-size: 20px; font-family: Arial, sans-serif; color: #444;'>Feedback from $fname $lname</h1>
+                    <p style='font-size: 16px; font-family: Arial, sans-serif; color: #444;'><strong>Email:</strong> $email</p>
+                    <p style='font-size: 16px; font-family: Arial, sans-serif; color: #444;'><strong>Message:</strong><br>$message</p>
+                </body>
+            </html>";
 
             $mailToCafe->send();
 
             echo '<div class="banner" style="text-align: center;">
-            <div class="banner__content">
-                <div class="banner__text">
-                Thank you, we have received your feedback/suggestion.
-                </div>
-                <button class="banner__close" type="button">
-                    <span class="material-icons">
-                        close
-                    </span>
-                </button>
+        <div class="banner__content">
+            <div class="banner__text">
+            Thank you, we have received your feedback/suggestion.
             </div>
-        </div>';
+            <button class="banner__close" type="button">
+                <span class="material-icons">
+                    close
+                </span>
+            </button>
+        </div>
+    </div>';
         } catch (Exception $e) {
             echo 'Error sending email: ', $mail->ErrorInfo;
         }
     }
     ?>
+    <!-- contact section starts  -->
+
+    <section class="contact" id="contact">
+
+        <div class="container">
+
+            <div class="contact-info-container">
+            </div>
+            <div class="row align-items-center">
+
+                <div class="col-md-6 mb-5 mb-md-0 ">
+                    <div>
+                        <img src="images/<?php echo $background_image ?>" class="w-100" alt="">
+                    </div>
+                </div>
+
+                <form action="" method="POST" class="col-md-6">
+                    <h3>Share Your Thoughts</h3>
+                    <label for="fname" id="fname">First Name<span style="color: red;">*</span></label>
+                    <input type="text" id="fname" name="fname" placeholder="Enter First Name" class="box" required>
+
+                    <label for="lname" id="lname">Last Name<span style="color: red;">*</span></label>
+                    <input type="text" id="lname" name="lname" placeholder="Enter Last Name" class="box" required>
+
+                    <label for="email" id="email">Email Address<span style="color: red;">*</span></label>
+                    <input type="email" id="email" name="email" placeholder="Enter Email Address" class="box" required>
+
+                    <label for="message" id="message">Feedback/Comment & Suggestion<span style="color: red;">*</label>
+                    <textarea name="message" itemid="message" placeholder="Enter Message" class="box" id="" cols="30" rows="10" required></textarea>
+
+                    <input type="submit" id="submit" name="submit" value="Send Message" class="link-btn">
+                </form>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- contact section ends -->
+
     <!-- footer section starts  -->
 
     <section class="footer">
         <div class="container">
             <div class="row">
-            <div class="col-md-4 col-sm-12">
-               <p style="font-size: 14px;"><em><?php echo $address ?></em></p>
-               <p style="font-size: 14px;">Phone: <a href="tel:<?php echo $phone ?>"><?php echo $phone ?></a></p>
-               <p style="font-size: 14px;">Email: <a href="mailto:<?php echo $email ?>"><?php echo $email ?></a></p>
-            </div>
+                <div class="col-md-4 col-sm-12">
+                    <p style="font-size: 14px;"><em><?php echo $address ?></em></p>
+                    <p style="font-size: 14px;">Phone: <a href="tel:<?php echo $phone ?>"><?php echo $phone ?></a></p>
+                    <p style="font-size: 14px;">Email: <a href="mailto:<?php echo $email ?>"><?php echo $email ?></a></p>
+                </div>
                 <br><br><br><br><br><br>
                 <div class="col-md-4 col-sm-12 mb-4 mb-sm-0">
                     <a href="" class="logo"><img src="images/<?php echo $logo_orig ?>" alt=""></a>
@@ -359,27 +359,28 @@ include('css/dynamic_styles.php');
                 </div>
                 <br><br><br><br><br><br>
                 <div class="col-md-4 col-sm-12 mb-4 mb-sm-0">
-
-                    <h4 class="footer-title"><strong>Our Delivery Partners</strong></h4><br>
                     <div class="delivery-partners">
                         <?php
-                                                $sql = "SELECT * FROM delivery_partners WHERE status = 'active'";
+                        $sql = "SELECT * FROM delivery_partners WHERE status = 'active'";
                         $result = mysqli_query($conn, $sql);
                         $numRows = mysqli_num_rows($result);
 
                         if ($numRows > 0) {
                             while ($row = mysqli_fetch_assoc($result)) {
                         ?>
+                                <h4 class="footer-title"><strong>Our Delivery Partners</strong></h4><br>
+
                                 <a href="<?php echo $row['partner_link'] ?>"><img src="images/<?php echo $row['partner_photo'] ?>" alt="<?php echo $row['partner_name'] ?>" style="width: 20%;"></a>
                         <?php
                             }
                         } else {
-                            echo "No landing page content found.";
+                            echo "";
                         }
                         ?>
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </section>
 

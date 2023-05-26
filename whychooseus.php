@@ -61,7 +61,7 @@ include('css/dynamic_styles.php');
             <div class="row align-items-center">
 
                 <!-- <a href="#" class="logo mr-auto"> <i class="fas fa-mug-hot"></i> coffee </a> -->
-                <a href="index.php" class="logo mr-auto"><img src="images/logo.png" alt=""></a>
+                <a href="index.php" class="logo mr-auto"><img src="images/<?php echo $logo_white ?>" alt=""></a>
 
                 <nav class="nav">
                     <a href="index.php">Home</a>
@@ -220,11 +220,11 @@ include('css/dynamic_styles.php');
     <section class="footer">
         <div class="container">
             <div class="row">
-            <div class="col-md-4 col-sm-12">
-               <p style="font-size: 14px;"><em><?php echo $address ?></em></p>
-               <p style="font-size: 14px;">Phone: <a href="tel:<?php echo $phone ?>"><?php echo $phone ?></a></p>
-               <p style="font-size: 14px;">Email: <a href="mailto:<?php echo $email ?>"><?php echo $email ?></a></p>
-            </div>
+                <div class="col-md-4 col-sm-12">
+                    <p style="font-size: 14px;"><em><?php echo $address ?></em></p>
+                    <p style="font-size: 14px;">Phone: <a href="tel:<?php echo $phone ?>"><?php echo $phone ?></a></p>
+                    <p style="font-size: 14px;">Email: <a href="mailto:<?php echo $email ?>"><?php echo $email ?></a></p>
+                </div>
                 <br><br><br><br><br><br>
                 <div class="col-md-4 col-sm-12 mb-4 mb-sm-0">
                     <a href="" class="logo"><img src="images/<?php echo $logo_orig ?>" alt=""></a>
@@ -237,8 +237,6 @@ include('css/dynamic_styles.php');
                 </div>
                 <br><br><br><br><br><br>
                 <div class="col-md-4 col-sm-12 mb-4 mb-sm-0">
-
-                    <h4 class="footer-title"><strong>Our Delivery Partners</strong></h4><br>
                     <div class="delivery-partners">
                         <?php
                         $sql = "SELECT * FROM delivery_partners WHERE status = 'active'";
@@ -248,11 +246,13 @@ include('css/dynamic_styles.php');
                         if ($numRows > 0) {
                             while ($row = mysqli_fetch_assoc($result)) {
                         ?>
+                                <h4 class="footer-title"><strong>Our Delivery Partners</strong></h4><br>
+
                                 <a href="<?php echo $row['partner_link'] ?>"><img src="images/<?php echo $row['partner_photo'] ?>" alt="<?php echo $row['partner_name'] ?>" style="width: 20%;"></a>
                         <?php
                             }
                         } else {
-                            echo "No landing page content found.";
+                            echo "";
                         }
                         ?>
                     </div>

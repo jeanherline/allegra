@@ -6,25 +6,25 @@ $sql = "SELECT * FROM company WHERE company_id = 1";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
-   $row = $result->fetch_assoc();
-   $company_year = $row['company_year'];
-   $company_name = $row['company_name'];
-   $logo_orig = $row['logo_orig'];
-   $logo_white = $row['logo_white'];
-   $logo_icon = $row['logo_icon'];
-   $address = $row['address'];
-   $phone = $row['phone'];
-   $email = $row['email'];
-   $storehours = $row['store_hours'];
-   $closing_time = $row['closing_time'];
-   $seat_capacity = $row['seat_capacity'];
-   $color_theme = $row['color_theme'];
-   $google_map = $row['google_map'];
-   $facebook_link = $row['facebook_link'];
-   $instagram_link = $row['instagram_link'];
-   $twitter_link = $row['twitter_link'];
+    $row = $result->fetch_assoc();
+    $company_year = $row['company_year'];
+    $company_name = $row['company_name'];
+    $logo_orig = $row['logo_orig'];
+    $logo_white = $row['logo_white'];
+    $logo_icon = $row['logo_icon'];
+    $address = $row['address'];
+    $phone = $row['phone'];
+    $email = $row['email'];
+    $storehours = $row['store_hours'];
+    $closing_time = $row['closing_time'];
+    $seat_capacity = $row['seat_capacity'];
+    $color_theme = $row['color_theme'];
+    $google_map = $row['google_map'];
+    $facebook_link = $row['facebook_link'];
+    $instagram_link = $row['instagram_link'];
+    $twitter_link = $row['twitter_link'];
 } else {
-   echo " ";
+    echo " ";
 }
 ?>
 
@@ -44,7 +44,7 @@ if ($result->num_rows > 0) {
     <!-- SLIDER REVOLUTION 4.x CSS SETTINGS -->
 
     <link rel="stylesheet" href="../css/admin.css">
- 
+
 
     <!-- icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
@@ -59,6 +59,7 @@ if ($result->num_rows > 0) {
             padding-bottom: 450px;
             height: auto !important;
         }
+
         .navbar {
             background-color: <?php echo $color_theme ?>;
             color: #FFFFFF;
@@ -308,14 +309,14 @@ if ($result->num_rows > 0) {
 
                         <form action="" method="POST" autocomplete="on" enctype="multipart/form-data">
                             <br>
-                            <label><strong>Add New Delivery Partner</strong></label><br><br>
-                            <label for="partner_photo">Partner Logo</label>
+                            <label><strong>Add New Delivery Partner</strong></strong></label><br><br>
+                            <label for="partner_photo">Partner Logo<span style="color: red;"> *</span></strong></label>
                             <input type="file" id="partner_photo" name="partner_photo" accept=".jpg,.jpeg,.png" required>
                             <br><br>
-                            <label for="partner_name">Partner Name</label>
+                            <label for="partner_name">Partner Name<span style="color: red;"> *</span></strong></label>
                             <input type="text" id="partner_name" name="partner_name" placeholder="Enter Partner Name" required>
                             <br><br>
-                            <label for="partner_link">Partner Link</label>
+                            <label for="partner_link">Partner Link<span style="color: red;"> *</span></strong></label>
                             <input type="text" id="partner_link" name="partner_link" placeholder="Enter Partner Link" required>
                             <br>
                             <?php
@@ -326,33 +327,51 @@ if ($result->num_rows > 0) {
                                 $temp_name = $_FILES['partner_photo']['tmp_name'];
                                 $folder_path = "../images/";
 
-                                move_uploaded_file($temp_name, $folder_path . $partner_photo);
-
-                                // Insert the new delivery partner into the database
-                                $stmt = $conn->prepare("INSERT INTO delivery_partners (partner_name, partner_link, partner_photo) VALUES (?, ?, ?)");
-                                $stmt->bind_param("sss", $partner_name, $partner_link, $partner_photo);
+                                // Check if the partner already exists in the database
+                                $stmt = $conn->prepare("SELECT * FROM delivery_partners WHERE partner_name = ?");
+                                $stmt->bind_param("s", $partner_name);
                                 $stmt->execute();
+                                $result = $stmt->get_result();
 
-                                if ($stmt) {
-                                    echo '<br><br><div style="text-align:center;">
+                                if ($result->num_rows > 0) {
+                                    echo '<br><div style="text-align:center;">
                                     <div class="banner">
                                         <div class="banner__content">
                                             <div class="banner__text">
-                                                New Delivery Partner Added
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>';
+                                                Already Exists
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>';
                                 } else {
-                                    echo '<br><div style="text-align:center;">
+                                    move_uploaded_file($temp_name, $folder_path . $partner_photo);
+
+                                    // Insert the new delivery partner into the database
+                                    $stmt = $conn->prepare("INSERT INTO delivery_partners (partner_name, partner_link, partner_photo) VALUES (?, ?, ?)");
+                                    $stmt->bind_param("sss", $partner_name, $partner_link, $partner_photo);
+                                    $stmt->execute();
+
+                                    if ($stmt) {
+                                        echo '<br><br><div style="text-align:center;">
                                         <div class="banner">
                                             <div class="banner__content">
                                                 <div class="banner__text">
-                                                    New Delivery Partner Not Added
+                                                    Added
                                                 </div>
                                             </div>
                                         </div>
                                     </div>';
+                                    } else {
+                                        echo '<br><div style="text-align:center;">
+                                        <div class="banner">
+                                            <div class="banner__content">
+                                                <div class="banner__text">
+                                                    Not Added
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>';
+                                    }
                                 }
                             }
                             mysqli_close($conn);
@@ -361,6 +380,7 @@ if ($result->num_rows > 0) {
                             <input type="submit" value="Submit" id="submit" name="submit">
                             <br><br><br><br><br><br><br><br><br>
                         </form>
+
                     </div>
 
 

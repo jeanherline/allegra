@@ -298,8 +298,7 @@ if ($result->num_rows > 0) {
                                     $stmt->execute();
 
                                     if ($stmt->execute()) {
-                                        if ($stmt->affected_rows > 0) {
-                                            echo '<br><br><div style="text-align:center;">
+                                        echo '<br><br><div style="text-align:center;">
                                                 <div class="banner">
                                                   <div class="banner__content">
                                                     <div class="banner__text">
@@ -308,17 +307,6 @@ if ($result->num_rows > 0) {
                                                   </div>
                                                 </div>
                                               </div>';
-                                        } else {
-                                            echo '<br><div style="text-align:center;">
-                                                <div class="banner">
-                                                  <div class="banner__content">
-                                                    <div class="banner__text">
-                                                      No Changes
-                                                    </div>
-                                                  </div>
-                                                </div>
-                                              </div>';
-                                        }
                                     } else {
                                         echo '<br><div style="text-align:center;">
                                               <div class="banner">

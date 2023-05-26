@@ -72,7 +72,7 @@ include('css/dynamic_styles.php');
             <div class="row align-items-center">
 
                 <!-- <a href="#" class="logo mr-auto"> <i class="fas fa-mug-hot"></i> coffee </a> -->
-                <a href="index.php" class="logo mr-auto"><img src="images/logo.png" alt=""></a>
+                <a href="index.php" class="logo mr-auto"><img src="images/<?php echo $logo_white ?>" alt=""></a>
 
                 <nav class="nav">
                     <a href="index.php">Home</a>
@@ -385,22 +385,22 @@ include('css/dynamic_styles.php');
                         <br>
                         <h4><strong>Personal Information</strong></h4><br>
                         <label for="fname" id="fname">First Name<span style="color: red;">*</span></label>
-                        <input type="text" id="fname" name="fname" placeholder="Enter First Name" class="box">
+                        <input type="text" id="fname" name="fname" placeholder="Enter First Name" class="box" required>
 
                         <label for="lname" id="lname">Last Name<span style="color: red;">*</span></label>
-                        <input type="text" id="lname" name="lname" placeholder="Enter Last Name" class="box">
+                        <input type="text" id="lname" name="lname" placeholder="Enter Last Name" class="box" required>
 
                         <label for="email" id="email">Email Address<span style="color: red;">*</span></label>
-                        <input type="email" id="email" name="email" placeholder="Enter Email Address" class="box">
+                        <input type="email" id="email" name="email" placeholder="Enter Email Address" class="box" required>
 
                         <label for="phone" id="phone">Phone Number<span style="color: red;">*</span></label>
-                        <input type="text" id="phone" name="phone" placeholder="Enter Phone Number" class="box">
+                        <input type="text" id="phone" name="phone" placeholder="Enter Phone Number" class="box" required>
 
 
                         <br><br><br>
                         <h4><strong>Reservation Details</strong></h4><br>
                         <label for="guests" id="guests">Number of Guests<span style="color: red;">*</span></label>
-                        <select class="box" id="guests" name="guests">
+                        <select class="box" id="guests" name="guests" required>
                             <option value="guests" selected disabled>Number of Guests</option>
                             <?php
                             for ($i = 1; $i <= $seat_capacity; $i++) {
@@ -411,7 +411,7 @@ include('css/dynamic_styles.php');
                         </select>
 
                         <label for="date" id="date">Date of Reservation<span style="color: red;">*</span></label>
-                        <input type="date" name="date" id="date" class="box" value="mm/dd/yyyy" min="<?= date('Y-m-d') ?>">
+                        <input type="date" name="date" id="date" class="box" value="mm/dd/yyyy" min="<?= date('Y-m-d') ?>" required>
                         <script>
                             // Clear the date input value on focus
                             document.getElementById("date").addEventListener("focus", function() {
@@ -429,7 +429,7 @@ include('css/dynamic_styles.php');
                         </script>
 
                         <label for="reservation_time">Time of Reservation<span style="color: red;">*</span></label>
-                        <input type="time" name="time" id="reservation_time" class="box" value="HH:MM AM/PM" step="60">
+                        <input type="time" name="time" id="reservation_time" class="box" value="HH:MM AM/PM" step="60" required>
 
                         <label for="others" id="others">Others</label>
                         <input type="text" id="others" name="others" placeholder="If Other Above, please specify" class="box">
@@ -471,8 +471,6 @@ include('css/dynamic_styles.php');
                 </div>
                 <br><br><br><br><br><br>
                 <div class="col-md-4 col-sm-12 mb-4 mb-sm-0">
-
-                    <h4 class="footer-title"><strong>Our Delivery Partners</strong></h4><br>
                     <div class="delivery-partners">
                         <?php
                         $sql = "SELECT * FROM delivery_partners WHERE status = 'active'";
@@ -482,16 +480,19 @@ include('css/dynamic_styles.php');
                         if ($numRows > 0) {
                             while ($row = mysqli_fetch_assoc($result)) {
                         ?>
+                                <h4 class="footer-title"><strong>Our Delivery Partners</strong></h4><br>
+
                                 <a href="<?php echo $row['partner_link'] ?>"><img src="images/<?php echo $row['partner_photo'] ?>" alt="<?php echo $row['partner_name'] ?>" style="width: 20%;"></a>
                         <?php
                             }
                         } else {
-                            echo "No landing page content found.";
+                            echo "";
                         }
                         ?>
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </section>
 

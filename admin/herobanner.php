@@ -54,7 +54,7 @@ if ($result->num_rows > 0) {
 
     <style>
         .container {
-            padding-bottom: 450px;
+            padding-bottom: 600px;
             height: auto !important;
         }
 
@@ -569,7 +569,7 @@ if ($result->num_rows > 0) {
                                                 <label for="subheading">Subheading</label>
                                                 <input type="text" id="subheading" name="subheading" value="<?php echo isset($_POST['subheading']) ? $_POST['subheading'] : $subheading; ?>">
                                                 <br><br>
-                                                <label for="banner">Banner</label>
+                                                <label for="banner">Menu Banner</label>
                                                 <input type="text" id="banner" name="banner" value="<?php echo isset($_POST['banner']) ? $_POST['banner'] : $banner; ?>">
                                                 <br><br>
                                                 <?php

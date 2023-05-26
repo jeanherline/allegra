@@ -286,7 +286,7 @@ if ($result->num_rows > 0) {
                             <?php
                             if (isset($_POST['submit'])) {
                                 if (!empty($_FILES["image"]["name"])) {
-                                    //file name
+                                    // File name
                                     $tempname = $_FILES["image"]["tmp_name"];
                                     $folder = "../images/menu/";
                                     $image = basename($_FILES["image"]["name"]);
@@ -295,40 +295,76 @@ if ($result->num_rows > 0) {
 
                                     // Check if file already exists
                                     if (file_exists($target_file)) {
-                                        $image = basename($_FILES["image"]["name"], "." . $imageFileType) . "_" . time() . "." . $imageFileType;
-                                        $target_file = $folder . $image;
-                                    }
-                                    move_uploaded_file($tempname, $target_file);
-                                }
-
-                                // Update values in input fields
-                                $menu_name = isset($_POST['menu_name']) ? $_POST['menu_name'] : $menu_name;
-                                $description = isset($_POST['description']) ? $_POST['description'] : $description;
-                                $price = isset($_POST['price']) ? $_POST['price'] : $price;
-                                $category  = isset($_POST['category']) ? $_POST['category'] : $category;
-
-                                // Insert the category into the database
-                                $stmt = $conn->prepare("INSERT INTO menu (menu_photo, menu_name, description,
-                                price, category) VALUES (?,?,?,?,?)");
-                                $stmt->bind_param("ssssi", $image, $menu_name, $description, $price, $category);
-                                $stmt->execute();
-
-                                if ($stmt) {
-                                    echo '<br><br><div style="text-align:center;">
-                                    <div class="banner">
-                                        <div class="banner__content">
-                                            <div class="banner__text">
-                                                Added
+                                        echo '<br><div style="text-align:center;">
+                                        <div class="banner">
+                                            <div class="banner__content">
+                                                <div class="banner__text">
+                                                    Already Exists
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>';
+                                    </div>';
+                                    } else {
+                                        move_uploaded_file($tempname, $target_file);
+
+                                        // Update values in input fields
+                                        $menu_name = isset($_POST['menu_name']) ? $_POST['menu_name'] : $menu_name;
+                                        $description = isset($_POST['description']) ? $_POST['description'] : $description;
+                                        $price = isset($_POST['price']) ? $_POST['price'] : $price;
+                                        $category  = isset($_POST['category']) ? $_POST['category'] : $category;
+
+                                        // Check if product with the same name already exists in the database
+                                        $stmt = $conn->prepare("SELECT menu_id FROM menu WHERE menu_name = ?");
+                                        $stmt->bind_param("s", $menu_name);
+                                        $stmt->execute();
+                                        $stmt->store_result();
+                                        $numRows = $stmt->num_rows;
+
+                                        if ($numRows > 0) {
+                                            echo '<br><div style="text-align:center;">
+                                            <div class="banner">
+                                                <div class="banner__content">
+                                                    <div class="banner__text">
+                                                        Already exists
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>';
+                                        } else {
+                                            // Insert the product into the database
+                                            $stmt = $conn->prepare("INSERT INTO menu (menu_photo, menu_name, description, price, category) VALUES (?,?,?,?,?)");
+                                            $stmt->bind_param("ssssi", $image, $menu_name, $description, $price, $category);
+                                            $stmt->execute();
+
+                                            if ($stmt) {
+                                                echo '<br><div style="text-align:center;">
+                                                <div class="banner">
+                                                    <div class="banner__content">
+                                                        <div class="banner__text">
+                                                            Added
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>';
+                                            } else {
+                                                echo '<br><div style="text-align:center;">
+                                                <div class="banner">
+                                                    <div class="banner__content">
+                                                        <div class="banner__text">
+                                                            Not Added
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>';
+                                            }
+                                        }
+                                    }
                                 } else {
                                     echo '<br><div style="text-align:center;">
                                     <div class="banner">
                                         <div class="banner__content">
                                             <div class="banner__text">
-                                                Not Added
+                                                Please select an image.
                                             </div>
                                         </div>
                                     </div>
@@ -343,6 +379,8 @@ if ($result->num_rows > 0) {
 
                             <br><br>
                         </form>
+
+
 
                     </div>
 

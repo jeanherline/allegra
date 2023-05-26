@@ -302,7 +302,7 @@ if ($result->num_rows > 0) {
                             <label for="email">Email</label>
                             <input type="text" id="email" name="email" value="<?php echo isset($_POST['email']) ? $_POST['email'] : $email; ?>">
                             <br><br>
-                            <label for="store_hours">Store Hours Banner</label>
+                            <label for="store_hours">Landing Page Banner</label>
                             <input type="text" id="store_hours" name="store_hours" value="<?php echo isset($_POST['store_hours']) ? $_POST['store_hours'] : $store_hours; ?>">
                             <br><br>
                             <label for="opening_time">Start of Business Hours</label>
@@ -342,13 +342,16 @@ if ($result->num_rows > 0) {
                             <label for="instagram_link">Instagram Link</label>
                             <input type="text" id="instagram_link" name="instagram_link" value="<?php echo isset($_POST['instagram_link']) ? $_POST['instagram_link'] : $instagram_link; ?>">
                             <br><br>
-                            <label for="logo_orig">Original Logo</label>
+                            <label for="twitter_link">Twitter Link</label>
+                            <input type="text" id="twitter_link" name="twitter_link" value="<?php echo isset($_POST['twitter_link']) ? $_POST['twitter_link'] : $twitter_link; ?>">
+                            <br><br>
+                            <label for="logo_orig">Original Logo PNG</label>
                             <input type="file" id="logo_orig" name="logo_orig" accept=".jpg,.jpeg,.png">
                             <br><br>
-                            <label for="logo_white">Logo White Version</label>
+                            <label for="logo_white">Logo White Version PNG</label>
                             <input type="file" id="logo_white" name="logo_white" accept=".jpg,.jpeg,.png">
                             <br><br>
-                            <label for="logo_icon">Icon Logo</label>
+                            <label for="logo_icon">Icon Logo PNG</label>
                             <input type="file" id="logo_icon" name="logo_icon" accept=".jpg,.jpeg,.png">
                             <br>
 
@@ -369,6 +372,7 @@ if ($result->num_rows > 0) {
                                 $google_map = isset($_POST['google_map']) ? $_POST['google_map'] : $google_map;
                                 $address_link = isset($_POST['address_link']) ? $_POST['address_link'] : $address_link;
                                 $facebook_link = isset($_POST['facebook_link']) ? $_POST['facebook_link'] : $facebook_link;
+                                $twitter_link = isset($_POST['twitter_link']) ? $_POST['twitter_link'] : $twitter_link;
                                 $instagram_link = isset($_POST['instagram_link']) ? $_POST['instagram_link'] : $instagram_link;
                                 $logo_orig = $row['logo_orig'];
                                 $logo_white = $row['logo_white'];
@@ -401,8 +405,8 @@ if ($result->num_rows > 0) {
                                 }
 
                                 // Update database with new values
-                                $stmt = $conn->prepare("UPDATE company SET company_year=?, company_name=?, address=?, phone=?, email=?, store_hours=?, opening_time=?, closing_time=?, color_theme=?, fixed_header=?, google_map=?, address_link=?, facebook_link=?, instagram_link=?, logo_orig=?, logo_white=?, logo_icon=? WHERE company_id=1");
-                                $stmt->bind_param("sssssssssssssssss", $company_year, $company_name, $address, $phone, $email, $store_hours, $opening_time, $closing_time, $color_theme, $fixed_header, $google_map, $address_link, $facebook_link, $instagram_link, $logo_orig, $logo_white, $logo_icon);
+                                $stmt = $conn->prepare("UPDATE company SET company_year=?, company_name=?, address=?, phone=?, email=?, store_hours=?, opening_time=?, closing_time=?, color_theme=?, fixed_header=?, google_map=?, address_link=?, facebook_link=?, instagram_link=?, twitter_link=?, logo_orig=?, logo_white=?, logo_icon=? WHERE company_id=1");
+                                $stmt->bind_param("ssssssssssssssssss", $company_year, $company_name, $address, $phone, $email, $store_hours, $opening_time, $closing_time, $color_theme, $fixed_header, $google_map, $address_link, $facebook_link, $instagram_link, $twitter_link, $logo_orig, $logo_white, $logo_icon);
                                 if ($stmt->execute()) {
                                     if ($stmt->affected_rows > 0) {
                                         echo '<br><br><div style="text-align:center;">

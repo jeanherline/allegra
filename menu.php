@@ -64,7 +64,7 @@ include('css/dynamic_styles.php');
             <div class="row align-items-center">
 
                 <!-- <a href="#" class="logo mr-auto"> <i class="fas fa-mug-hot"></i> coffee </a> -->
-                <a href="index.php" class="logo mr-auto"><img src="images/logo.png" alt=""></a>
+            <a href="index.php" class="logo mr-auto"><img src="images/<?php echo $logo_white ?>" alt=""></a>
 
                 <nav class="nav">
                     <a href="index.php">Home</a>
@@ -311,6 +311,45 @@ include('css/dynamic_styles.php');
                     modal.style.display = "none";
                 }
             });
+            document.addEventListener('DOMContentLoaded', function() {
+                // Get the modal
+                var modal = document.getElementById("myModal");
+
+                // Get the close button element
+                var closeButton = document.getElementById("modalCloseButton");
+
+                // When the user clicks on the button, open the modal
+                var linkBtns = document.querySelectorAll('.link-btn-3');
+
+                linkBtns.forEach(function(linkBtn) {
+                    linkBtn.addEventListener('click', function() {
+                        modal.style.display = "block";
+                        var price = this.dataset.price;
+                        var image = this.dataset.image;
+                        var menuName = this.dataset.name;
+                        document.getElementById("modal-price").innerHTML = price;
+                        document.getElementById("modal-image").src = "images/menu/" + image;
+                        document.getElementById("modal-menu-name").innerHTML = menuName;
+                    });
+                });
+
+                // When the user clicks on the close button, close the modal
+                closeButton.onclick = function() {
+                    closeModal();
+                };
+
+                // When the user clicks anywhere outside of the modal, close it
+                window.onclick = function(event) {
+                    if (event.target == modal) {
+                        closeModal();
+                    }
+                };
+
+                // Close modal function
+                function closeModal() {
+                    modal.style.display = "none";
+                }
+            });
         </script>
 
 
@@ -357,11 +396,11 @@ include('css/dynamic_styles.php');
     <section class="footer">
         <div class="container">
             <div class="row">
-            <div class="col-md-4 col-sm-12">
-               <p style="font-size: 14px;"><em><?php echo $address ?></em></p>
-               <p style="font-size: 14px;">Phone: <a href="tel:<?php echo $phone ?>"><?php echo $phone ?></a></p>
-               <p style="font-size: 14px;">Email: <a href="mailto:<?php echo $email ?>"><?php echo $email ?></a></p>
-            </div>
+                <div class="col-md-4 col-sm-12">
+                    <p style="font-size: 14px;"><em><?php echo $address ?></em></p>
+                    <p style="font-size: 14px;">Phone: <a href="tel:<?php echo $phone ?>"><?php echo $phone ?></a></p>
+                    <p style="font-size: 14px;">Email: <a href="mailto:<?php echo $email ?>"><?php echo $email ?></a></p>
+                </div>
                 <br><br><br><br><br><br>
                 <div class="col-md-4 col-sm-12 mb-4 mb-sm-0">
                     <a href="" class="logo"><img src="images/<?php echo $logo_orig ?>" alt=""></a>
@@ -389,7 +428,7 @@ include('css/dynamic_styles.php');
                         <?php
                             }
                         } else {
-                            echo "No landing page content found.";
+                            echo "";
                         }
                         ?>
                     </div>

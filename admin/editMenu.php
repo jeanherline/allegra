@@ -6,25 +6,25 @@ $sql = "SELECT * FROM company WHERE company_id = 1";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
-   $row = $result->fetch_assoc();
-   $company_year = $row['company_year'];
-   $company_name = $row['company_name'];
-   $logo_orig = $row['logo_orig'];
-   $logo_white = $row['logo_white'];
-   $logo_icon = $row['logo_icon'];
-   $address = $row['address'];
-   $phone = $row['phone'];
-   $email = $row['email'];
-   $storehours = $row['store_hours'];
-   $closing_time = $row['closing_time'];
-   $seat_capacity = $row['seat_capacity'];
-   $color_theme = $row['color_theme'];
-   $google_map = $row['google_map'];
-   $facebook_link = $row['facebook_link'];
-   $instagram_link = $row['instagram_link'];
-   $twitter_link = $row['twitter_link'];
+    $row = $result->fetch_assoc();
+    $company_year = $row['company_year'];
+    $company_name = $row['company_name'];
+    $logo_orig = $row['logo_orig'];
+    $logo_white = $row['logo_white'];
+    $logo_icon = $row['logo_icon'];
+    $address = $row['address'];
+    $phone = $row['phone'];
+    $email = $row['email'];
+    $storehours = $row['store_hours'];
+    $closing_time = $row['closing_time'];
+    $seat_capacity = $row['seat_capacity'];
+    $color_theme = $row['color_theme'];
+    $google_map = $row['google_map'];
+    $facebook_link = $row['facebook_link'];
+    $instagram_link = $row['instagram_link'];
+    $twitter_link = $row['twitter_link'];
 } else {
-   echo " ";
+    echo " ";
 }
 ?>
 
@@ -44,7 +44,7 @@ if ($result->num_rows > 0) {
     <!-- SLIDER REVOLUTION 4.x CSS SETTINGS -->
 
     <link rel="stylesheet" href="../css/admin.css">
- 
+
 
     <!--google material icon-->
     <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
@@ -56,6 +56,7 @@ if ($result->num_rows > 0) {
             padding-bottom: 450px;
             height: auto !important;
         }
+
         .navbar {
             background-color: <?php echo $color_theme ?>;
             color: #FFFFFF;
@@ -331,13 +332,12 @@ if ($result->num_rows > 0) {
                                 <br>
                                 <?php
                                 if (isset($_POST['submit'])) {
-                                    $image = $menu_id;
-
                                     if (!empty($_FILES["image"]["name"])) {
                                         // File name
                                         $tempname = $_FILES["image"]["tmp_name"];
-                                        $folder = "../images/";
-                                        $target_file = $folder . basename($_FILES["image"]["name"]);
+                                        $folder = "../images/menu/";
+                                        $image = basename($_FILES["image"]["name"]);
+                                        $target_file = $folder . $image;
                                         $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
                                         // Check if file already exists
@@ -378,7 +378,7 @@ if ($result->num_rows > 0) {
                                         $query = "UPDATE menu SET menu_name = ?, description = ?, price = ?, category = ?, availability = ?";
 
                                         if (!empty($_FILES["image"]["name"])) {
-                                            $query .= ", image = ?";
+                                            $query .= ", menu_photo = ?";
                                         }
 
                                         $query .= " WHERE menu_id = ?";
@@ -386,7 +386,7 @@ if ($result->num_rows > 0) {
                                         $stmt = $conn->prepare($query);
 
                                         if (!empty($_FILES["image"]["name"])) {
-                                            $stmt->bind_param("ssssissi", $menu_name, $description, $price, $category, $availability, $image, $id);
+                                            $stmt->bind_param("sssissi", $menu_name, $description, $price, $category, $availability, $image, $id);
                                         } else {
                                             $stmt->bind_param("sssssi", $menu_name, $description, $price, $category, $availability, $id);
                                         }

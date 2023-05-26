@@ -72,7 +72,7 @@ include('css/dynamic_styles.php');
             <div class="row align-items-center">
 
                 <!-- <a href="#" class="logo mr-auto"> <i class="fas fa-mug-hot"></i> coffee </a> -->
-                <a href="index.php" class="logo mr-auto"><img src="images/logo.png" alt=""></a>
+                <a href="index.php" class="logo mr-auto"><img src="images/<?php echo $logo_white ?>" alt=""></a>
 
                 <nav class="nav">
                     <a href="index.php">Home</a>
@@ -160,68 +160,6 @@ include('css/dynamic_styles.php');
     </section>
 
     <!-- newsletter section ends -->
-
-    <!-- contact section starts  -->
-
-    <section class="contact" id="contact">
-
-        <div class="container">
-
-            <div class="contact-info-container">
-
-                <div class="box">
-                    <a href="tel:<?php echo $phone; ?>"><i class="fas fa-phone"></i></a>
-                    <h3>phone</h3>
-                    <p><?php echo $phone ?></p>
-                </div>
-
-                <div class="box">
-                    <a href="<?php echo $address_link; ?>" target="_blank"><i class="fas fa-map"></i></a>
-                    <h3>address</h3>
-                    <p><?php echo $address ?></p>
-                </div>
-
-                <div class="box">
-                    <a href="mailto:<?php echo $email; ?>"><i class="fas fa-envelope"></i></a>
-                    <h3>email</h3>
-                    <p><?php echo $email ?></p>
-                </div>
-
-            </div>
-
-            <div class="row align-items-center">
-
-                <div class="col-md-6 mb-5 mb-md-0 ">
-                    <iframe class="map w-100" src="<?php echo $google_map ?>" width="600" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                </div>
-
-                <form action="" method="POST" class="col-md-6">
-                    <h3>get in touch</h3>
-                    <label for="fname" id="fname">First Name<span style="color: red;">*</span></label>
-                    <input type="text" id="fname" name="fname" placeholder="Enter First Name" class="box" required>
-
-                    <label for="lname" id="lname">Last Name<span style="color: red;">*</span></label>
-                    <input type="text" id="lname" name="lname" placeholder="Enter Last Name" class="box">
-
-                    <label for="email" id="email">Email Address<span style="color: red;">*</span></label>
-                    <input type="email" id="email" name="email" placeholder="Enter Email Address" class="box">
-
-                    <label for="phone" id="phone">Phone Number</span></label>
-                    <input type="text" id="phone" name="phone" placeholder="Enter Phone Number" class="box">
-
-                    <label for="message" id="message">Message<span style="color: red;">*</label>
-                    <textarea name="message" itemid="message" placeholder="Enter Message" class="box" id="" cols="30" rows="10"></textarea>
-
-                    <input type="submit" id="submit" name="submit" value="Send Message" class="link-btn">
-                </form>
-
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- contact section ends -->
     <?php
 
     if (isset($_POST['submit'])) {
@@ -343,6 +281,68 @@ include('css/dynamic_styles.php');
         }
     }
     ?>
+    <!-- contact section starts  -->
+
+    <section class="contact" id="contact">
+
+        <div class="container">
+
+            <div class="contact-info-container">
+
+                <div class="box">
+                    <a href="tel:<?php echo $phone; ?>"><i class="fas fa-phone"></i></a>
+                    <h3>phone</h3>
+                    <p><?php echo $phone ?></p>
+                </div>
+
+                <div class="box">
+                    <a href="<?php echo $address_link; ?>" target="_blank"><i class="fas fa-map"></i></a>
+                    <h3>address</h3>
+                    <p><?php echo $address ?></p>
+                </div>
+
+                <div class="box">
+                    <a href="mailto:<?php echo $email; ?>"><i class="fas fa-envelope"></i></a>
+                    <h3>email</h3>
+                    <p><?php echo $email ?></p>
+                </div>
+
+            </div>
+
+            <div class="row align-items-center">
+
+                <div class="col-md-6 mb-5 mb-md-0 ">
+                    <iframe class="map w-100" src="<?php echo $google_map ?>" width="600" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+
+                <form action="" method="POST" class="col-md-6">
+                    <h3>get in touch</h3>
+                    <label for="fname" id="fname">First Name<span style="color: red;">*</span></label>
+                    <input type="text" id="fname" name="fname" placeholder="Enter First Name" class="box" required>
+
+                    <label for="lname" id="lname">Last Name<span style="color: red;">*</span></label>
+                    <input type="text" id="lname" name="lname" placeholder="Enter Last Name" class="box" required>
+
+                    <label for="email" id="email">Email Address<span style="color: red;">*</span></label>
+                    <input type="email" id="email" name="email" placeholder="Enter Email Address" class="box" required>
+
+                    <label for="phone" id="phone">Phone Number</span></label>
+                    <input type="text" id="phone" name="phone" placeholder="Enter Phone Number" class="box">
+
+                    <label for="message" id="message">Message<span style="color: red;">*</label>
+                    <textarea name="message" itemid="message" placeholder="Enter Message" class="box" id="" cols="30" rows="10" required></textarea>
+
+                    <input type="submit" id="submit" name="submit" value="Send Message" class="link-btn">
+                </form>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- contact section ends -->
+
     <!-- footer section starts  -->
 
     <section class="footer">
@@ -365,8 +365,6 @@ include('css/dynamic_styles.php');
                 </div>
                 <br><br><br><br><br><br>
                 <div class="col-md-4 col-sm-12 mb-4 mb-sm-0">
-
-                    <h4 class="footer-title"><strong>Our Delivery Partners</strong></h4><br>
                     <div class="delivery-partners">
                         <?php
                         $sql = "SELECT * FROM delivery_partners WHERE status = 'active'";
@@ -376,16 +374,19 @@ include('css/dynamic_styles.php');
                         if ($numRows > 0) {
                             while ($row = mysqli_fetch_assoc($result)) {
                         ?>
+                                <h4 class="footer-title"><strong>Our Delivery Partners</strong></h4><br>
+
                                 <a href="<?php echo $row['partner_link'] ?>"><img src="images/<?php echo $row['partner_photo'] ?>" alt="<?php echo $row['partner_name'] ?>" style="width: 20%;"></a>
                         <?php
                             }
                         } else {
-                            echo "No landing page content found.";
+                            echo "";
                         }
                         ?>
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </section>
 

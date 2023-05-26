@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 25, 2023 at 08:47 PM
+-- Generation Time: May 26, 2023 at 08:06 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -104,7 +104,7 @@ CREATE TABLE `company` (
 --
 
 INSERT INTO `company` (`company_id`, `company_year`, `company_name`, `logo_orig`, `logo_white`, `logo_icon`, `address`, `phone`, `email`, `store_hours`, `opening_time`, `closing_time`, `seat_capacity`, `color_theme`, `fixed_header`, `google_map`, `address_link`, `facebook_link`, `instagram_link`, `twitter_link`, `created_at`, `updated_at`) VALUES
-(1, 2022, 'Cafe Allegra', 'logo-brown.png', 'logo.png', 'logo-icon.png', '781 B.S Aquino Ave. Brgy. Bagong Nayon, Baliuag, Bulacan (In front of New Frontier Subdivision)', '0969 622 9438', 'cafeallegrabaliuag@gmail.com', 'Mon-Fri: 10AM-8PM | Sat-Sun: 11AM-8PM', '10:00:00', '20:00:00', 11, '#512a10', 'fixed_header.jpg', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d963.6464479118739!2d120.89822424377084!3d14.960152777501325!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x339701f2dfa15023%3A0x2ae26381c4a9af6b!2sCafe%20Allegra!5e0!3m2!1sen!2sph!4v1681242204750!5m2!1sen!2sph', 'https://goo.gl/maps/8iHvRc41YPABhyw37', 'https://www.facebook.com/cafeallegrabaliuag', 'https://www.instagram.com/cafeallegra.ph/', '', '2023-04-29 08:20:43', '2023-05-25 18:32:05');
+(1, 2022, 'Cafe Allegra', 'logo-brown.png', 'logo.png', 'logo-icon.png', '781 B.S Aquino Ave. Brgy. Bagong Nayon, Baliuag, Bulacan (In front of New Frontier Subdivision)', '0969 622 9438', 'cafeallegrabaliuag@gmail.com', 'Mon-Fri: 10AM-8PM | Sat-Sun: 11AM-8PM', '10:00:00', '20:00:00', 11, '#512a10', 'fixed_header.jpg', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d963.6464479118739!2d120.89822424377084!3d14.960152777501325!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x339701f2dfa15023%3A0x2ae26381c4a9af6b!2sCafe%20Allegra!5e0!3m2!1sen!2sph!4v1681242204750!5m2!1sen!2sph', 'https://goo.gl/maps/8iHvRc41YPABhyw37', 'https://www.facebook.com/cafeallegrabaliuag', 'https://www.instagram.com/cafeallegra.ph/', '', '2023-04-29 08:20:43', '2023-05-26 05:46:50');
 
 -- --------------------------------------------------------
 
@@ -151,8 +151,8 @@ CREATE TABLE `delivery_partners` (
 --
 
 INSERT INTO `delivery_partners` (`partner_id`, `partner_photo`, `partner_name`, `partner_link`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'grabfood.png', 'GrabFood', 'https://food.grab.com/ph/en/restaurant/cafe-allegra-baliuag-delivery/2-C3VFCPTUAGJTSA', 'Active', '2023-04-29 08:29:52', '2023-05-24 12:20:14'),
-(2, 'ordermo.png', 'Ordermo', 'https://app.ordermo.ph/Cafe-Allegra', 'Active', '2023-04-29 08:29:52', '2023-05-15 17:43:45');
+(1, 'grabfood_1685080643.png', 'GrabFood', 'https://food.grab.com/ph/en/restaurant/cafe-allegra-baliuag-delivery/2-C3VFCPTUAGJTSA', 'Active', '2023-04-29 08:29:52', '2023-05-26 05:57:23'),
+(2, 'ordermo.png', 'Ordermo', 'https://app.ordermo.ph/Cafe-Allegra', 'Active', '2023-04-29 08:29:52', '2023-05-26 05:51:14');
 
 -- --------------------------------------------------------
 
@@ -173,7 +173,7 @@ CREATE TABLE `edit_contact` (
 --
 
 INSERT INTO `edit_contact` (`edit_contact_id`, `heading`, `subheading`, `created_at`, `updated_at`) VALUES
-(1, 'Contact Us', 'Let us know how we can serve you.', '2023-04-29 10:03:41', '2023-05-06 16:07:46');
+(1, 'Contact Us', 'Let us know how we can serve you.', '2023-04-29 10:03:41', '2023-05-26 05:21:30');
 
 -- --------------------------------------------------------
 
@@ -200,7 +200,7 @@ CREATE TABLE `edit_dining` (
 --
 
 INSERT INTO `edit_dining` (`edit_dining_id`, `heading`, `subheading`, `description`, `photo_1`, `photo_2`, `photo_3`, `form_photo_1`, `form_photo_2`, `created_at`, `updated_at`) VALUES
-(1, 'Private Dining', 'Have An Upcoming Special Event?', '3 hours for only 3,000 PHP (Consumables)', 'private-1.jpg', 'private-2.jpg', 'private-3.jpg', 'service-1.jpg', 'service-2.jpg', '2023-04-29 09:33:41', '2023-05-06 14:56:01');
+(1, 'Private Dining', 'Have An Upcoming Special Event?', '3 hours for only 3,000 PHP (Consumables)', 'private-1.jpg', 'private-2.jpg', 'private-3.jpg', 'service-1.jpg', 'service-2.jpg', '2023-04-29 09:33:41', '2023-05-26 05:04:26');
 
 -- --------------------------------------------------------
 
@@ -222,7 +222,7 @@ CREATE TABLE `edit_feedback` (
 --
 
 INSERT INTO `edit_feedback` (`edit_feedback_id`, `heading`, `subheading`, `background_image`, `created_at`, `updated_at`) VALUES
-(1, 'Feedback & Suggestion', 'We Value Your Feedback and Suggestions', 'feedback.jpg', '2023-04-29 10:08:27', '2023-05-06 16:15:44');
+(1, 'Feedback & Suggestion', 'We Value Your Feedback and Suggestions', 'feedback.jpg', '2023-04-29 10:08:27', '2023-05-26 05:30:00');
 
 -- --------------------------------------------------------
 
@@ -244,7 +244,7 @@ CREATE TABLE `edit_menu` (
 --
 
 INSERT INTO `edit_menu` (`edit_menu_id`, `heading`, `subheading`, `banner`, `created_at`, `updated_at`) VALUES
-(1, 'Our Menu', 'Experience something new!', 'Store Hours - Mon-Fri: 10AM-8PM | Sat-Sun: 11AM-8PM', '2023-04-29 09:41:14', '2023-05-24 12:15:38');
+(1, 'Our Menu', 'Experience something new!', 'Store Hours - Mon-Fri: 10AM-8PM | Sat-Sun: 11AM-8PM', '2023-04-29 09:41:14', '2023-05-26 05:36:31');
 
 -- --------------------------------------------------------
 
@@ -265,7 +265,7 @@ CREATE TABLE `edit_table` (
 --
 
 INSERT INTO `edit_table` (`edit_table_id`, `heading`, `subheading`, `created_at`, `updated_at`) VALUES
-(1, 'Table Reservation', 'Reserve your spot today!', '2023-04-29 09:44:36', '2023-05-06 14:13:33');
+(1, 'Table Reservation', 'Reserve your spot today!', '2023-04-29 09:44:36', '2023-05-26 05:07:35');
 
 -- --------------------------------------------------------
 
@@ -344,7 +344,7 @@ CREATE TABLE `herobanner` (
 --
 
 INSERT INTO `herobanner` (`herobanner_id`, `heading`, `subheading`, `background_image`, `button_text`, `button_link`, `created_at`, `updated_at`) VALUES
-(1, 'your cozy cafe', 'where every sip and bite is a delight!', 'home-bg_1682876216.jpg', 'Explore our menu options now!', 'menu.php', '2023-04-28 17:10:54', '2023-05-24 12:14:25');
+(1, 'your cozy cafe', 'where every sip and bite is a delight!', 'home-bg_1685074270.jpg', 'Explore our menu options now!', 'menu.php', '2023-04-28 17:10:54', '2023-05-26 04:11:10');
 
 -- --------------------------------------------------------
 
@@ -406,7 +406,7 @@ INSERT INTO `menu` (`menu_id`, `menu_photo`, `menu_name`, `description`, `price`
 (34, 'choco-hazelnut.png', 'Choco Hazelnut', 'Creamy, nutty fusion of rich chocolate and decadent hazelnut.', '₱70', 12, 'Available Today', 'Active', '2023-04-29 13:21:04', '2023-04-29 16:34:46'),
 (35, 'banana&peanut-butter.png', 'Banana & Peanut Butter', 'Delicious combination of sweet, ripe bananas and rich, creamy peanut butter.', '₱75', 12, 'Available Today', 'Active', '2023-04-29 13:21:04', '2023-04-29 16:34:46'),
 (36, 'strawberry&cream.png', 'Strawberry & Cream', 'Sweet, juicy flavor of ripe strawberries, paired with luscious, velvety cream.', '₱75', 12, 'Available Today', 'Active', '2023-04-29 13:21:48', '2023-04-29 16:34:46'),
-(37, 'barkada-bundle.png', 'Barkada Bundle', 'A group-sized feast of delicious snacks and drinks, perfect for sharing with friends, or even family.', '₱700, save ₱150', 4, 'Available Today', 'Active', '2023-04-29 13:23:15', '2023-05-25 17:56:27'),
+(37, 'barkada-bundle.png', 'Barkada Bundle', 'A group-sized feast of delicious snacks and drinks, perfect for sharing with friends, or even family.', '₱700, save ₱150', 4, 'Available Today', 'Active', '2023-04-29 13:23:15', '2023-05-26 04:31:13'),
 (38, 'family-bundle.png', 'Family Bundle', 'A satisfying, family-sized meal of classic dishes, designed to satisfy everyone\'s cravings.', '₱1145, save ₱180', 4, 'Available Today', 'Active', '2023-04-29 13:23:15', '2023-05-24 12:06:15');
 
 -- --------------------------------------------------------
@@ -936,7 +936,82 @@ INSERT INTO `monthly_visits` (`id`, `month_year`, `visit_count`) VALUES
 (508, '2023-05', 1),
 (509, '2023-05', 1),
 (510, '2023-05', 1),
-(511, '2023-05', 1);
+(511, '2023-05', 1),
+(512, '2023-05', 1),
+(513, '2023-05', 1),
+(514, '2023-05', 1),
+(515, '2023-05', 1),
+(516, '2023-05', 1),
+(517, '2023-05', 1),
+(518, '2023-05', 1),
+(519, '2023-05', 1),
+(520, '2023-05', 1),
+(521, '2023-05', 1),
+(522, '2023-05', 1),
+(523, '2023-05', 1),
+(524, '2023-05', 1),
+(525, '2023-05', 1),
+(526, '2023-05', 1),
+(527, '2023-05', 1),
+(528, '2023-05', 1),
+(529, '2023-05', 1),
+(530, '2023-05', 1),
+(531, '2023-05', 1),
+(532, '2023-05', 1),
+(533, '2023-05', 1),
+(534, '2023-05', 1),
+(535, '2023-05', 1),
+(536, '2023-05', 1),
+(537, '2023-05', 1),
+(538, '2023-05', 1),
+(539, '2023-05', 1),
+(540, '2023-05', 1),
+(541, '2023-05', 1),
+(542, '2023-05', 1),
+(543, '2023-05', 1),
+(544, '2023-05', 1),
+(545, '2023-05', 1),
+(546, '2023-05', 1),
+(547, '2023-05', 1),
+(548, '2023-05', 1),
+(549, '2023-05', 1),
+(550, '2023-05', 1),
+(551, '2023-05', 1),
+(552, '2023-05', 1),
+(553, '2023-05', 1),
+(554, '2023-05', 1),
+(555, '2023-05', 1),
+(556, '2023-05', 1),
+(557, '2023-05', 1),
+(558, '2023-05', 1),
+(559, '2023-05', 1),
+(560, '2023-05', 1),
+(561, '2023-05', 1),
+(562, '2023-05', 1),
+(563, '2023-05', 1),
+(564, '2023-05', 1),
+(565, '2023-05', 1),
+(566, '2023-05', 1),
+(567, '2023-05', 1),
+(568, '2023-05', 1),
+(569, '2023-05', 1),
+(570, '2023-05', 1),
+(571, '2023-05', 1),
+(572, '2023-05', 1),
+(573, '2023-05', 1),
+(574, '2023-05', 1),
+(575, '2023-05', 1),
+(576, '2023-05', 1),
+(577, '2023-05', 1),
+(578, '2023-05', 1),
+(579, '2023-05', 1),
+(580, '2023-05', 1),
+(581, '2023-05', 1),
+(582, '2023-05', 1),
+(583, '2023-05', 1),
+(584, '2023-05', 1),
+(585, '2023-05', 1),
+(586, '2023-05', 1);
 
 -- --------------------------------------------------------
 
@@ -960,7 +1035,7 @@ CREATE TABLE `philosophy` (
 --
 
 INSERT INTO `philosophy` (`philosophy_id`, `heading`, `subheading`, `mission`, `vision`, `background_image`, `created_at`, `updated_at`) VALUES
-(1, 'Our Philosophy', 'Passion & Quality: Cafe Allegra\'s Essence', 'At Cafe Allegra, we are committed to providing our customers with the highest quality coffee and food products in a welcoming and friendly environment. Our mission is to create a space where people can come together to share their love of coffee and food.', 'Our vision at Cafe Allegra is to become the go-to coffee shop for residents and tourists in Baliuag. We aim to expand our menu and product offerings while maintaining the highest standards of quality and service.', 'philosophy.jpg', '2023-04-29 09:48:19', '2023-05-06 15:56:10');
+(1, 'Our Philosophy', 'Passion & Quality: Cafe Allegra\'s Essence', 'At Cafe Allegra, we are committed to providing our customers with the highest quality coffee and food products in a welcoming and friendly environment. Our mission is to create a space where people can come together to share their love of coffee and food.', 'Our vision at Cafe Allegra is to become the go-to coffee shop for residents and tourists in Baliuag. We aim to expand our menu and product offerings while maintaining the highest standards of quality and service.', 'philosophy.jpg', '2023-04-29 09:48:19', '2023-05-26 05:08:43');
 
 -- --------------------------------------------------------
 
@@ -989,7 +1064,7 @@ CREATE TABLE `private_dining` (
 
 INSERT INTO `private_dining` (`private_dining_id`, `first_name`, `last_name`, `email`, `phone`, `number_of_guests`, `reservation_date`, `reservation_time`, `others`, `status`, `special_requests`, `created_at`) VALUES
 (1, 'Jeanherline', 'Santiago', 'jeanherlinesantiago0329@gmail.com', '09293010483', 5, '2023-05-24', '15:00:00', 'N/A', 'Done', 'N/A', '2023-04-28 15:58:43'),
-(2, 'Simone Jehrome', 'Chico', 'wetak98532@mevori.com', '09567956164', 7, '2023-05-31', '10:00:00', 'N/A', 'Pending', 'N/A', '2023-05-23 12:19:50'),
+(2, 'Simone Jehrome', 'Chico', 'wetak98532@mevori.com', '09567956164', 6, '2023-06-29', '12:00:00', 'N/A', 'Pending', 'N/A', '2023-05-23 12:19:50'),
 (3, 'Erzen Joi', 'Alberto', 'wetak98532@mevori.com', '09290987234', 4, '2023-08-17', '10:30:00', 'N/A', 'Pending', 'N/A', '2023-05-23 12:42:58'),
 (4, 'Colline', 'Crisostomo', 'gamakiv486@goflipa.com', '09292345321', 5, '2023-10-18', '09:30:00', 'N/A', 'Pending', 'N/A', '2023-05-24 12:11:00');
 
@@ -1047,7 +1122,7 @@ CREATE TABLE `table_reservation` (
 
 INSERT INTO `table_reservation` (`table_reservation_id`, `first_name`, `last_name`, `email`, `phone`, `number_of_guests`, `reservation_date`, `reservation_time`, `others`, `status`, `special_requests`, `created_at`) VALUES
 (1, 'Jeanherline', 'Santiago', 'jeanherlinesantiago0329@gmail.com', '09293010483', 5, '2023-05-24', '15:00:00', 'N/A', 'Done', 'N/A', '2023-04-28 16:04:38'),
-(2, 'Simone Jehrome', 'Chico', 'wetak98532@mevori.com', '09435462432', 7, '2023-05-31', '10:00:00', 'N/A', 'Pending', 'N/A', '2023-05-23 12:56:45');
+(2, 'Simone Jehrome', 'Chico', 'wetak98532@mevori.com', '09435462432', 9, '2023-06-29', '12:00:00', 'N/A', 'Pending', 'N/A', '2023-05-23 12:56:45');
 
 -- --------------------------------------------------------
 
@@ -1072,7 +1147,7 @@ CREATE TABLE `whychooseus` (
 --
 
 INSERT INTO `whychooseus` (`whychooseus_id`, `heading`, `subheading`, `background_image`, `title`, `description`, `index_photo`, `created_at`, `updated_at`) VALUES
-(1, 'Why Choose Us?', 'Savor the Unforgettable: Cafe Allegra', 'about.jpg', 'A cafe that feels like home', 'At Cafe Allegra, we provide an exceptional dining experience with the finest ingredients, skilled chefs and baristas, warm and inviting atmosphere, excellent customer service, a wide selection of food and beverages, and a convenient location.<br /><br />\r\n<br /><br />\r\nWe believe that excellent customer service is the foundation of a great dining experience. That\'s why our staff is dedicated to providing you with personalized attention and a warm welcome every time you visit. Whether you\'re looking for a quick coffee break or a leisurely meal with friends and family, we have a wide selection of food and beverages to satisfy any taste.<br /><br />\r\n<br /><br />\r\nConveniently located in the heart of town, Cafe Allegra is the perfect place to unwind and relax. Come see why we are the go-to spot for locals and visitors alike.<br /><br />\r\n<br /><br />\r\nChoose Cafe Allegra for an unforgettable experience.', 'about-img-1.png', '2023-04-29 09:54:37', '2023-05-25 17:59:04');
+(1, 'Why Choose Us?', 'Savor the Unforgettable: Cafe Allegra', 'about.jpg', 'A cafe that feels like home', 'At Cafe Allegra, we provide an exceptional dining experience with the finest ingredients, skilled chefs and baristas, warm and inviting atmosphere, excellent customer service, a wide selection of food and beverages, and a convenient location.<br /><br />\r\n<br /><br />\r\nWe believe that excellent customer service is the foundation of a great dining experience. That\'s why our staff is dedicated to providing you with personalized attention and a warm welcome every time you visit. Whether you\'re looking for a quick coffee break or a leisurely meal with friends and family, we have a wide selection of food and beverages to satisfy any taste.<br /><br />\r\n<br /><br />\r\nConveniently located in the heart of town, Cafe Allegra is the perfect place to unwind and relax. Come see why we are the go-to spot for locals and visitors alike.<br /><br />\r\n<br /><br />\r\nChoose Cafe Allegra for an unforgettable experience.', 'about-img-1.png', '2023-04-29 09:54:37', '2023-05-26 05:11:50');
 
 --
 -- Indexes for dumped tables
@@ -1295,7 +1370,7 @@ ALTER TABLE `menu`
 -- AUTO_INCREMENT for table `monthly_visits`
 --
 ALTER TABLE `monthly_visits`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=512;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=587;
 
 --
 -- AUTO_INCREMENT for table `philosophy`

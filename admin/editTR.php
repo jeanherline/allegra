@@ -325,8 +325,23 @@ if (isset($_GET['table_reservation_id'])) {
                             </select>
                             <br><br>
                             <label for="date" id="date">Date of Reservation</label>
-                            <input type="date" name="date" id="date" class="box" value="<?php echo isset($_POST['reservation_date']) ? $_POST['reservation_date'] : $reservation_date; ?>" min="<?php echo isset($_POST['date']) ? $_POST['date'] : $date; ?>">
+                            <input type="date" name="date" id="date" class="box" value="<?php echo isset($_POST['reservation_date']) ? $_POST['reservation_date'] : $reservation_date; ?>" min="<?php echo date('Y-m-d'); ?>">
                             <br><br>
+                            <script>
+                                // Clear the date input value on focus
+                                document.getElementById("date").addEventListener("focus", function() {
+                                    if (this.value === "mm/dd/yyyy") {
+                                        this.value = "";
+                                    }
+                                });
+
+                                // Restore the date input value if empty on blur
+                                document.getElementById("date").addEventListener("blur", function() {
+                                    if (this.value === "") {
+                                        this.value = "mm/dd/yyyy";
+                                    }
+                                });
+                            </script>
                             <script>
                                 // Clear the date input value on focus
                                 document.getElementById("date").addEventListener("focus", function() {

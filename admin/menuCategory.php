@@ -302,8 +302,8 @@ if ($result->num_rows > 0) {
 
                         <form action="" method="POST" autocomplete="on" enctype="multipart/form-data">
                             <br>
-                            <label for="category"><strong>Add New Category</strong></label>
-                            <input type="text" id="category" name="category" placeholder="Enter Category Name">
+                            <label for="category"><strong>Add New Category<span style="color: red;"> *</span></strong></label>
+                            <input type="text" id="category" name="category" placeholder="Enter Category Name" required>
 
                             <?php
                             if (isset($_POST['submit'])) {

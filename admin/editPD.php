@@ -16,6 +16,7 @@ if ($result->num_rows > 0) {
     $phone = $row['phone'];
     $email = $row['email'];
     $storehours = $row['store_hours'];
+    $opening_time = $row['opening_time'];
     $closing_time = $row['closing_time'];
     $seat_capacity = $row['seat_capacity'];
     $color_theme = $row['color_theme'];
@@ -324,7 +325,7 @@ if (isset($_GET['private_dining_id'])) {
                             </select>
                             <br><br>
                             <label for="date" id="date">Date of Reservation</label>
-                            <input type="date" name="date" id="date" class="box" value="<?php echo isset($_POST['reservation_date']) ? $_POST['reservation_date'] : $reservation_date; ?>" min="<?php echo isset($_POST['date']) ? $_POST['date'] : $date; ?>">
+                            <input type="date" name="date" id="date" class="box" value="<?php echo isset($_POST['reservation_date']) ? $_POST['reservation_date'] : $reservation_date; ?>" min="<?php echo date('Y-m-d'); ?>">
                             <br><br>
                             <script>
                                 // Clear the date input value on focus

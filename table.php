@@ -417,11 +417,32 @@ include('css/dynamic_styles.php');
                 <div class="col-md-4 col-sm-12 mb-4 mb-sm-0">
                     <a href="" class="logo"><img src="images/<?php echo $logo_orig ?>" alt=""></a>
                     <div class="share">
-                        <a href="<?php echo $facebook_link ?>" class="fab fa-facebook-f"></a>
-                        <a href="<?php echo $instagram_link ?>" class="fab fa-instagram"></a>
-                        <a href="<?php echo $twitter_link ?>" class="fab fa-twitter"></a><br><br><br>
-                        <p style="font-size: 14px;">© <?php echo $company_year . " " . $company_name ?> | All Rights Reserved <br><em style="font-size: 12px;">Developed by J. Santiago</em></p>
-                    </div>
+                  <?php
+                  if (!empty($facebook_link)) {
+                  ?>
+                     <a href="<?php echo $facebook_link ?>" class="fab fa-facebook-f"></a>
+
+                  <?php
+                  }
+                  if (!empty($instagram_link)) {
+                  ?>
+                     <a href="<?php echo $instagram_link ?>" class="fab fa-instagram"></a>
+
+                  <?php
+                  }
+                  if (!empty($twitter_link)) {
+                  ?>
+                     <a href="<?php echo $twitter_link ?>" class="fab fa-twitter"></a>
+
+                  <?php
+                  }
+                  ?>
+                  <br><br><br>
+                  <?php
+
+                  ?>
+                  <p style="font-size: 14px;">© <?php echo $company_year . " " . $company_name ?> | All Rights Reserved <br><em style="font-size: 12px;">Developed by J. Santiago</em></p>
+               </div>
                 </div>
                 <br><br><br><br><br><br>
                 <div class="col-md-4 col-sm-12 mb-4 mb-sm-0">

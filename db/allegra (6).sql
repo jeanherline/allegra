@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 26, 2023 at 08:06 AM
+-- Generation Time: May 26, 2023 at 04:23 PM
 -- Server version: 10.4.27-MariaDB
--- PHP Version: 8.2.0
+-- PHP Version: 8.1.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -104,7 +104,7 @@ CREATE TABLE `company` (
 --
 
 INSERT INTO `company` (`company_id`, `company_year`, `company_name`, `logo_orig`, `logo_white`, `logo_icon`, `address`, `phone`, `email`, `store_hours`, `opening_time`, `closing_time`, `seat_capacity`, `color_theme`, `fixed_header`, `google_map`, `address_link`, `facebook_link`, `instagram_link`, `twitter_link`, `created_at`, `updated_at`) VALUES
-(1, 2022, 'Cafe Allegra', 'logo-brown.png', 'logo.png', 'logo-icon.png', '781 B.S Aquino Ave. Brgy. Bagong Nayon, Baliuag, Bulacan (In front of New Frontier Subdivision)', '0969 622 9438', 'cafeallegrabaliuag@gmail.com', 'Mon-Fri: 10AM-8PM | Sat-Sun: 11AM-8PM', '10:00:00', '20:00:00', 11, '#512a10', 'fixed_header.jpg', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d963.6464479118739!2d120.89822424377084!3d14.960152777501325!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x339701f2dfa15023%3A0x2ae26381c4a9af6b!2sCafe%20Allegra!5e0!3m2!1sen!2sph!4v1681242204750!5m2!1sen!2sph', 'https://goo.gl/maps/8iHvRc41YPABhyw37', 'https://www.facebook.com/cafeallegrabaliuag', 'https://www.instagram.com/cafeallegra.ph/', '', '2023-04-29 08:20:43', '2023-05-26 05:46:50');
+(1, 2022, 'Cafe Allegra', 'logo-brown.png', 'logo.png', 'logo-icon.png', '781 B.S Aquino Ave. Brgy. Bagong Nayon, Baliuag, Bulacan (In front of New Frontier Subdivision)', '0969 622 9438', 'cafeallegrabaliuag@gmail.com', 'Mon-Fri: 10AM-8PM | Sat-Sun: 11AM-8PM', '10:00:00', '20:00:00', 11, '#1d120c', 'fixed_header.jpg', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d963.6464479118739!2d120.89822424377084!3d14.960152777501325!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x339701f2dfa15023%3A0x2ae26381c4a9af6b!2sCafe%20Allegra!5e0!3m2!1sen!2sph!4v1681242204750!5m2!1sen!2sph', 'https://goo.gl/maps/8iHvRc41YPABhyw37', 'https://www.facebook.com/cafeallegrabaliuag', 'https://www.instagram.com/cafeallegra.ph/', '', '2023-04-29 08:20:43', '2023-05-26 14:01:07');
 
 -- --------------------------------------------------------
 
@@ -200,7 +200,7 @@ CREATE TABLE `edit_dining` (
 --
 
 INSERT INTO `edit_dining` (`edit_dining_id`, `heading`, `subheading`, `description`, `photo_1`, `photo_2`, `photo_3`, `form_photo_1`, `form_photo_2`, `created_at`, `updated_at`) VALUES
-(1, 'Private Dining', 'Have An Upcoming Special Event?', '3 hours for only 3,000 PHP (Consumables)', 'private-1.jpg', 'private-2.jpg', 'private-3.jpg', 'service-1.jpg', 'service-2.jpg', '2023-04-29 09:33:41', '2023-05-26 05:04:26');
+(1, 'Private Dining', 'Have An Upcoming Special Event?', '3 hours for only 3,000 PHP (Consumables)', 'private-1_1682872766.jpg', 'private-2.jpg', 'private-3.jpg', 'service-1.jpg', 'service-2.jpg', '2023-04-29 09:33:41', '2023-05-26 13:29:10');
 
 -- --------------------------------------------------------
 
@@ -344,7 +344,7 @@ CREATE TABLE `herobanner` (
 --
 
 INSERT INTO `herobanner` (`herobanner_id`, `heading`, `subheading`, `background_image`, `button_text`, `button_link`, `created_at`, `updated_at`) VALUES
-(1, 'your cozy cafe', 'where every sip and bite is a delight!', 'home-bg_1685074270.jpg', 'Explore our menu options now!', 'menu.php', '2023-04-28 17:10:54', '2023-05-26 04:11:10');
+(1, 'your cozy cafe', 'where every sip and bite is a delight!', 'home-bg_1685074270_1685109268.jpg', 'Explore our menu options now!', 'menu.php', '2023-04-28 17:10:54', '2023-05-26 13:54:28');
 
 -- --------------------------------------------------------
 
@@ -1011,7 +1011,14 @@ INSERT INTO `monthly_visits` (`id`, `month_year`, `visit_count`) VALUES
 (583, '2023-05', 1),
 (584, '2023-05', 1),
 (585, '2023-05', 1),
-(586, '2023-05', 1);
+(586, '2023-05', 1),
+(587, '2023-05', 1),
+(588, '2023-05', 1),
+(589, '2023-05', 1),
+(590, '2023-05', 1),
+(591, '2023-05', 1),
+(592, '2023-05', 1),
+(593, '2023-05', 1);
 
 -- --------------------------------------------------------
 
@@ -1370,7 +1377,7 @@ ALTER TABLE `menu`
 -- AUTO_INCREMENT for table `monthly_visits`
 --
 ALTER TABLE `monthly_visits`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=587;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=594;
 
 --
 -- AUTO_INCREMENT for table `philosophy`

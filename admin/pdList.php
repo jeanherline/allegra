@@ -203,6 +203,9 @@ if ($result->num_rows > 0) {
                         </li>
                     </ul>
                 </li>
+                        <li class="">
+                            <a href="../admin/visitsList.php"><i class="material-icons">pageview</i><span>Website Visits</span></a>
+                        </li>
             </ul>
         </nav>
 

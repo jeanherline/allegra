@@ -6,25 +6,25 @@ $sql = "SELECT * FROM company WHERE company_id = 1";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
-   $row = $result->fetch_assoc();
-   $company_year = $row['company_year'];
-   $company_name = $row['company_name'];
-   $logo_orig = $row['logo_orig'];
-   $logo_white = $row['logo_white'];
-   $logo_icon = $row['logo_icon'];
-   $address = $row['address'];
-   $phone = $row['phone'];
-   $email = $row['email'];
-   $storehours = $row['store_hours'];
-   $closing_time = $row['closing_time'];
-   $seat_capacity = $row['seat_capacity'];
-   $color_theme = $row['color_theme'];
-   $google_map = $row['google_map'];
-   $facebook_link = $row['facebook_link'];
-   $instagram_link = $row['instagram_link'];
-   $twitter_link = $row['twitter_link'];
+    $row = $result->fetch_assoc();
+    $company_year = $row['company_year'];
+    $company_name = $row['company_name'];
+    $logo_orig = $row['logo_orig'];
+    $logo_white = $row['logo_white'];
+    $logo_icon = $row['logo_icon'];
+    $address = $row['address'];
+    $phone = $row['phone'];
+    $email = $row['email'];
+    $storehours = $row['store_hours'];
+    $closing_time = $row['closing_time'];
+    $seat_capacity = $row['seat_capacity'];
+    $color_theme = $row['color_theme'];
+    $google_map = $row['google_map'];
+    $facebook_link = $row['facebook_link'];
+    $instagram_link = $row['instagram_link'];
+    $twitter_link = $row['twitter_link'];
 } else {
-   echo " ";
+    echo " ";
 }
 ?>
 
@@ -204,6 +204,9 @@ if ($result->num_rows > 0) {
                         </li>
                     </ul>
                 </li>
+                <li class="">
+                    <a href="../admin/visitsList.php"><i class="material-icons">pageview</i><span>Website Visits</span></a>
+                </li>
             </ul>
         </nav>
 
@@ -344,7 +347,7 @@ if ($result->num_rows > 0) {
         </div>
     </div>
 
-         <!-- jQuery -->
+    <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- DataTables -->
     <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>

@@ -6,25 +6,25 @@ $sql = "SELECT * FROM company WHERE company_id = 1";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
-   $row = $result->fetch_assoc();
-   $company_year = $row['company_year'];
-   $company_name = $row['company_name'];
-   $logo_orig = $row['logo_orig'];
-   $logo_white = $row['logo_white'];
-   $logo_icon = $row['logo_icon'];
-   $address = $row['address'];
-   $phone = $row['phone'];
-   $email = $row['email'];
-   $storehours = $row['store_hours'];
-   $closing_time = $row['closing_time'];
-   $seat_capacity = $row['seat_capacity'];
-   $color_theme = $row['color_theme'];
-   $google_map = $row['google_map'];
-   $facebook_link = $row['facebook_link'];
-   $instagram_link = $row['instagram_link'];
-   $twitter_link = $row['twitter_link'];
+    $row = $result->fetch_assoc();
+    $company_year = $row['company_year'];
+    $company_name = $row['company_name'];
+    $logo_orig = $row['logo_orig'];
+    $logo_white = $row['logo_white'];
+    $logo_icon = $row['logo_icon'];
+    $address = $row['address'];
+    $phone = $row['phone'];
+    $email = $row['email'];
+    $storehours = $row['store_hours'];
+    $closing_time = $row['closing_time'];
+    $seat_capacity = $row['seat_capacity'];
+    $color_theme = $row['color_theme'];
+    $google_map = $row['google_map'];
+    $facebook_link = $row['facebook_link'];
+    $instagram_link = $row['instagram_link'];
+    $twitter_link = $row['twitter_link'];
 } else {
-   echo " ";
+    echo " ";
 }
 ?>
 
@@ -181,7 +181,7 @@ if ($result->num_rows > 0) {
 
                 <li class="dropdown">
                     <a href="#footerSubmenu5" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                        <i class="material-icons">add_task</i><span>Reservations</span></a>
+                        <i class="material-icons">format_list_bulleted</i><span>Reservations</span></a>
                     <ul class="collapse list-unstyled menu" id="footerSubmenu5">
                         <li>
                             <a href="../admin/pdList.php">Private Dining List</a>
@@ -203,6 +203,9 @@ if ($result->num_rows > 0) {
                             <a href="../admin/feedbackList.php">Feedback Submission List</a>
                         </li>
                     </ul>
+                </li>
+                <li class="">
+                    <a href="../admin/visitsList.php"><i class="material-icons">pageview</i><span>Website Visits</span></a>
                 </li>
             </ul>
         </nav>
@@ -403,34 +406,34 @@ if ($result->num_rows > 0) {
                 </div>
             </div>
         </div>
-             <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- DataTables -->
-    <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.0.1/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.print.min.js"></script>
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <!-- DataTables -->
+        <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.0.1/js/dataTables.buttons.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.print.min.js"></script>
 
-    <!-- Bootstrap JavaScript -->
-    <script src="../js/bootstrap.min.js"></script>
+        <!-- Bootstrap JavaScript -->
+        <script src="../js/bootstrap.min.js"></script>
 
-    <!-- Other scripts -->
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#sidebarCollapse').on('click', function() {
-                $('#sidebar').toggleClass('active');
-                $('#content').toggleClass('active');
+        <!-- Other scripts -->
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('#sidebarCollapse').on('click', function() {
+                    $('#sidebar').toggleClass('active');
+                    $('#content').toggleClass('active');
+                });
+
+                $('.more-button,.body-overlay').on('click', function() {
+                    $('#sidebar,.body-overlay').toggleClass('show-nav');
+                });
+
+                $('#myTable').DataTable({
+                    lengthChange: false,
+                    buttons: ['print']
+                });
             });
-
-            $('.more-button,.body-overlay').on('click', function() {
-                $('#sidebar,.body-overlay').toggleClass('show-nav');
-            });
-
-            $('#myTable').DataTable({
-                lengthChange: false,
-                buttons: ['print']
-            });
-        });
-    </script>
+        </script>
 </body>
 
 </html>

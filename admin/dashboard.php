@@ -172,7 +172,7 @@ if ($result->num_rows > 0) {
 
                 <li class="dropdown">
                     <a href="#footerSubmenu5" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                        <i class="material-icons">add_task</i><span>Reservations</span></a>
+                        <i class="material-icons">format_list_bulleted</i><span>Reservations</span></a>
                     <ul class="collapse list-unstyled menu" id="footerSubmenu5">
                         <li>
                             <a href="../admin/pdList.php">Private Dining List</a>
@@ -194,6 +194,9 @@ if ($result->num_rows > 0) {
                             <a href="../admin/feedbackList.php">Feedback Submission List</a>
                         </li>
                     </ul>
+                </li>
+                <li class="">
+                    <a href="../admin/visitsList.php"><i class="material-icons">pageview</i><span>Website Visits</span></a>
                 </li>
             </ul>
 
@@ -250,7 +253,6 @@ if ($result->num_rows > 0) {
 
 
             <div class="main-content">
-
                 <div class="row">
                     <div class="col-lg-3 col-md-6 col-sm-6">
                         <div class="card card-stats">
@@ -310,7 +312,9 @@ if ($result->num_rows > 0) {
 
                             <div class="card-footer">
                                 <div class="stats">
-                                    <a>Visits this month</a>
+                                    <a>Visits this month</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <i class="material-icons text-info">info</i>
+                                    <a href="visitsList.php">Website Visits</a>
                                 </div>
                             </div>
                         </div>

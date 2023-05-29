@@ -20,7 +20,6 @@ if ($result->num_rows > 0) {
     $seat_capacity = $row['seat_capacity'];
     $color_theme = $row['color_theme'];
     $google_map = $row['google_map'];
-    $address_link = $row['address_link'];
     $facebook_link = $row['facebook_link'];
     $instagram_link = $row['instagram_link'];
     $twitter_link = $row['twitter_link'];
@@ -36,7 +35,7 @@ if ($result->num_rows > 0) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Testimony</title>
+    <title>Web Visits</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -44,20 +43,31 @@ if ($result->num_rows > 0) {
     <link rel="stylesheet" href="../css/custom.css">
     <!-- SLIDER REVOLUTION 4.x CSS SETTINGS -->
 
-    <link rel="stylesheet" href="../css/admin.css">
-
-
     <!-- icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 
     <!--google material icon-->
     <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
 
+    <!-- pagination -->
+    <meta name="description" content="Bootstrap.">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.0.1/css/buttons.dataTables.min.css">
+
     <link rel="icon" href="../images/<?php echo $logo_icon ?>" type="images" />
 
+
     <style>
+        #myTable td,
+        th {
+            font-size: 14px;
+            text-align: center;
+            width: 10% !important;
+            /* Adjust the font size as needed */
+        }
+
         .container {
-            padding-bottom: 450px;
+            padding-bottom: 650px;
             height: auto !important;
         }
 
@@ -66,12 +76,12 @@ if ($result->num_rows > 0) {
             color: #FFFFFF;
         }
     </style>
+
 </head>
 
 <body>
 
     <div class="wrapper">
-        <div class="body-overlay"></div>
 
         <!-- Sidebar  -->
         <nav id="sidebar">
@@ -83,7 +93,7 @@ if ($result->num_rows > 0) {
                     <a href="../admin/dashboard.php" class="dashboard"><i class="material-icons">dashboard</i><span>Dashboard</span></a>
                 </li>
 
-                <li class="dropdown active">
+                <li class="dropdown">
                     <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                         <i class="material-icons">home</i><span>Home</span></a>
                     <ul class="collapse list-unstyled menu" id="homeSubmenu1">
@@ -196,9 +206,9 @@ if ($result->num_rows > 0) {
                         </li>
                     </ul>
                 </li>
-                        <li class="">
-                            <a href="../admin/visitsList.php"><i class="material-icons">pageview</i><span>Website Visits</span></a>
-                        </li>
+                <li class="active">
+                    <a href="../admin/visitsList.php"><i class="material-icons">pageview</i><span>Website Visits</span></a>
+                </li>
             </ul>
         </nav>
 
@@ -213,7 +223,7 @@ if ($result->num_rows > 0) {
                             <span class="material-icons">arrow_back_ios</span>
                         </button>
 
-                        <a class="navbar-brand"> Testimonials </a>
+                        <a class="navbar-brand"> Website Visits </a>
 
                         <button class="d-inline-block d-lg-none ml-auto more-button" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="material-icons">more_vert</span>
@@ -245,138 +255,61 @@ if ($result->num_rows > 0) {
                                     </ul>
                                 </li>
                             </ul>
+
                         </div>
                     </div>
                 </nav>
             </div>
 
             <div class="main-content">
-                <p class="category">Home / <a href="testimonials.php">Testimonials / </a><strong>Edit</strong></p>
-
                 <div class="row">
+
                     <div class="container">
                         <br>
-                        <?php
-                        include('../db.php');
+                        <div class="header_fixed">
+                            <table id="myTable" class="table table-bordered table-responsive table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Month</th>
+                                        <th>Year</th>
+                                        <th>Total Views</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $sql = "SELECT month_year, SUM(visit_count) AS total_views
+                                            FROM monthly_visits
+                                            GROUP BY month_year
+                                            ORDER BY id DESC";
+                                    $result = $conn->query($sql);
+                                    $ctr = 1;
 
-                        if (isset($_GET['review_id'])) {
-                            $id = $_GET['review_id'];
-
-                            $sql = "SELECT * FROM review WHERE review_id = $id";
-                            $result = $conn->query($sql);
-
-                            if ($result->num_rows > 0) {
-                                $row = $result->fetch_assoc();
-                                $review_id = $row['review_id'];
-                                $customer_photo = $row['customer_photo'];
-                                $customer_name = $row['customer_name'];
-                                $testimonial = $row['testimonial'];
-                            } else {
-                                echo "No reviews found.";
-                            }
-                        ?>
-                            <form action="" method="POST" autocomplete="on" enctype="multipart/form-data">
-                                <label for="image">Image</label>
-                                <input type="file" id="image" name="image" accept=".jpg,.jpeg,.png">
-                                <br><br>
-                                <label for="customer_name">Name</label>
-                                <input type="text" id="customer_name" name="customer_name" value="<?php echo isset($_POST['customer_name']) ? $_POST['customer_name'] : $customer_name; ?>">
-                                <br><br>
-                                <label for="testimonial">Testimonial / Review</label>
-                                <textarea id="testimonial" name="testimonial" style="height:100px"><?php echo isset($_POST['testimonial']) ? $_POST['testimonial'] : $testimonial; ?></textarea>
-                                <br>
-
-                                <?php
-                                if (isset($_POST['submit'])) {
-                                    $image = $customer_photo;
-
-                                    if (!empty($_FILES["image"]["name"])) {
-                                        //file name
-                                        $tempname = $_FILES["image"]["tmp_name"];
-                                        $folder = "../images/";
-                                        $target_file = $folder . basename($_FILES["image"]["name"]);
-                                        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-
-                                        // Check if file already exists
-                                        if (file_exists($target_file)) {
-                                            $image = basename($_FILES["image"]["name"], "." . $imageFileType) . "_" . time() . "." . $imageFileType;
-                                            $target_file = $folder . $image;
+                                    if ($result && $result->num_rows > 0) {
+                                        while ($row = $result->fetch_assoc()) {
+                                            $month_year = $row['month_year'];
+                                            $total_views = $row['total_views'];
+                                            $month = date('F', strtotime($month_year)); // Extract month from month_year
+                                            $year = date('Y', strtotime($month_year)); // Extract year from month_year
+                                    ?>
+                                            <tr>
+                                                <td><?php echo $ctr++; ?></td>
+                                                <td><strong><?php echo $month; ?></strong></td>
+                                                <td><strong><?php echo $year; ?></strong></td>
+                                                <td><?php echo $total_views; ?></td>
+                                            </tr>
+                                    <?php
                                         }
-
-                                        move_uploaded_file($tempname, $target_file);
-                                    }
-
-                                    // Update values in input fields
-                                    $customer_name = isset($_POST['customer_name']) ? $_POST['customer_name'] : $customer_name;
-                                    $testimonial = isset($_POST['testimonial']) ? $_POST['testimonial'] : $testimonial;
-
-                                    $stmt = $conn->prepare("UPDATE review SET customer_name = ?, testimonial = ?, customer_photo = ? WHERE review_id = ?");
-                                    $stmt->bind_param("sssi", $customer_name, $testimonial, $image, $id);
-
-                                    $customer_name = isset($_POST['customer_name']) ? $_POST['customer_name'] : $customer_name;
-                                    $testimonial = isset($_POST['testimonial']) ? $_POST['testimonial'] : $testimonial;
-                                    $image = $customer_photo;
-
-                                    if (!empty($_FILES["image"]["name"])) {
-                                        //file name
-                                        $tempname = $_FILES["image"]["tmp_name"];
-                                        $folder = "../images/";
-                                        $target_file = $folder . basename($_FILES["image"]["name"]);
-                                        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-
-                                        // Check if file already exists
-                                        if (file_exists($target_file)) {
-                                            $image = basename($_FILES["image"]["name"], "." . $imageFileType) . "_" . time() . "." . $imageFileType;
-                                            $target_file = $folder . $image;
-                                        }
-                                        move_uploaded_file($tempname, $target_file);
-                                    }
-
-                                    $stmt->execute();
-
-                                    if ($result && mysqli_affected_rows($conn) > 0) {
-                                        echo '<br><br><div style="text-align:center;">
-                                        <div class="banner">
-                                            <div class="banner__content">
-                                            <div class="banner__text">
-                                                Updated
-                                            </div>
-                                            </div>
-                                        </div>
-                                        </div>';
-                                    } elseif ($result && mysqli_affected_rows($conn) === 0) {
-                                        echo '<br><div style="text-align:center;">
-                                        <div class="banner">
-                                            <div class="banner__content">
-                                            <div class="banner__text">
-                                                No changes
-                                            </div>
-                                            </div>
-                                        </div>
-                                        </div>';
                                     } else {
-                                        echo '<br><div style="text-align:center;">
-                                        <div class="banner">
-                                            <div class="banner__content">
-                                            <div class="banner__text">
-                                                Not Updated
-                                            </div>
-                                            </div>
-                                        </div>
-                                        </div>';
+                                        echo '<tr><td colspan="4">No data available</td></tr>';
                                     }
-                                }
-                                mysqli_close($conn);
-                                ?>
+                                    mysqli_close($conn);
+                                    ?>
+                                </tbody>
 
-                                <br><br>
-                                <input type="submit" value="Submit" id="submit" name="submit">
+                            </table>
 
-                                <br><br>
-                            <?php
-                        }
-                            ?>
-
+                        </div>
                     </div>
                 </div>
 
@@ -411,14 +344,17 @@ if ($result->num_rows > 0) {
         </div>
     </div>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="../js/jquery-3.3.1.slim.min.js"></script>
-    <script src="../js/popper.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- DataTables -->
+    <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.print.min.js"></script>
+
+    <!-- Bootstrap JavaScript -->
     <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/jquery-3.3.1.min.js"></script>
 
-
+    <!-- Other scripts -->
     <script type="text/javascript">
         $(document).ready(function() {
             $('#sidebarCollapse').on('click', function() {
@@ -430,6 +366,10 @@ if ($result->num_rows > 0) {
                 $('#sidebar,.body-overlay').toggleClass('show-nav');
             });
 
+            $('#myTable').DataTable({
+                lengthChange: false,
+                buttons: ['print']
+            });
         });
     </script>
 </body>

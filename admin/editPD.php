@@ -190,7 +190,7 @@ if (isset($_GET['private_dining_id'])) {
 
                 <li class="dropdown">
                     <a href="#footerSubmenu5" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                        <i class="material-icons">add_task</i><span>Reservations</span></a>
+                        <i class="material-icons">format_list_bulleted</i><span>Reservations</span></a>
                     <ul class="collapse list-unstyled menu" id="footerSubmenu5">
                         <li>
                             <a href="../admin/pdList.php">Private Dining List</a>
@@ -213,6 +213,9 @@ if (isset($_GET['private_dining_id'])) {
                         </li>
                     </ul>
                 </li>
+                        <li class="">
+                            <a href="../admin/visitsList.php"><i class="material-icons">pageview</i><span>Website Visits</span></a>
+                        </li>
             </ul>
         </nav>
 

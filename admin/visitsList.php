@@ -279,11 +279,12 @@ if ($result->num_rows > 0) {
                                 <tbody>
                                     <?php
                                     $sql = "SELECT month_year, SUM(visit_count) AS total_views
-                                            FROM monthly_visits
-                                            GROUP BY month_year
-                                            ORDER BY id DESC";
+                                    FROM monthly_visits
+                                    GROUP BY month_year
+                                    ORDER BY id DESC";
                                     $result = $conn->query($sql);
                                     $ctr = 1;
+                                    $total = 0; // Variable to store the total views
 
                                     if ($result && $result->num_rows > 0) {
                                         while ($row = $result->fetch_assoc()) {
@@ -291,6 +292,7 @@ if ($result->num_rows > 0) {
                                             $total_views = $row['total_views'];
                                             $month = date('F', strtotime($month_year)); // Extract month from month_year
                                             $year = date('Y', strtotime($month_year)); // Extract year from month_year
+                                            $total += $total_views; // Accumulate the total views
                                     ?>
                                             <tr>
                                                 <td><?php echo $ctr++; ?></td>
@@ -300,15 +302,16 @@ if ($result->num_rows > 0) {
                                             </tr>
                                     <?php
                                         }
+
+                                     
                                     } else {
                                         echo '<tr><td colspan="4">No data available</td></tr>';
                                     }
                                     mysqli_close($conn);
                                     ?>
                                 </tbody>
-
                             </table>
-
+                            <p><strong>All Time Web Traffic: </strong><?php echo $total; ?></p>
                         </div>
                     </div>
                 </div>

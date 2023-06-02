@@ -312,9 +312,8 @@ if ($result->num_rows > 0) {
 
                             <div class="card-footer">
                                 <div class="stats">
-                                    <a>Visits this month</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <i class="material-icons text-info">info</i>
-                                    <a href="visitsList.php">Website Visits</a>
+                                    <a href="visitsList.php">Month's Website Visits</a>
                                 </div>
                             </div>
                         </div>
